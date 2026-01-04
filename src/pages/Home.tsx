@@ -14,22 +14,22 @@ export function Home() {
   return (
     <>
       <SEO
-        title="BuildMate - Premium Construction Materials"
-        description="High-quality construction materials including cement, bricks, steel, and tools. Fast delivery and competitive prices."
-        keywords="construction materials, cement, bricks, steel, tools, supplies"
+        title="ДомСтрой - Премиальные строительные материалы"
+        description="Высококачественные строительные материалы включая цемент, кирпич, сталь и инструменты. Быстрая доставка и конкурентные цены."
+        keywords="строительные материалы, цемент, кирпич, сталь, инструменты, поставки"
       />
 
       <section className="bg-gradient-to-r from-secondary-900 via-secondary-800 to-secondary-900 text-white pt-20 pb-16 md:pt-32 md:pb-24">
         <Container className="text-center">
           <h1 className="text-display-xl mb-4 leading-tight">
-            Premium Construction <br /> Materials for Every Project
+            Премиальные строительные <br /> материалы для каждого проекта
           </h1>
           <p className="text-lg md:text-xl text-secondary-200 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Trusted supplier of high-quality construction materials. Fast delivery, competitive prices, and professional service.
+            Надежный поставщик высококачественных строительных материалов. Быстрая доставка, конкурентные цены и профессиональный сервис.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button as="a" href="/catalog" variant="primary">
-              Browse Catalog
+              Каталог
               <ArrowRight className="inline ml-2" size={20} />
             </Button>
             <a
@@ -38,7 +38,7 @@ export function Home() {
               rel="noopener noreferrer"
               className="btn-secondary text-center"
             >
-              Chat on WhatsApp
+              Написать в WhatsApp
             </a>
           </div>
         </Container>
@@ -47,9 +47,9 @@ export function Home() {
       <section className="section-padding">
         <Container>
           <div className="mb-12 text-center">
-            <h2>Product Categories</h2>
+            <h2>Категории продукции</h2>
             <p className="text-secondary-600 mt-4 max-w-xl mx-auto">
-              Explore our complete range of construction materials organized by category
+              Изучите наш полный ассортимент строительных материалов, организованный по категориям
             </p>
           </div>
 
@@ -73,7 +73,7 @@ export function Home() {
                         <p className="text-secondary-600 text-sm mb-4">{category.description}</p>
                         <div className="flex items-center justify-between">
                           <span className="text-sm font-semibold text-primary-600">
-                            {category.productCount} products
+                            {category.productCount} товаров
                           </span>
                           <ArrowRight size={18} className="text-primary-500" />
                         </div>
@@ -88,9 +88,9 @@ export function Home() {
       <section className="section-padding bg-secondary-50">
         <Container>
           <div className="mb-12 text-center">
-            <h2>Featured Products</h2>
+            <h2>Рекомендуемые товары</h2>
             <p className="text-secondary-600 mt-4 max-w-xl mx-auto">
-              Check out our most popular and highly-rated construction materials
+              Ознакомьтесь с нашими самыми популярными и высоко оцененными строительными материалами
             </p>
           </div>
 
@@ -120,7 +120,7 @@ export function Home() {
                           {product.shortDescription}
                         </p>
                         <div className="flex items-center justify-between pt-4 border-t border-secondary-200">
-                          <span className="text-xs font-semibold text-primary-600">Learn More</span>
+                          <span className="text-xs font-semibold text-primary-600">Подробнее</span>
                           <ArrowRight size={16} className="text-primary-500" />
                         </div>
                       </div>
@@ -131,7 +131,7 @@ export function Home() {
 
           <div className="text-center">
             <Button as="a" href="/catalog" variant="secondary">
-              View All Products
+              Посмотреть все товары
             </Button>
           </div>
         </Container>
@@ -142,18 +142,18 @@ export function Home() {
           <div className="grid sm:grid-cols-3 gap-8">
             <div className="text-center">
               <Award className="w-12 h-12 mx-auto text-primary-500 mb-4" />
-              <h3 className="font-bold text-lg mb-2">25+ Years</h3>
-              <p className="text-secondary-700">Trusted supplier in the industry</p>
+              <h3 className="font-bold text-lg mb-2">25+ лет</h3>
+              <p className="text-secondary-700">Надежный поставщик в отрасли</p>
             </div>
             <div className="text-center">
               <Users className="w-12 h-12 mx-auto text-primary-500 mb-4" />
-              <h3 className="font-bold text-lg mb-2">500+ Clients</h3>
-              <p className="text-secondary-700">Construction professionals and companies</p>
+              <h3 className="font-bold text-lg mb-2">500+ клиентов</h3>
+              <p className="text-secondary-700">Строительные профессионалы и компании</p>
             </div>
             <div className="text-center">
               <TrendingUp className="w-12 h-12 mx-auto text-primary-500 mb-4" />
-              <h3 className="font-bold text-lg mb-2">300+ Products</h3>
-              <p className="text-secondary-700">Complete range of materials</p>
+              <h3 className="font-bold text-lg mb-2">300+ товаров</h3>
+              <p className="text-secondary-700">Полный ассортимент материалов</p>
             </div>
           </div>
         </Container>
@@ -162,9 +162,9 @@ export function Home() {
       <section className="section-padding">
         <Container>
           <div className="mb-12 text-center">
-            <h2>What Our Clients Say</h2>
+            <h2>Что говорят наши клиенты</h2>
             <p className="text-secondary-600 mt-4 max-w-xl mx-auto">
-              Read testimonials from satisfied construction professionals
+              Прочитайте отзывы от довольных строительных профессионалов
             </p>
           </div>
 
@@ -206,16 +206,16 @@ export function Home() {
 
       <section className="bg-primary-500 text-secondary-900 py-12 md:py-16">
         <Container className="text-center">
-          <h2 className="text-white mb-4">Ready to Get Started?</h2>
+          <h2 className="text-white mb-4">Готовы начать?</h2>
           <p className="text-white text-lg mb-8 max-w-2xl mx-auto">
-            Contact us today for a quote or to discuss your construction material needs
+            Свяжитесь с нами сегодня для получения расценки или обсуждения ваших потребностей в строительных материалах
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="tel:+55123456789" className="btn-secondary text-center">
-              Call Us Now
+              Позвонить сейчас
             </a>
             <Link to="/contact" className="btn-outline text-center">
-              Request a Quote
+              Запросить расценку
             </Link>
           </div>
         </Container>

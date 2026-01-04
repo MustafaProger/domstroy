@@ -28,23 +28,23 @@ export function Catalog() {
   return (
     <>
       <SEO
-        title="Product Catalog - BuildMate"
-        description="Browse our complete catalog of construction materials including cement, bricks, steel, and tools."
-        keywords="construction materials, products, catalog"
+        title="Каталог продукции - ДомСтрой"
+        description="Просмотрите наш полный каталог строительных материалов, включая цемент, кирпич, сталь и инструменты."
+        keywords="строительные материалы, товары, каталог"
       />
 
       <section className="bg-secondary-50 border-b border-secondary-200 py-8 md:py-12">
         <Container>
           <div className="flex items-center gap-2 mb-4 text-sm text-secondary-600">
             <Link to="/" className="hover:text-primary-500">
-              Home
+              Главная
             </Link>
             <span>/</span>
-            <span>Catalog</span>
+            <span>Каталог</span>
           </div>
-          <h1>Product Catalog</h1>
+          <h1>Каталог продукции</h1>
           <p className="text-secondary-600 mt-2 max-w-xl">
-            Explore our complete range of high-quality construction materials
+            Изучите наш полный ассортимент высококачественных строительных материалов
           </p>
         </Container>
       </section>
@@ -58,12 +58,12 @@ export function Catalog() {
                 onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
               >
                 <Filter size={20} />
-                Filters
+                Фильтры
               </button>
 
               <div className={`space-y-6 ${mobileFilterOpen ? 'block' : 'hidden lg:block'}`}>
                 <div className="bg-secondary-50 p-6 rounded-lg">
-                  <h3 className="font-bold text-lg mb-4">Categories</h3>
+                  <h3 className="font-bold text-lg mb-4">Категории</h3>
 
                   <button
                     onClick={() => handleCategoryChange('')}
@@ -73,7 +73,7 @@ export function Catalog() {
                         : 'text-secondary-700 hover:bg-secondary-200'
                     }`}
                   >
-                    All Categories
+                    Все категории
                   </button>
 
                   {categoriesLoading ? (
@@ -109,13 +109,13 @@ export function Catalog() {
                 </div>
 
                 <Card className="p-6">
-                  <h3 className="font-bold text-lg mb-3">Need Help?</h3>
+                  <h3 className="font-bold text-lg mb-3">Нужна помощь?</h3>
                   <p className="text-secondary-600 text-sm mb-4">
-                    Can't find what you're looking for? Contact our team for personalized recommendations.
+                    Не можете найти то, что ищете? Свяжитесь с нашей командой для персональных рекомендаций.
                   </p>
                   <a href="https://wa.me/55123456789" target="_blank" rel="noopener noreferrer">
                     <Button fullWidth variant="secondary" size="sm">
-                      Chat on WhatsApp
+                      Написать в WhatsApp
                     </Button>
                   </a>
                 </Card>
@@ -127,12 +127,11 @@ export function Catalog() {
                 <div>
                   <h2 className="text-2xl font-bold text-secondary-900">
                     {selectedCategory
-                      ? categories.find((c) => c.slug === selectedCategory)?.name || 'Products'
-                      : 'All Products'}
+                      ? categories.find((c) => c.slug === selectedCategory)?.name || 'Товары'
+                      : 'Все товары'}
                   </h2>
                   <p className="text-secondary-600 mt-1">
-                    Showing {filteredProducts.length} product
-                    {filteredProducts.length !== 1 ? 's' : ''}
+                    Показано {filteredProducts.length} {filteredProducts.length === 1 ? 'товар' : filteredProducts.length > 1 && filteredProducts.length < 5 ? 'товара' : 'товаров'}
                   </p>
                 </div>
               </div>
@@ -169,9 +168,9 @@ export function Catalog() {
                           </p>
                           <div className="flex items-center justify-between pt-4 border-t border-secondary-200">
                             {product.inStock ? (
-                              <span className="text-xs font-semibold text-green-600">In Stock</span>
+                              <span className="text-xs font-semibold text-green-600">В наличии</span>
                             ) : (
-                              <span className="text-xs font-semibold text-accent-600">Out of Stock</span>
+                              <span className="text-xs font-semibold text-accent-600">Нет в наличии</span>
                             )}
                             <ArrowRight size={16} className="text-primary-500" />
                           </div>
@@ -182,9 +181,9 @@ export function Catalog() {
                 </div>
               ) : (
                 <Card className="p-12 text-center">
-                  <p className="text-secondary-600 text-lg mb-4">No products found in this category</p>
+                  <p className="text-secondary-600 text-lg mb-4">Товары в этой категории не найдены</p>
                   <Button variant="secondary" onClick={() => handleCategoryChange('')}>
-                    View All Products
+                    Посмотреть все товары
                   </Button>
                 </Card>
               )}

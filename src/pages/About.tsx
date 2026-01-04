@@ -7,16 +7,16 @@ export function About() {
   return (
     <>
       <SEO
-        title="About BuildMate - Construction Materials Supplier"
-        description="Learn about BuildMate, a trusted supplier of premium construction materials for over 25 years."
-        keywords="about us, construction materials, supplier, company"
+        title="О нас - ДомСтрой"
+        description="Узнайте о СтройМатериалах - надежном поставщике премиальных строительных материалов уже более 25 лет."
+        keywords="о нас, строительные материалы, поставщик, компания"
       />
 
       <section className="bg-gradient-to-r from-secondary-900 via-secondary-800 to-secondary-900 text-white py-16 md:py-24">
         <Container className="text-center">
-          <h1 className="text-display-xl mb-4">About BuildMate</h1>
+          <h1 className="text-display-xl mb-4">О нас</h1>
           <p className="text-xl text-secondary-200 max-w-2xl mx-auto">
-            Your trusted partner for premium construction materials since 1995
+            Ваш надежный партнер по премиальным строительным материалам с 1995 года
           </p>
         </Container>
       </section>
@@ -25,21 +25,21 @@ export function About() {
         <Container>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="mb-4">Our Story</h2>
+              <h2 className="mb-4">Наша история</h2>
               <p className="text-secondary-700 mb-4 leading-relaxed">
-                Founded in 1995, BuildMate started with a simple mission: to provide high-quality construction materials at fair prices. What began as a small operation has grown into one of the region's most trusted suppliers for construction professionals.
+                Основанная в 1995 году, компания ДомСтрой начала с простой миссии: предоставлять высококачественные строительные материалы по справедливым ценам. То, что начиналось как небольшое предприятие, выросло в одного из самых надежных поставщиков региона для строительных профессионалов.
               </p>
               <p className="text-secondary-700 mb-4 leading-relaxed">
-                Over {new Date().getFullYear() - companyInfo.foundedYear} years, we've built lasting relationships with contractors, construction companies, and individual builders. Our commitment to quality, reliability, and exceptional customer service has made us the preferred choice for thousands of projects.
+                За {new Date().getFullYear() - companyInfo.foundedYear} лет мы построили прочные отношения с подрядчиками, строительными компаниями и индивидуальными строителями. Наша приверженность качеству, надежности и исключительному обслуживанию клиентов сделала нас предпочтительным выбором для тысяч проектов.
               </p>
               <p className="text-secondary-700 leading-relaxed">
-                Today, we operate a modern facility stocked with over 300 construction products, backed by a team of knowledgeable professionals dedicated to your success.
+                Сегодня мы работаем на современном объекте, укомплектованном более чем 300 строительными продуктами, поддерживаемые командой опытных профессионалов, преданных вашему успеху.
               </p>
             </div>
             <div>
               <img
                 src="https://images.pexels.com/photos/3935702/pexels-photo-3935702.jpeg"
-                alt="BuildMate facility"
+                alt="Объект СтройМатериалов"
                 className="rounded-lg shadow-lg w-full h-96 object-cover"
               />
             </div>
@@ -50,42 +50,42 @@ export function About() {
       <section className="bg-secondary-50 py-12 md:py-16">
         <Container>
           <div className="mb-12 text-center">
-            <h2>Why Choose BuildMate</h2>
+            <h2>Почему выбирают нас</h2>
             <p className="text-secondary-600 mt-4 max-w-xl mx-auto">
-              We're committed to your project's success with quality materials and professional service
+              Мы преданы успеху вашего проекта благодаря качественным материалам и профессиональному сервису
             </p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card className="p-6 text-center">
               <Award className="w-12 h-12 text-primary-500 mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Premium Quality</h3>
+              <h3 className="font-bold text-lg mb-2">Премиальное качество</h3>
               <p className="text-secondary-600 text-sm">
-                All products meet international standards and undergo strict quality control
+                Все продукты соответствуют международным стандартам и проходят строгий контроль качества
               </p>
             </Card>
 
             <Card className="p-6 text-center">
               <Users className="w-12 h-12 text-primary-500 mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Expert Support</h3>
+              <h3 className="font-bold text-lg mb-2">Экспертная поддержка</h3>
               <p className="text-secondary-600 text-sm">
-                Our team provides professional guidance for your material selection
+                Наша команда предоставляет профессиональные консультации по выбору материалов
               </p>
             </Card>
 
             <Card className="p-6 text-center">
               <TrendingUp className="w-12 h-12 text-primary-500 mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Competitive Prices</h3>
+              <h3 className="font-bold text-lg mb-2">Конкурентные цены</h3>
               <p className="text-secondary-600 text-sm">
-                Best prices in the market without compromising on quality
+                Лучшие цены на рынке без компромиссов в качестве
               </p>
             </Card>
 
             <Card className="p-6 text-center">
               <Heart className="w-12 h-12 text-primary-500 mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Reliability</h3>
+              <h3 className="font-bold text-lg mb-2">Надежность</h3>
               <p className="text-secondary-600 text-sm">
-                Fast delivery and consistent service you can count on
+                Быстрая доставка и стабильный сервис, на который можно положиться
               </p>
             </Card>
           </div>
@@ -95,9 +95,9 @@ export function About() {
       <section className="section-padding">
         <Container>
           <div className="mb-12 text-center">
-            <h2>Our Milestones</h2>
+            <h2>Наши вехи</h2>
             <p className="text-secondary-600 mt-4 max-w-xl mx-auto">
-              Key achievements in our journey as a construction materials supplier
+              Ключевые достижения в нашем пути как поставщика строительных материалов
             </p>
           </div>
 
@@ -105,32 +105,32 @@ export function About() {
             <Card className="p-6 flex items-start gap-4">
               <div className="text-3xl font-bold text-primary-500 min-w-fit">1995</div>
               <div>
-                <h3 className="font-bold text-lg mb-1">Founded</h3>
-                <p className="text-secondary-600">BuildMate opens its first location with a small selection of materials</p>
+                <h3 className="font-bold text-lg mb-1">Основание</h3>
+                <p className="text-secondary-600">ДомСтрой открывает свой первый объект с небольшим выбором материалов</p>
               </div>
             </Card>
 
             <Card className="p-6 flex items-start gap-4">
               <div className="text-3xl font-bold text-primary-500 min-w-fit">2005</div>
               <div>
-                <h3 className="font-bold text-lg mb-1">Expansion</h3>
-                <p className="text-secondary-600">Opened modern distribution center and expanded product range to 300+ items</p>
+                <h3 className="font-bold text-lg mb-1">Расширение</h3>
+                <p className="text-secondary-600">Открыт современный распределительный центр и расширен ассортимент до 300+ товаров</p>
               </div>
             </Card>
 
             <Card className="p-6 flex items-start gap-4">
               <div className="text-3xl font-bold text-primary-500 min-w-fit">2015</div>
               <div>
-                <h3 className="font-bold text-lg mb-1">Digital Transformation</h3>
-                <p className="text-secondary-600">Launched online ordering system and mobile app for customer convenience</p>
+                <h3 className="font-bold text-lg mb-1">Цифровая трансформация</h3>
+                <p className="text-secondary-600">Запущена система онлайн-заказов и мобильное приложение для удобства клиентов</p>
               </div>
             </Card>
 
             <Card className="p-6 flex items-start gap-4">
               <div className="text-3xl font-bold text-primary-500 min-w-fit">2024</div>
               <div>
-                <h3 className="font-bold text-lg mb-1">Continued Growth</h3>
-                <p className="text-secondary-600">Serving 500+ clients with over 300 products and expanding inventory</p>
+                <h3 className="font-bold text-lg mb-1">Продолжающийся рост</h3>
+                <p className="text-secondary-600">Обслуживание 500+ клиентов с более чем 300 товарами и расширяющимся складом</p>
               </div>
             </Card>
           </div>
@@ -140,9 +140,9 @@ export function About() {
       <section className="bg-secondary-100 py-12 md:py-16">
         <Container>
           <div className="mb-12 text-center">
-            <h2>Leadership</h2>
+            <h2>Руководство</h2>
             <p className="text-secondary-600 mt-4 max-w-xl mx-auto">
-              Meet the team behind BuildMate
+              Познакомьтесь с командой СтройМатериалов
             </p>
           </div>
 
@@ -152,10 +152,10 @@ export function About() {
                 <div className="text-6xl text-secondary-400">👨‍💼</div>
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-lg">João Silva</h3>
-                <p className="text-primary-600 font-semibold text-sm mb-2">Founder & CEO</p>
+                <h3 className="font-bold text-lg">Иван Иванов</h3>
+                <p className="text-primary-600 font-semibold text-sm mb-2">Основатель и генеральный директор</p>
                 <p className="text-secondary-600 text-sm">
-                  30+ years of experience in construction materials with a passion for quality and customer satisfaction.
+                  30+ лет опыта в строительных материалах с страстью к качеству и удовлетворенности клиентов.
                 </p>
               </div>
             </Card>
@@ -165,10 +165,10 @@ export function About() {
                 <div className="text-6xl text-secondary-400">👩‍💼</div>
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-lg">Maria Santos</h3>
-                <p className="text-primary-600 font-semibold text-sm mb-2">Operations Manager</p>
+                <h3 className="font-bold text-lg">Мария Петрова</h3>
+                <p className="text-primary-600 font-semibold text-sm mb-2">Менеджер по операциям</p>
                 <p className="text-secondary-600 text-sm">
-                  Ensures smooth operations and inventory management with attention to detail and efficiency.
+                  Обеспечивает бесперебойную работу и управление запасами с вниманием к деталям и эффективностью.
                 </p>
               </div>
             </Card>
@@ -178,10 +178,10 @@ export function About() {
                 <div className="text-6xl text-secondary-400">👨‍💻</div>
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-lg">Carlos Oliveira</h3>
-                <p className="text-primary-600 font-semibold text-sm mb-2">Sales Manager</p>
+                <h3 className="font-bold text-lg">Сергей Смирнов</h3>
+                <p className="text-primary-600 font-semibold text-sm mb-2">Менеджер по продажам</p>
                 <p className="text-secondary-600 text-sm">
-                  Builds strong relationships with clients and ensures their material needs are met perfectly.
+                  Выстраивает прочные отношения с клиентами и обеспечивает полное удовлетворение их потребностей в материалах.
                 </p>
               </div>
             </Card>
@@ -191,16 +191,16 @@ export function About() {
 
       <section className="bg-primary-500 text-secondary-900 py-12 md:py-16">
         <Container className="text-center">
-          <h2 className="text-white mb-4">Join Our Community</h2>
+          <h2 className="text-white mb-4">Присоединяйтесь к нашему сообществу</h2>
           <p className="text-white text-lg mb-8 max-w-2xl mx-auto">
-            Whether you're a small contractor or a large construction company, BuildMate is here to support your projects
+            Будь вы небольшим подрядчиком или крупной строительной компанией, ДомСтрой здесь, чтобы поддержать ваши проекты
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/catalog" className="btn-secondary text-center">
-              Browse Our Catalog
+              Просмотреть каталог
             </Link>
             <Link to="/contact" className="btn-outline text-center">
-              Get in Touch
+              Связаться с нами
             </Link>
           </div>
         </Container>

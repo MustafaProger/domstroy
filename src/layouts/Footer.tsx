@@ -8,9 +8,9 @@ export function Footer() {
       <Container className="py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           <div>
-            <h3 className="text-2xl font-bold mb-4 text-primary-400">BuildMate</h3>
+            <h3 className="text-2xl font-bold mb-4 text-primary-400">ДомСтрой</h3>
             <p className="text-secondary-300 mb-4">
-              High-quality construction materials delivered to your projects with professional service.
+              Высококачественные строительные материалы для ваших проектов с профессиональным сервисом.
             </p>
             <div className="flex gap-4">
               <a href="#" aria-label="Facebook" className="hover:text-primary-400 transition-colors">
@@ -26,64 +26,64 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-lg">Quick Links</h4>
+            <h4 className="font-semibold mb-4 text-lg">Быстрые ссылки</h4>
             <ul className="space-y-2">
               <li>
                 <Link to="/" className="text-secondary-300 hover:text-primary-400 transition-colors">
-                  Home
+                  Главная
                 </Link>
               </li>
               <li>
                 <Link to="/catalog" className="text-secondary-300 hover:text-primary-400 transition-colors">
-                  Products
+                  Продукция
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="text-secondary-300 hover:text-primary-400 transition-colors">
-                  About Us
+                  О нас
                 </Link>
               </li>
               <li>
                 <Link to="/contact" className="text-secondary-300 hover:text-primary-400 transition-colors">
-                  Contact
+                  Контакты
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-lg">Categories</h4>
+            <h4 className="font-semibold mb-4 text-lg">Категории</h4>
             <ul className="space-y-2">
               <li>
                 <a href="#" className="text-secondary-300 hover:text-primary-400 transition-colors">
-                  Cement & Concrete
+                  Цемент и бетон
                 </a>
               </li>
               <li>
                 <a href="#" className="text-secondary-300 hover:text-primary-400 transition-colors">
-                  Bricks & Blocks
+                  Кирпич и блоки
                 </a>
               </li>
               <li>
                 <a href="#" className="text-secondary-300 hover:text-primary-400 transition-colors">
-                  Steel & Iron
+                  Сталь и железо
                 </a>
               </li>
               <li>
                 <a href="#" className="text-secondary-300 hover:text-primary-400 transition-colors">
-                  Tools & Equipment
+                  Инструменты и оборудование
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-lg">Contact Info</h4>
+            <h4 className="font-semibold mb-4 text-lg">Контактная информация</h4>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <Phone size={18} className="mt-1 text-primary-400 flex-shrink-0" />
                 <div>
-                  <p className="text-sm text-secondary-400">Phone</p>
+                  <p className="text-sm text-secondary-400">Телефон</p>
                   <a href="tel:+55123456789" className="text-secondary-100 hover:text-primary-400 transition-colors">
                     +55 (123) 456-789
                   </a>
@@ -118,7 +118,7 @@ export function Footer() {
               <div className="flex items-start gap-3">
                 <MapPin size={18} className="mt-1 text-primary-400 flex-shrink-0" />
                 <div>
-                  <p className="text-sm text-secondary-400">Address</p>
+                  <p className="text-sm text-secondary-400">Адрес</p>
                   <p className="text-secondary-100">123 Industrial Ave, City, State 12345</p>
                 </div>
               </div>
@@ -129,14 +129,14 @@ export function Footer() {
         <div className="border-t border-secondary-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-secondary-400 text-sm">
-              &copy; {new Date().getFullYear()} BuildMate. All rights reserved.
+              &copy; {new Date().getFullYear()} ДомСтрой. Все права защищены.
             </p>
             <div className="flex gap-6">
               <a href="#" className="text-secondary-400 hover:text-primary-400 transition-colors text-sm">
-                Privacy Policy
+                Политика конфиденциальности
               </a>
               <a href="#" className="text-secondary-400 hover:text-primary-400 transition-colors text-sm">
-                Terms of Service
+                Условия использования
               </a>
             </div>
           </div>

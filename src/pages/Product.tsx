@@ -15,10 +15,10 @@ export function Product() {
     return (
       <Container className="py-12">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-secondary-900 mb-4">Product Not Found</h1>
-          <p className="text-secondary-600 mb-8">The product you're looking for doesn't exist or has been removed.</p>
+          <h1 className="text-3xl font-bold text-secondary-900 mb-4">Товар не найден</h1>
+          <p className="text-secondary-600 mb-8">Товар, который вы ищете, не существует или был удален.</p>
           <Link to="/catalog">
-            <Button variant="secondary">Back to Catalog</Button>
+            <Button variant="secondary">Вернуться в каталог</Button>
           </Link>
         </div>
       </Container>
@@ -36,20 +36,20 @@ export function Product() {
   return (
     <>
       <SEO
-        title={`${product.title} - BuildMate`}
+        title={`${product.title} - ДомСтрой`}
         description={product.shortDescription}
-        keywords={`${product.title}, ${product.category}, construction materials`}
+        keywords={`${product.title}, ${product.category}, строительные материалы`}
       />
 
       <section className="bg-secondary-50 border-b border-secondary-200 py-4">
         <Container>
           <div className="flex items-center gap-2 text-sm text-secondary-600">
             <Link to="/" className="hover:text-primary-500">
-              Home
+              Главная
             </Link>
             <span>/</span>
             <Link to="/catalog" className="hover:text-primary-500">
-              Catalog
+              Каталог
             </Link>
             <span>/</span>
             <span>{product.title}</span>
@@ -74,14 +74,14 @@ export function Product() {
                         <button
                           onClick={handlePrevImage}
                           className="absolute left-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 hover:bg-secondary-100 transition-colors shadow-lg"
-                          aria-label="Previous image"
+                          aria-label="Предыдущее изображение"
                         >
                           <ChevronLeft size={24} />
                         </button>
                         <button
                           onClick={handleNextImage}
                           className="absolute right-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 hover:bg-secondary-100 transition-colors shadow-lg"
-                          aria-label="Next image"
+                          aria-label="Следующее изображение"
                         >
                           <ChevronRight size={24} />
                         </button>
@@ -89,7 +89,7 @@ export function Product() {
                     )}
                   </>
                 ) : (
-                  <div className="text-secondary-400">No image available</div>
+                  <div className="text-secondary-400">Изображение недоступно</div>
                 )}
               </div>
 
@@ -125,17 +125,17 @@ export function Product() {
                 <p className="text-secondary-700 text-lg mb-4">{product.description}</p>
 
                 <div className="flex items-center gap-4 mb-6 pb-6 border-b border-secondary-200">
-                  {product.sku && <Badge variant="secondary">SKU: {product.sku}</Badge>}
+                  {product.sku && <Badge variant="secondary">Артикул: {product.sku}</Badge>}
                   {product.inStock ? (
-                    <Badge variant="success">In Stock</Badge>
+                    <Badge variant="success">В наличии</Badge>
                   ) : (
-                    <Badge variant="warning">Out of Stock</Badge>
+                    <Badge variant="warning">Нет в наличии</Badge>
                   )}
                 </div>
               </div>
 
               <Card className="p-6 mb-8 bg-secondary-50">
-                <h3 className="font-bold text-lg mb-4">Specifications</h3>
+                <h3 className="font-bold text-lg mb-4">Характеристики</h3>
                 <div className="space-y-3">
                   {Object.entries(product.specifications).map(([key, value]) => (
                     <div key={key} className="flex justify-between items-start border-b border-secondary-200 pb-3">
@@ -149,10 +149,10 @@ export function Product() {
               </Card>
 
               <div className="space-y-3 mb-8">
-                <h3 className="font-bold text-lg">Get in Touch</h3>
+                <h3 className="font-bold text-lg">Связаться с нами</h3>
                 <a href="tel:+55123456789" className="btn-secondary flex items-center justify-center gap-2">
                   <Phone size={20} />
-                  Call Us: +55 (123) 456-789
+                  Позвонить: +55 (123) 456-789
                 </a>
                 <a
                   href="https://wa.me/55123456789"
@@ -161,22 +161,22 @@ export function Product() {
                   className="flex items-center justify-center gap-2 px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-colors"
                 >
                   <MessageCircle size={20} />
-                  Message on WhatsApp
+                  Написать в WhatsApp
                 </a>
                 <a href="mailto:info@buildmate.com" className="btn-outline flex items-center justify-center gap-2">
                   <Mail size={20} />
-                  Email Us
+                  Написать на email
                 </a>
               </div>
 
               <Card className="p-6 bg-primary-50 border-2 border-primary-200">
-                <h3 className="font-bold text-lg text-secondary-900 mb-2">Request a Quote</h3>
+                <h3 className="font-bold text-lg text-secondary-900 mb-2">Запросить расценку</h3>
                 <p className="text-secondary-700 mb-4">
-                  Need bulk quantities or special pricing? Let us know and we'll provide a custom quote.
+                  Нужны большие объемы или специальные цены? Сообщите нам, и мы предоставим индивидуальную расценку.
                 </p>
                 <Link to={`/contact?product=${product.id}`}>
                   <Button fullWidth variant="primary">
-                    Request Quote for This Product
+                    Запросить расценку на этот товар
                   </Button>
                 </Link>
               </Card>

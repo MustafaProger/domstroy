@@ -31,11 +31,11 @@ export function Contact() {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim()) newErrors.email = 'Email is required';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Please enter a valid email';
-    if (!formData.phone.trim()) newErrors.phone = 'Phone is required';
-    if (!formData.message.trim()) newErrors.message = 'Message is required';
+    if (!formData.name.trim()) newErrors.name = 'Имя обязательно';
+    if (!formData.email.trim()) newErrors.email = 'Email обязателен';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Пожалуйста, введите корректный email';
+    if (!formData.phone.trim()) newErrors.phone = 'Телефон обязателен';
+    if (!formData.message.trim()) newErrors.message = 'Сообщение обязательно';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -65,16 +65,16 @@ export function Contact() {
   return (
     <>
       <SEO
-        title="Contact BuildMate - Get in Touch"
-        description="Contact BuildMate for quotes, product inquiries, and customer support. Phone, email, WhatsApp, and contact form available."
-        keywords="contact, support, quote, inquiry"
+        title="Контакты - ДомСтрой"
+        description="Свяжитесь со СтройМатериалами для расценок, запросов о продукции и поддержки клиентов. Доступны телефон, email, WhatsApp и форма обратной связи."
+        keywords="контакты, поддержка, расценка, запрос"
       />
 
       <section className="bg-secondary-50 border-b border-secondary-200 py-8 md:py-12">
         <Container>
-          <h1>Contact Us</h1>
+          <h1>Свяжитесь с нами</h1>
           <p className="text-secondary-600 mt-2 max-w-xl">
-            Get in touch with our team for quotes, inquiries, or any questions about our products and services
+            Свяжитесь с нашей командой для расценок, запросов или любых вопросов о нашей продукции и услугах
           </p>
         </Container>
       </section>
@@ -84,11 +84,11 @@ export function Contact() {
           <div className="grid lg:grid-cols-3 gap-8 mb-12">
             <Card className="p-6">
               <Phone className="w-8 h-8 text-primary-500 mb-4" />
-              <h3 className="font-bold text-lg mb-2">Phone</h3>
+              <h3 className="font-bold text-lg mb-2">Телефон</h3>
               <a href="tel:+55123456789" className="text-secondary-600 hover:text-primary-500 font-semibold">
                 +55 (123) 456-789
               </a>
-              <p className="text-sm text-secondary-500 mt-2">Monday - Friday, 8am - 6pm</p>
+              <p className="text-sm text-secondary-500 mt-2">Понедельник - Пятница, 8:00 - 18:00</p>
             </Card>
 
             <Card className="p-6">
@@ -102,7 +102,7 @@ export function Contact() {
               >
                 +55 (123) 456-789
               </a>
-              <p className="text-sm text-secondary-500 mt-2">Quick responses, anytime</p>
+              <p className="text-sm text-secondary-500 mt-2">Быстрые ответы, в любое время</p>
             </Card>
 
             <Card className="p-6">
@@ -111,7 +111,7 @@ export function Contact() {
               <a href="mailto:info@buildmate.com" className="text-secondary-600 hover:text-primary-500 font-semibold">
                 info@buildmate.com
               </a>
-              <p className="text-sm text-secondary-500 mt-2">We'll reply within 24 hours</p>
+              <p className="text-sm text-secondary-500 mt-2">Ответим в течение 24 часов</p>
             </Card>
           </div>
 
@@ -122,7 +122,7 @@ export function Contact() {
                   <div className="flex items-start gap-4">
                     <MapPin className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
                     <div>
-                      <h3 className="font-bold text-lg mb-2">Address</h3>
+                      <h3 className="font-bold text-lg mb-2">Адрес</h3>
                       <p className="text-secondary-700">{companyInfo.address}</p>
                     </div>
                   </div>
@@ -132,7 +132,7 @@ export function Contact() {
                   <div className="flex items-start gap-4">
                     <Clock className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
                     <div>
-                      <h3 className="font-bold text-lg mb-2">Business Hours</h3>
+                      <h3 className="font-bold text-lg mb-2">Время работы</h3>
                       <div className="text-secondary-700 whitespace-pre-line text-sm">
                         {companyInfo.hours}
                       </div>
@@ -142,11 +142,11 @@ export function Contact() {
               </div>
 
               <Card className="p-6 bg-secondary-50">
-                <h3 className="font-bold text-lg mb-4">Quick Actions</h3>
+                <h3 className="font-bold text-lg mb-4">Быстрые действия</h3>
                 <div className="space-y-3">
                   <a href="tel:+55123456789" className="btn-secondary flex items-center justify-center gap-2 w-full">
                     <Phone size={20} />
-                    Call Now
+                    Позвонить сейчас
                   </a>
                   <a
                     href="https://wa.me/55123456789"
@@ -155,7 +155,7 @@ export function Contact() {
                     className="flex items-center justify-center gap-2 px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-colors w-full"
                   >
                     <MessageCircle size={20} />
-                    Chat on WhatsApp
+                    Написать в WhatsApp
                   </a>
                 </div>
               </Card>
@@ -163,24 +163,24 @@ export function Contact() {
 
             <div>
               <Card className="p-8">
-                <h2 className="mb-6">Send us a Message</h2>
+                <h2 className="mb-6">Отправить сообщение</h2>
 
                 {submitted && (
                   <div className="mb-6 p-4 bg-green-100 border border-green-300 rounded-lg">
                     <p className="text-green-900 font-semibold">
-                      Thank you! Your message has been sent successfully. We'll get back to you soon.
+                      Спасибо! Ваше сообщение успешно отправлено. Мы скоро с вами свяжемся.
                     </p>
                   </div>
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <Input
-                    label="Name"
+                    label="Имя"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     error={errors.name}
-                    placeholder="Your name"
+                    placeholder="Ваше имя"
                     required
                   />
 
@@ -196,7 +196,7 @@ export function Contact() {
                   />
 
                   <Input
-                    label="Phone"
+                    label="Телефон"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
@@ -207,7 +207,7 @@ export function Contact() {
 
                   <div>
                     <label className="block text-sm font-semibold text-secondary-900 mb-2">
-                      Type of Inquiry
+                      Тип запроса
                     </label>
                     <select
                       name="type"
@@ -215,30 +215,30 @@ export function Contact() {
                       onChange={handleChange}
                       className="w-full px-4 py-2 border border-secondary-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     >
-                      <option value="general">General Inquiry</option>
-                      <option value="quote">Quote Request</option>
-                      <option value="inquiry">Product Inquiry</option>
+                      <option value="general">Общий запрос</option>
+                      <option value="quote">Запрос расценки</option>
+                      <option value="inquiry">Запрос о товаре</option>
                     </select>
                   </div>
 
                   <Textarea
-                    label="Message"
+                    label="Сообщение"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     error={errors.message}
-                    placeholder="Tell us about your needs..."
+                    placeholder="Расскажите нам о ваших потребностях..."
                     rows={5}
                     required
                   />
 
                   <Button type="submit" fullWidth disabled={loading}>
-                    {loading ? 'Sending...' : 'Send Message'}
+                    {loading ? 'Отправка...' : 'Отправить сообщение'}
                   </Button>
                 </form>
 
                 <p className="text-sm text-secondary-600 text-center mt-6">
-                  We typically respond within 24 hours during business hours
+                  Обычно мы отвечаем в течение 24 часов в рабочее время
                 </p>
               </Card>
             </div>
@@ -248,12 +248,12 @@ export function Contact() {
 
       <section className="bg-secondary-50 py-12 md:py-16">
         <Container className="text-center">
-          <h2 className="mb-4">Can't Find What You Need?</h2>
+          <h2 className="mb-4">Не можете найти то, что нужно?</h2>
           <p className="text-secondary-600 mb-8 max-w-2xl mx-auto">
-            Browse our complete product catalog or let our team help you find the perfect materials for your project
+            Просмотрите наш полный каталог продукции или позвольте нашей команде помочь вам найти идеальные материалы для вашего проекта
           </p>
           <Link to="/catalog">
-            <Button variant="secondary">View All Products</Button>
+            <Button variant="secondary">Посмотреть все товары</Button>
           </Link>
         </Container>
       </section>

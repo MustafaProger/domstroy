@@ -4,10 +4,10 @@ import { Menu, X, Phone, MessageCircle } from 'lucide-react';
 import { Container, Button } from '../components';
 
 const menuItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Catalog', href: '/catalog' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Главная', href: '/' },
+  { label: 'Каталог', href: '/catalog' },
+  { label: 'О нас', href: '/about' },
+  { label: 'Контакты', href: '/contact' },
 ];
 
 export function Header() {
@@ -16,8 +16,9 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-secondary-200 shadow-sm">
       <Container className="flex items-center justify-between py-4">
-        <Link to="/" className="text-2xl font-bold text-secondary-900 hover:text-primary-500 transition-colors">
-          BuildMate
+        <Link to="/" className="flex items-center gap-3 text-2xl font-bold text-secondary-900 hover:text-primary-500 transition-colors">
+          <img src="/icon.png" alt="ДомСтрой" className="h-8 w-8 object-contain" />
+          ДомСтрой
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -36,7 +37,7 @@ export function Header() {
           <a
             href="tel:+55123456789"
             className="flex items-center gap-2 px-4 py-2 text-secondary-900 hover:bg-secondary-50 rounded-lg transition-colors"
-            aria-label="Call us"
+            aria-label="Позвонить нам"
           >
             <Phone size={20} />
             <span className="text-sm font-medium">+55 (123) 456-789</span>
@@ -46,7 +47,7 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-            aria-label="Chat on WhatsApp"
+            aria-label="Написать в WhatsApp"
           >
             <MessageCircle size={20} />
             <span className="text-sm font-medium">WhatsApp</span>
@@ -56,7 +57,7 @@ export function Header() {
         <button
           className="md:hidden p-2 hover:bg-secondary-100 rounded-lg transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
+          aria-label="Переключить меню"
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -81,7 +82,7 @@ export function Header() {
                 className="btn-secondary text-center text-sm"
               >
                 <Phone className="inline mr-2" size={18} />
-                Call Us
+                Позвонить
               </a>
               <a
                 href="https://wa.me/55123456789"
