@@ -18,7 +18,6 @@ export interface Product {
   shortDescription: string;
   images: string[];
   specifications: Record<string, string>;
-  sku?: string;
   inStock: boolean;
 }
 
@@ -37,6 +36,7 @@ export interface CompanyInfo {
   description: string;
   phone: string;
   whatsapp: string;
+  telegram: string;
   email: string;
   address: string;
   hours: string;

@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Phone, MessageCircle } from 'lucide-react';
-import { Container, Button } from '../components';
+import { Container } from '../components';
 
 const menuItems = [
   { label: 'Главная', href: '/' },
   { label: 'Каталог', href: '/catalog' },
-  { label: 'О нас', href: '/about' },
   { label: 'Контакты', href: '/contact' },
 ];
 
@@ -35,15 +34,15 @@ export function Header() {
 
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="tel:+55123456789"
+            href="tel:+79969979239"
             className="flex items-center gap-2 px-4 py-2 text-secondary-900 hover:bg-secondary-50 rounded-lg transition-colors"
             aria-label="Позвонить нам"
           >
             <Phone size={20} />
-            <span className="text-sm font-medium">+55 (123) 456-789</span>
+            <span className="text-sm font-medium">+7 996 997 92 39</span>
           </a>
           <a
-            href="https://wa.me/55123456789"
+            href="https://wa.me/79969979239"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
@@ -78,14 +77,14 @@ export function Header() {
             ))}
             <div className="pt-4 flex flex-col gap-2">
               <a
-                href="tel:+55123456789"
+                href="tel:+79969979239"
                 className="btn-secondary text-center text-sm"
               >
                 <Phone className="inline mr-2" size={18} />
                 Позвонить
               </a>
               <a
-                href="https://wa.me/55123456789"
+                href="https://wa.me/79969979239"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm font-semibold"

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { MessageCircle, Phone, Mail, Share2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { MessageCircle, Phone, Mail, Share2, ChevronLeft, ChevronRight, Send } from 'lucide-react';
 import { SEO, Container, Button, Card, Loading, Badge } from '../components';
 import { useProductBySlug } from '../hooks';
 
@@ -31,6 +31,62 @@ export function Product() {
 
   const handleNextImage = () => {
     setSelectedImage((prev) => (prev === product.images.length - 1 ? 0 : prev + 1));
+  };
+
+  const specLabels: Record<string, string> = {
+    weight: 'Вес',
+    compressive_strength: 'Прочность на сжатие',
+    setting_time: 'Время схватывания',
+    fineness: 'Тонкость помола',
+    moisture_content: 'Влажность',
+    dimensions: 'Размеры',
+    density: 'Плотность',
+    water_absorption: 'Водопоглощение',
+    diameter: 'Диаметр',
+    yield_strength: 'Предел текучести',
+    tensile_strength: 'Предел прочности',
+    weight_per_meter: 'Вес на метр',
+    grade: 'Марка',
+    power: 'Мощность',
+    no_load_speed: 'Обороты без нагрузки',
+    chuck_capacity: 'Патрон',
+    voltage: 'Напряжение',
+    thickness: 'Толщина',
+    adhesive_type: 'Тип клея',
+    volume: 'Объем',
+    coverage: 'Расход',
+    finish: 'Финиш',
+    drying_time: 'Время высыхания',
+    sheen: 'Степень блеска',
+    strength_class: 'Класс прочности',
+    consumption: 'Расход',
+    application_layer: 'Слой нанесения',
+    class: 'Класс',
+    slump: 'Подвижность',
+    max_aggregate: 'Макс. фракция',
+    frost_resistance: 'Морозостойкость',
+    strength: 'Прочность',
+    thermal_conductivity: 'Теплопроводность',
+    length: 'Длина',
+    size: 'Размер',
+    coating: 'Покрытие',
+    impact_energy: 'Энергия удара',
+    max_diameter: 'Макс. диаметр',
+    modes: 'Режимы',
+    range: 'Дальность',
+    accuracy: 'Точность',
+    battery: 'Аккумулятор',
+    protection: 'Защита',
+    mount: 'Крепление',
+    odor: 'Запах',
+    wood_type: 'Порода дерева',
+    moisture: 'Влажность',
+  };
+
+  const formatSpecLabel = (key: string) => {
+    if (specLabels[key]) return specLabels[key];
+    const normalized = key.replace(/_/g, ' ');
+    return normalized.charAt(0).toUpperCase() + normalized.slice(1);
   };
 
   return (
@@ -122,10 +178,12 @@ export function Product() {
                   </button>
                 </div>
 
+                {product.price && (
+                  <p className="text-2xl font-semibold text-secondary-900 mb-3">{product.price}</p>
+                )}
                 <p className="text-secondary-700 text-lg mb-4">{product.description}</p>
 
                 <div className="flex items-center gap-4 mb-6 pb-6 border-b border-secondary-200">
-                  {product.sku && <Badge variant="secondary">Артикул: {product.sku}</Badge>}
                   {product.inStock ? (
                     <Badge variant="success">В наличии</Badge>
                   ) : (
@@ -139,8 +197,8 @@ export function Product() {
                 <div className="space-y-3">
                   {Object.entries(product.specifications).map(([key, value]) => (
                     <div key={key} className="flex justify-between items-start border-b border-secondary-200 pb-3">
-                      <span className="font-semibold text-secondary-700 capitalize">
-                        {key.replace(/_/g, ' ')}
+                      <span className="font-semibold text-secondary-700">
+                        {formatSpecLabel(key)}
                       </span>
                       <span className="text-secondary-900 text-right">{value}</span>
                     </div>
@@ -150,12 +208,12 @@ export function Product() {
 
               <div className="space-y-3 mb-8">
                 <h3 className="font-bold text-lg">Связаться с нами</h3>
-                <a href="tel:+55123456789" className="btn-secondary flex items-center justify-center gap-2">
+                <a href="tel:+79969979239" className="btn-secondary flex items-center justify-center gap-2">
                   <Phone size={20} />
-                  Позвонить: +55 (123) 456-789
+                  Позвонить: +7 996 997 92 39
                 </a>
                 <a
-                  href="https://wa.me/55123456789"
+                  href="https://wa.me/79969979239"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-colors"
@@ -163,9 +221,18 @@ export function Product() {
                   <MessageCircle size={20} />
                   Написать в WhatsApp
                 </a>
-                <a href="mailto:info@buildmate.com" className="btn-outline flex items-center justify-center gap-2">
+                <a href="mailto:abuzarkamilov@gmail.com" className="btn-outline flex items-center justify-center gap-2">
                   <Mail size={20} />
                   Написать на email
+                </a>
+                <a
+                  href="https://t.me/Abuzarr222"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline flex items-center justify-center gap-2"
+                >
+                  <Send size={20} />
+                  Написать в Telegram
                 </a>
               </div>
 
