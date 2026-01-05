@@ -42,13 +42,23 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['var(--font-main)'],
+        sans: ['var(--font-main)', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        'display-xl': ['3.5rem', { lineHeight: '1.1', fontWeight: '700' }],
-        'display-lg': ['2.5rem', { lineHeight: '1.2', fontWeight: '700' }],
-        'display-md': ['2rem', { lineHeight: '1.2', fontWeight: '700' }],
-        'display-sm': ['1.5rem', { lineHeight: '1.3', fontWeight: '600' }],
+        display: ['3.25rem', { lineHeight: '1.08' }],
+        h1: ['2.375rem', { lineHeight: '1.2' }],
+        h2: ['1.875rem', { lineHeight: '1.25' }],
+        h3: ['1.5rem', { lineHeight: '1.3' }],
+        body: ['1rem', { lineHeight: '1.65' }],
+        bodySm: ['0.9375rem', { lineHeight: '1.6' }],
+        caption: ['0.8125rem', { lineHeight: '1.5' }],
+      },
+      fontWeight: {
+        regular: '400',
+        medium: '500',
+        semibold: '600',
+        bold: '700',
+        extrabold: '800',
       },
       spacing: {
         'container': '1200px',

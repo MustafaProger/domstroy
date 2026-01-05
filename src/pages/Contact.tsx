@@ -11,10 +11,10 @@ export function Contact() {
         keywords="контакты, поддержка, расценка, запрос"
       />
 
-      <section className="bg-secondary-50 border-b border-secondary-200 py-8 md:py-12">
+      <section className="bg-secondary-50 border-b border-secondary-200 py-10 md:py-14">
         <Container>
           <h1>Свяжитесь с нами</h1>
-          <p className="text-secondary-600 mt-2 max-w-xl">
+          <p className="text-secondary-600 mt-2 max-w-xl text-bodySm md:text-body">
             Свяжитесь с нашей командой для расценок, запросов или любых вопросов о нашей продукции и услугах
           </p>
         </Container>
@@ -25,47 +25,47 @@ export function Contact() {
           <div className="grid lg:grid-cols-4 gap-8 mb-12">
             <Card className="p-6">
               <Phone className="w-8 h-8 text-primary-500 mb-4" />
-              <h3 className="font-bold text-lg mb-2">Телефон</h3>
-              <a href="tel:+79969979239" className="text-secondary-600 hover:text-primary-500 font-semibold">
+              <h3 className="text-h3 font-bold mb-2">Телефон</h3>
+              <a href="tel:+79969979239" className="text-secondary-600 hover:text-primary-500 font-semibold text-bodySm">
                 +7 996 997 92 39
               </a>
             </Card>
 
             <Card className="p-6">
               <MessageCircle className="w-8 h-8 text-primary-500 mb-4" />
-              <h3 className="font-bold text-lg mb-2">WhatsApp</h3>
+              <h3 className="text-h3 font-bold mb-2">WhatsApp</h3>
               <a
                 href="https://wa.me/79969979239"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-secondary-600 hover:text-primary-500 font-semibold"
+                className="text-secondary-600 hover:text-primary-500 font-semibold text-bodySm"
               >
                 +7 996 997 92 39
               </a>
-              <p className="text-sm text-secondary-500 mt-2">WhatsApp по номеру выше</p>
+              <p className="text-bodySm text-secondary-500 mt-2">WhatsApp по номеру выше</p>
             </Card>
 
             <Card className="p-6">
               <Mail className="w-8 h-8 text-primary-500 mb-4" />
-              <h3 className="font-bold text-lg mb-2">Email</h3>
-              <a href="mailto:abuzarkamilov@gmail.com" className="text-secondary-600 hover:text-primary-500 font-semibold">
+              <h3 className="text-h3 font-bold mb-2">Email</h3>
+              <a href="mailto:abuzarkamilov@gmail.com" className="text-secondary-600 hover:text-primary-500 font-semibold text-bodySm">
                 abuzarkamilov@gmail.com
               </a>
-              <p className="text-sm text-secondary-500 mt-2">Ответим в течение 24 часов</p>
+              <p className="text-bodySm text-secondary-500 mt-2">Ответим в течение 24 часов</p>
             </Card>
 
             <Card className="p-6">
               <Send className="w-8 h-8 text-primary-500 mb-4" />
-              <h3 className="font-bold text-lg mb-2">Telegram</h3>
+              <h3 className="text-h3 font-bold mb-2">Telegram</h3>
               <a
                 href="https://t.me/Abuzarr222"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-secondary-600 hover:text-primary-500 font-semibold"
+                className="text-secondary-600 hover:text-primary-500 font-semibold text-bodySm"
               >
                 @Abuzarr222
               </a>
-              <p className="text-sm text-secondary-500 mt-2">Напишите нам в Telegram</p>
+              <p className="text-bodySm text-secondary-500 mt-2">Напишите нам в Telegram</p>
             </Card>
           </div>
 
@@ -81,10 +81,10 @@ export function Contact() {
         </Container>
       </section>
 
-      <section className="bg-secondary-50 py-12 md:py-16">
+      <section className="bg-secondary-50 py-16 md:py-20">
         <Container className="text-center">
           <h2 className="mb-4">Не можете найти то, что нужно?</h2>
-          <p className="text-secondary-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-secondary-600 mb-8 max-w-2xl mx-auto text-bodySm md:text-body">
             Просмотрите наш полный каталог продукции или позвольте нашей команде помочь вам найти идеальные материалы для вашего проекта
           </p>
           <Link to="/catalog">

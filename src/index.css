@@ -8,23 +8,31 @@
 
 @layer base {
   body {
-    @apply bg-white text-secondary-900 font-sans;
+    @apply bg-secondary-50 text-secondary-900 font-sans antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-sans font-bold;
+    @apply font-sans font-bold tracking-tight text-secondary-900;
   }
 
   h1 {
-    @apply text-display-xl;
+    @apply text-h1 md:text-display;
   }
 
   h2 {
-    @apply text-display-lg;
+    @apply text-h2;
   }
 
   h3 {
-    @apply text-display-md;
+    @apply text-h3;
+  }
+
+  p {
+    @apply text-body text-secondary-700;
+  }
+
+  a {
+    @apply transition-colors;
   }
 }
 
@@ -34,19 +42,23 @@
   }
 
   .btn-primary {
-    @apply px-6 py-3 bg-primary-500 text-secondary-900 font-semibold rounded-lg hover:bg-primary-600 transition-colors duration-200 active:bg-primary-700;
+    @apply px-6 py-3 bg-primary-500 text-secondary-900 text-bodySm font-semibold rounded-xl shadow-sm hover:bg-primary-600 hover:shadow-md transition-all duration-200 active:bg-primary-700 md:text-body;
   }
 
   .btn-secondary {
-    @apply px-6 py-3 bg-secondary-900 text-white font-semibold rounded-lg hover:bg-secondary-800 transition-colors duration-200 active:bg-secondary-700;
+    @apply px-6 py-3 bg-secondary-900 text-white text-bodySm font-semibold rounded-xl shadow-sm hover:bg-secondary-800 hover:shadow-md transition-all duration-200 active:bg-secondary-700 md:text-body;
   }
 
   .btn-outline {
-    @apply px-6 py-3 border-2 border-secondary-900 text-secondary-900 font-semibold rounded-lg hover:bg-secondary-50 transition-colors duration-200;
+    @apply px-6 py-3 border border-secondary-300 text-secondary-900 text-bodySm font-semibold rounded-xl hover:border-secondary-400 hover:bg-white transition-colors duration-200 md:text-body;
+  }
+
+  .btn-outline-yellow {
+    @apply px-6 py-3 border border-primary-500 text-primary-500 bg-transparent text-bodySm font-semibold rounded-xl hover:text-white hover:border-primary-500 hover:bg-primary-500 transition-colors duration-200 md:text-body;
   }
 
   .section-padding {
-    @apply py-8 sm:py-12 lg:py-16;
+    @apply py-16 sm:py-20 lg:py-24;
   }
 
   .fade-in {
@@ -61,14 +73,14 @@
   }
 
   .hero-overlay {
-    @apply absolute inset-0 bg-secondary-900/40;
+    @apply absolute inset-0 bg-gradient-to-b from-secondary-900/75 via-secondary-900/50 to-secondary-900/70;
   }
 
   .feature-card {
-    @apply p-6 text-center border border-secondary-200 transition-transform duration-300 hover:-translate-y-1 hover:border-primary-500 hover:shadow-lg;
+    @apply p-7 text-center bg-white border border-secondary-100 transition-transform duration-300 hover:-translate-y-1 hover:border-primary-500 hover:shadow-lg;
   }
 
   .feature-number {
-    @apply text-3xl font-extrabold text-secondary-500 mb-1;
+    @apply text-2xl font-extrabold text-secondary-500 mb-1;
   }
 }

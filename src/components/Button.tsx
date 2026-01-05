@@ -22,9 +22,9 @@ const variants = {
 };
 
 const sizes = {
-  sm: 'px-4 py-2 text-sm',
-  md: 'px-6 py-3',
-  lg: 'px-8 py-4 text-lg',
+  sm: 'px-4 py-2 text-bodySm',
+  md: 'px-6 py-3 text-bodySm md:text-body',
+  lg: 'px-8 py-4 text-body md:text-h3',
 };
 
 export function Button({
@@ -41,7 +41,7 @@ export function Button({
   target,
   rel,
 }: ButtonProps) {
-  const baseClasses = `font-semibold rounded-lg transition-colors duration-200 ${variants[variant]} ${sizes[size]} ${fullWidth ? 'w-full' : ''} ${className}`;
+  const baseClasses = `font-semibold rounded-xl transition-colors duration-200 ${variants[variant]} ${sizes[size]} ${fullWidth ? 'w-full' : ''} ${className}`;
 
   if (as === 'a' && href) {
     return (

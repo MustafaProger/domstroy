@@ -53,28 +53,28 @@ export function Home() {
 					<h1 className='text-h1 mb-4 text-white md:text-display'>
 						Премиальные строительные <br /> материалы для каждого проекта
 					</h1>
-					<p className='text-body md:text-h3 text-secondary-200 mb-8 max-w-2xl mx-auto leading-relaxed'>
+					<p className='text-body text-secondary-200 mb-8 max-w-2xl mx-auto'>
 						Надежный поставщик высококачественных строительных материалов.
 						Быстрая доставка, конкурентные цены и профессиональный сервис.
 					</p>
 					<div className='flex flex-col sm:flex-row gap-4 justify-center'>
+						<a
+							href='https://wa.me/79969979239'
+							target='_blank'
+							rel='noopener noreferrer'
+							className='btn-outline text-white border-white/60 hover:bg-white/20'>
+							Написать в WhatsApp
+						</a>
 						<Button
 							as='a'
 							href='/catalog'
-							variant='primary'>
+							className='btn-outline-yellow'>
 							Каталог
 							<ArrowRight
 								className='inline ml-2'
 								size={20}
 							/>
 						</Button>
-						<a
-							href='https://wa.me/79969979239'
-							target='_blank'
-							rel='noopener noreferrer'
-							className='btn-secondary text-center'>
-							Написать в WhatsApp
-						</a>
 					</div>
 				</Container>
 			</section>
@@ -114,22 +114,26 @@ export function Home() {
 						/>
 						<div className='space-y-10 lg:pt-2'>
 							<div>
-								<p className='text-6xl font-extrabold text-primary-500'>20+</p>
-								<p className='mt-2 text-secondary-600 text-sm md:text-base'>
+								<p className='text-h1 md:text-display font-extrabold text-primary-500'>
+									20+
+								</p>
+								<p className='mt-2 text-secondary-600 text-bodySm'>
 									Надёжный поставщик в отрасли
 								</p>
 							</div>
 							<div>
-								<p className='text-6xl font-extrabold text-primary-500'>
+								<p className='text-h1 md:text-display font-extrabold text-primary-500'>
 									1500+
 								</p>
-								<p className='mt-2 text-secondary-600 text-sm md:text-base'>
+								<p className='mt-2 text-secondary-600 text-bodySm'>
 									Строительные профессионалы и компании
 								</p>
 							</div>
 							<div>
-								<p className='text-6xl font-extrabold text-primary-500'>300+</p>
-								<p className='mt-2 text-secondary-600 text-sm md:text-base'>
+								<p className='text-h1 md:text-display font-extrabold text-primary-500'>
+									300+
+								</p>
+								<p className='mt-2 text-secondary-600 text-bodySm'>
 									Полный ассортимент материалов
 								</p>
 							</div>
@@ -138,11 +142,11 @@ export function Home() {
 				</Container>
 			</section>
 
-			<section className='bg-secondary-50 py-12 md:py-16'>
+			<section className='bg-secondary-50 py-16 md:py-20'>
 				<Container>
 					<div className='mb-12 text-center'>
 						<h2>Почему выбирают нас</h2>
-						<p className='text-secondary-600 mt-4 max-w-xl mx-auto'>
+						<p className='text-secondary-600 mt-4 max-w-xl mx-auto text-bodySm md:text-body'>
 							Мы преданы успеху вашего проекта благодаря качественным материалам
 							и профессиональному сервису
 						</p>
@@ -160,9 +164,9 @@ export function Home() {
 
 								<Icon className='w-12 h-12 text-primary-500 mx-auto mb-4' />
 
-								<h3 className='font-bold text-lg mb-2 text-center'>{title}</h3>
+								<h3 className='text-h3 font-bold mb-2 text-center'>{title}</h3>
 
-								<p className='text-secondary-600 text-sm text-center leading-relaxed'>
+								<p className='text-secondary-600 text-bodySm text-center'>
 									{description}
 								</p>
 							</Card>
@@ -175,7 +179,7 @@ export function Home() {
 				<Container>
 					<div className='mb-12 text-center'>
 						<h2>Категории продукции</h2>
-						<p className='text-secondary-600 mt-4 max-w-xl mx-auto'>
+						<p className='text-secondary-600 mt-4 max-w-xl mx-auto text-bodySm md:text-body'>
 							Изучите наш полный ассортимент строительных материалов,
 							организованный по категориям
 						</p>
@@ -201,14 +205,14 @@ export function Home() {
 												/>
 											</div>
 											<div className='p-6'>
-												<h3 className='text-xl font-bold text-secondary-900 mb-2'>
+												<h3 className='text-h3 font-bold text-secondary-900 mb-2'>
 													{category.name}
 												</h3>
-												<p className='text-secondary-600 text-sm mb-4'>
+												<p className='text-secondary-600 text-bodySm mb-4'>
 													{category.description}
 												</p>
 												<div className='flex items-center justify-between'>
-													<span className='text-sm font-semibold text-primary-600'>
+													<span className='text-bodySm font-semibold text-primary-600'>
 														{category.productCount} товаров
 													</span>
 													<ArrowRight
@@ -224,26 +228,31 @@ export function Home() {
 				</Container>
 			</section>
 
-			<section className='bg-primary-500 text-secondary-900 py-12 md:py-16'>
-				<Container className='text-center'>
-					<h2 className='text-white mb-4'>Готовы начать?</h2>
-					<p className='text-white text-lg mb-8 max-w-2xl mx-auto'>
+			<section className='pb-12 md:pb-16'>
+				<Container className='text-center border rounded-2xl max-w-[800px] py-12 px- bg-[#FFFFFF]'>
+					<h2 className='text-black mb-4'>Готовы начать?</h2>
+					<p className='text-black text-body mb-8 max-w-2xl mx-auto'>
 						Поможем подобрать материалы, рассчитать объём и предложить
 						оптимальные условия поставки
 					</p>
 					<div className='flex flex-col sm:flex-row gap-4 justify-center'>
-						<a
-							href='tel:+79969979239'
-							className='btn-secondary text-center'>
-							Позвонить сейчас
-						</a>
 						<Link
 							to='https://wa.me/79969979239'
 							target='_blank'
 							rel='noopener noreferrer'
-							className='btn-outline text-center'>
+							className='btn-outline border-black/60 hover:bg-black/5'>
 							Обсудить заказ
 						</Link>
+						<Button
+							as='a'
+							href='tel:+79969979239'
+							className='btn-outline-yellow'>
+							Позвонить сейчас
+							<ArrowRight
+								className='inline ml-2'
+								size={20}
+							/>
+						</Button>
 					</div>
 				</Container>
 			</section>

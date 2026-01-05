@@ -99,9 +99,9 @@ export function Catalog() {
         keywords="строительные материалы, товары, каталог"
       />
 
-      <section className="bg-secondary-50 border-b border-secondary-200 py-8 md:py-12">
+      <section className="bg-secondary-50 border-b border-secondary-200 py-10 md:py-14">
         <Container>
-          <div className="flex items-center gap-2 mb-4 text-sm text-secondary-600">
+          <div className="flex items-center gap-2 mb-4 text-bodySm text-secondary-600">
             <Link to="/" className="hover:text-primary-500">
               Главная
             </Link>
@@ -109,7 +109,7 @@ export function Catalog() {
             <span>Каталог</span>
           </div>
           <h1>Каталог продукции</h1>
-          <p className="text-secondary-600 mt-2 max-w-xl">
+          <p className="text-secondary-600 mt-2 max-w-xl text-bodySm md:text-body">
             Изучите наш полный ассортимент высококачественных строительных материалов
           </p>
         </Container>
@@ -120,7 +120,7 @@ export function Catalog() {
           <div className="grid lg:grid-cols-4 gap-8">
             <aside className="lg:col-span-1">
               <button
-                className="lg:hidden w-full flex items-center gap-2 px-4 py-2 border border-secondary-300 rounded-lg hover:bg-secondary-50 mb-4 font-semibold"
+                className="lg:hidden w-full flex items-center gap-2 px-4 py-2 border border-secondary-300 rounded-xl hover:bg-secondary-50 mb-4 font-semibold text-bodySm"
                 onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
               >
                 <Filter size={20} />
@@ -128,12 +128,12 @@ export function Catalog() {
               </button>
 
               <div className={`space-y-6 ${mobileFilterOpen ? 'block' : 'hidden lg:block'}`}>
-                <div className="bg-secondary-50 p-6 rounded-lg">
-                  <h3 className="font-bold text-lg mb-4">Категории</h3>
+                <div className="bg-secondary-50 p-6 rounded-2xl border border-secondary-100">
+                  <h3 className="text-h3 font-bold mb-4">Категории</h3>
 
                   <button
                     onClick={() => handleCategoryChange('')}
-                    className={`block w-full text-left px-4 py-2 rounded-lg transition-colors ${
+                    className={`block w-full text-left px-4 py-2 rounded-xl transition-colors text-bodySm ${
                       !selectedCategory
                         ? 'bg-primary-500 text-secondary-900 font-semibold'
                         : 'text-secondary-700 hover:bg-secondary-200'
@@ -156,7 +156,7 @@ export function Catalog() {
                         <button
                           key={category.id}
                           onClick={() => handleCategoryChange(category.slug)}
-                          className={`block w-full text-left px-4 py-2 rounded-lg transition-colors ${
+                          className={`block w-full text-left px-4 py-2 rounded-xl transition-colors text-bodySm ${
                             selectedCategory === category.slug
                               ? 'bg-primary-500 text-secondary-900 font-semibold'
                               : 'text-secondary-700 hover:bg-secondary-200'
@@ -164,7 +164,7 @@ export function Catalog() {
                         >
                           <div className="flex justify-between items-center">
                             <span>{category.name}</span>
-                            <span className="text-xs font-semibold opacity-75">
+                            <span className="text-caption font-semibold opacity-75">
                               ({category.productCount})
                             </span>
                           </div>
@@ -175,8 +175,8 @@ export function Catalog() {
                 </div>
 
                 <Card className="p-6">
-                  <h3 className="font-bold text-lg mb-3">Нужна помощь?</h3>
-                  <p className="text-secondary-600 text-sm mb-4">
+                  <h3 className="text-h3 font-bold mb-3">Нужна помощь?</h3>
+                  <p className="text-secondary-600 text-bodySm mb-4">
                     Не можете найти то, что ищете? Свяжитесь с нашей командой для персональных рекомендаций.
                   </p>
                   <a href="https://wa.me/79969979239" target="_blank" rel="noopener noreferrer">
@@ -191,12 +191,12 @@ export function Catalog() {
             <main className="lg:col-span-3">
               <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <h2 className="text-2xl font-bold text-secondary-900">
+                  <h2 className="text-h2 font-bold text-secondary-900">
                     {selectedCategory
                       ? categories.find((c) => c.slug === selectedCategory)?.name || 'Товары'
                       : 'Все товары'}
                   </h2>
-                  <p className="text-secondary-600 mt-1">
+                  <p className="text-secondary-600 mt-1 text-bodySm">
                     Показано {filteredProducts.length} {filteredProducts.length === 1 ? 'товар' : filteredProducts.length > 1 && filteredProducts.length < 5 ? 'товара' : 'товаров'}
                   </p>
                 </div>
@@ -209,7 +209,7 @@ export function Catalog() {
                         onChange={(event) => setSearchTerm(event.target.value)}
                         placeholder="Поиск товаров"
                         aria-label="Поиск товаров"
-                        className="w-full rounded-xl border border-secondary-200 bg-white pl-10 pr-4 py-2.5 text-secondary-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200 transition-colors"
+                        className="w-full rounded-xl border border-secondary-200 bg-white pl-10 pr-4 py-2.5 text-bodySm text-secondary-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200 transition-colors"
                       />
                     </div>
                     <Button variant="outline" size="sm" onClick={handlePriceSortToggle}>
@@ -243,24 +243,24 @@ export function Catalog() {
                             className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                           />
                         </div>
-                        <div className="p-4 flex-grow flex flex-col">
-                          <p className="text-xs font-semibold text-primary-600 uppercase mb-2">
+                        <div className="p-5 flex-grow flex flex-col">
+                          <p className="text-caption font-semibold text-primary-600 uppercase mb-2">
                             {product.category}
                           </p>
-                          <h3 className="font-bold text-secondary-900 mb-2 line-clamp-2">
+                          <h3 className="text-h3 font-bold text-secondary-900 mb-2 line-clamp-2">
                             {product.title}
                           </h3>
                           {product.price && (
-                            <p className="text-secondary-900 font-semibold mb-2">{product.price}</p>
+                            <p className="text-secondary-900 font-semibold mb-2 text-bodySm">{product.price}</p>
                           )}
-                          <p className="text-sm text-secondary-600 mb-4 flex-grow line-clamp-3">
+                          <p className="text-bodySm text-secondary-600 mb-4 flex-grow line-clamp-3">
                             {product.shortDescription}
                           </p>
                           <div className="flex items-center justify-between pt-4 border-t border-secondary-200">
                             {product.inStock ? (
-                              <span className="text-xs font-semibold text-green-600">В наличии</span>
+                              <span className="text-caption font-semibold text-green-600">В наличии</span>
                             ) : (
-                              <span className="text-xs font-semibold text-red-600">Нет в наличии</span>
+                              <span className="text-caption font-semibold text-red-600">Нет в наличии</span>
                             )}
                             <ArrowRight size={16} className="text-primary-500" />
                           </div>
@@ -271,7 +271,7 @@ export function Catalog() {
                 </div>
               ) : (
                 <Card className="p-12 text-center">
-                  <p className="text-secondary-600 text-lg mb-4">Товары в этой категории не найдены</p>
+                  <p className="text-secondary-600 text-body mb-4">Товары в этой категории не найдены</p>
                   <Button variant="secondary" onClick={() => handleCategoryChange('')}>
                     Посмотреть все товары
                   </Button>

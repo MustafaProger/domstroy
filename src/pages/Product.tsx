@@ -15,8 +15,8 @@ export function Product() {
     return (
       <Container className="py-12">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-secondary-900 mb-4">Товар не найден</h1>
-          <p className="text-secondary-600 mb-8">Товар, который вы ищете, не существует или был удален.</p>
+          <h1 className="text-h1 font-bold text-secondary-900 mb-4">Товар не найден</h1>
+          <p className="text-secondary-600 mb-8 text-bodySm">Товар, который вы ищете, не существует или был удален.</p>
           <Link to="/catalog">
             <Button variant="secondary">Вернуться в каталог</Button>
           </Link>
@@ -97,9 +97,9 @@ export function Product() {
         keywords={`${product.title}, ${product.category}, строительные материалы`}
       />
 
-      <section className="bg-secondary-50 border-b border-secondary-200 py-4">
+      <section className="bg-secondary-50 border-b border-secondary-200 py-4 md:py-6">
         <Container>
-          <div className="flex items-center gap-2 text-sm text-secondary-600">
+          <div className="flex items-center gap-2 text-bodySm text-secondary-600">
             <Link to="/" className="hover:text-primary-500">
               Главная
             </Link>
@@ -117,7 +117,7 @@ export function Product() {
         <Container>
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
-              <div className="mb-4 bg-secondary-100 rounded-lg overflow-hidden flex items-center justify-center h-96 relative">
+                <div className="mb-4 bg-secondary-100 rounded-2xl overflow-hidden flex items-center justify-center h-96 relative">
                 {product.images.length > 0 ? (
                   <>
                     <img
@@ -155,7 +155,7 @@ export function Product() {
                     <button
                       key={idx}
                       onClick={() => setSelectedImage(idx)}
-                      className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
+                      className={`flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-colors ${
                         selectedImage === idx ? 'border-primary-500' : 'border-secondary-200'
                       }`}
                     >
@@ -170,8 +170,8 @@ export function Product() {
               <div className="mb-4">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <p className="text-primary-600 font-semibold text-sm uppercase mb-2">{product.category}</p>
-                    <h1 className="text-3xl md:text-4xl font-bold text-secondary-900">{product.title}</h1>
+                    <p className="text-primary-600 font-semibold text-caption uppercase mb-2">{product.category}</p>
+                    <h1 className="text-h1 md:text-display font-bold text-secondary-900">{product.title}</h1>
                   </div>
                   <button className="p-2 hover:bg-secondary-100 rounded-full transition-colors">
                     <Share2 size={24} />
@@ -179,9 +179,9 @@ export function Product() {
                 </div>
 
                 {product.price && (
-                  <p className="text-2xl font-semibold text-secondary-900 mb-3">{product.price}</p>
+                  <p className="text-h2 font-semibold text-secondary-900 mb-3">{product.price}</p>
                 )}
-                <p className="text-secondary-700 text-lg mb-4">{product.description}</p>
+                <p className="text-secondary-700 text-body mb-4">{product.description}</p>
 
                 <div className="flex items-center gap-4 mb-6 pb-6 border-b border-secondary-200">
                   {product.inStock ? (
@@ -193,21 +193,21 @@ export function Product() {
               </div>
 
               <Card className="p-6 mb-8 bg-secondary-50">
-                <h3 className="font-bold text-lg mb-4">Характеристики</h3>
+                <h3 className="text-h3 font-bold mb-4">Характеристики</h3>
                 <div className="space-y-3">
                   {Object.entries(product.specifications).map(([key, value]) => (
                     <div key={key} className="flex justify-between items-start border-b border-secondary-200 pb-3">
-                      <span className="font-semibold text-secondary-700">
+                      <span className="font-semibold text-secondary-700 text-bodySm">
                         {formatSpecLabel(key)}
                       </span>
-                      <span className="text-secondary-900 text-right">{value}</span>
+                      <span className="text-secondary-900 text-right text-bodySm">{value}</span>
                     </div>
                   ))}
                 </div>
               </Card>
 
               <div className="space-y-3 mb-8">
-                <h3 className="font-bold text-lg">Связаться с нами</h3>
+                <h3 className="text-h3 font-bold">Связаться с нами</h3>
                 <a href="tel:+79969979239" className="btn-secondary flex items-center justify-center gap-2">
                   <Phone size={20} />
                   Позвонить: +7 996 997 92 39
@@ -236,9 +236,9 @@ export function Product() {
                 </a>
               </div>
 
-              <Card className="p-6 bg-primary-50 border-2 border-primary-200">
-                <h3 className="font-bold text-lg text-secondary-900 mb-2">Запросить расценку</h3>
-                <p className="text-secondary-700 mb-4">
+              <Card className="p-6 bg-primary-50 border border-primary-200">
+                <h3 className="text-h3 font-bold text-secondary-900 mb-2">Запросить расценку</h3>
+                <p className="text-secondary-700 mb-4 text-bodySm">
                   Нужны большие объемы или специальные цены? Сообщите нам, и мы предоставим индивидуальную расценку.
                 </p>
                 <Link to={`/contact?product=${product.id}`}>
