@@ -41,39 +41,41 @@ export function Header() {
 
 	return (
 		<header className={headerClasses}>
-			<Container className='flex items-center justify-between py-4'>
-				<Link
-					to='/'
-					className={brandClasses}>
-					<img
-						src='/icon.png'
-						alt='ДомСтрой'
-						className='h-8 w-8 object-contain'
-					/>
-					ДомСтрой
-				</Link>
+			<Container>
+				<div className='flex items-center justify-between py-4'>
+					<Link
+						to='/'
+						className={brandClasses}>
+						<img
+							src='/icon.png'
+							alt='ДомСтрой'
+							className='h-8 w-8 object-contain'
+						/>
+						ДомСтрой
+					</Link>
 
-				<nav className='hidden md:flex items-center gap-8'>
-					{menuItems.map((item) => (
-						<Link
-							key={item.href}
-							to={item.href}
-							className={linkClasses}>
-							{item.label}
-						</Link>
-					))}
-				</nav>
+					<nav className='hidden md:flex items-center gap-8'>
+						{menuItems.map((item) => (
+							<Link
+								key={item.href}
+								to={item.href}
+								className={linkClasses}>
+								{item.label}
+							</Link>
+						))}
+					</nav>
 
-				<button
-					className={`md:hidden p-2 rounded-lg transition-colors ${
-						isHome && !isScrolled
-							? "hover:bg-white/10 text-white"
-							: "hover:bg-secondary-100 text-secondary-900"
-					}`}
-					onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-					aria-label='Переключить меню'>
-					{mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-				</button>
+					<button
+						className={`md:hidden p-2 rounded-lg transition-colors ${
+							isHome && !isScrolled
+								? "hover:bg-white/10 text-white"
+								: "hover:bg-secondary-100 text-secondary-900"
+						}`}
+						onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+						aria-label='Переключить меню'>
+						{mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+					</button>
+				</div>
 			</Container>
 
 			{mobileMenuOpen && (
@@ -83,20 +85,22 @@ export function Header() {
 							? "border-white/10 bg-secondary-900/95 text-white"
 							: "border-secondary-200 bg-secondary-50"
 					}`}>
-					<Container className='py-4 flex flex-col gap-4'>
-						{menuItems.map((item) => (
-							<Link
-								key={item.href}
-								to={item.href}
-								className={`${
-									isHome && !isScrolled
-										? "text-white/90 hover:text-white"
-										: "text-secondary-900 hover:text-primary-500"
-								} font-medium py-2`}
-								onClick={() => setMobileMenuOpen(false)}>
-								{item.label}
-							</Link>
-						))}
+					<Container>
+						<div className='py-4 flex flex-col gap-4'>
+							{menuItems.map((item) => (
+								<Link
+									key={item.href}
+									to={item.href}
+									className={`${
+										isHome && !isScrolled
+											? "text-white/90 hover:text-white"
+											: "text-secondary-900 hover:text-primary-500"
+									} font-medium py-2`}
+									onClick={() => setMobileMenuOpen(false)}>
+									{item.label}
+								</Link>
+							))}
+						</div>
 					</Container>
 				</div>
 			)}

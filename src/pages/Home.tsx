@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Award, Users, TrendingUp, Heart } from "lucide-react";
-import { SEO, Container, Button, Card, SkeletonCard } from "../components";
+import { SEO, Container, Section, Button, Card, SkeletonCard } from "../components";
 import { useCategories } from "../hooks";
 import { companyInfo } from "../data/products";
 
@@ -44,7 +44,9 @@ export function Home() {
 				keywords='строительные материалы, цемент, кирпич, сталь, инструменты, поставки'
 			/>
 
-			<section className='hero-section'>
+			<Section
+				variant='hero'
+				className='hero-section'>
 				<div
 					className='hero-overlay'
 					aria-hidden='true'
@@ -77,11 +79,11 @@ export function Home() {
 						</Button>
 					</div>
 				</Container>
-			</section>
+			</Section>
 
-			<section className='section-padding'>
+			<Section>
 				<Container>
-					<div className='grid lg:grid-cols-[1fr_auto_auto] gap-12 items-center'>
+					<div className='grid lg:grid-cols-[1fr_auto_1fr] gap-12 items-center'>
 						<div>
 							<h2 className='mb-8'>Наша история</h2>
 							<p className='text-secondary-700 mb-4 leading-relaxed'>
@@ -140,9 +142,9 @@ export function Home() {
 						</div>
 					</div>
 				</Container>
-			</section>
+			</Section>
 
-			<section className='bg-secondary-50 py-16 md:py-20'>
+			<Section className='bg-secondary-50'>
 				<Container>
 					<div className='mb-12 text-center'>
 						<h2>Почему выбирают нас</h2>
@@ -156,7 +158,7 @@ export function Home() {
 						{features.map(({ number, title, description, icon: Icon }) => (
 							<Card
 								key={number}
-								className='feature-card'>
+								className='feature-card transition-all duration-300'>
 								<div className='flex flex-col items-start mb-4'>
 									<div className='feature-number'>{number}</div>
 									<span className='h-1 w-10 bg-primary-500 rounded-full' />
@@ -173,9 +175,9 @@ export function Home() {
 						))}
 					</div>
 				</Container>
-			</section>
+			</Section>
 
-			<section className='section-padding'>
+			<Section>
 				<Container>
 					<div className='mb-12 text-center'>
 						<h2>Категории продукции</h2>
@@ -226,36 +228,37 @@ export function Home() {
 							  ))}
 					</div>
 				</Container>
-			</section>
+			</Section>
 
-			<section className='pb-12 md:pb-16'>
-				<Container className='text-center border rounded-2xl max-w-[800px] py-12 px- bg-[#FFFFFF]'>
-					<h2 className='text-black mb-4'>Готовы начать?</h2>
-					<p className='text-black text-body mb-8 max-w-2xl mx-auto'>
-						Поможем подобрать материалы, рассчитать объём и предложить
-						оптимальные условия поставки
-					</p>
-					<div className='flex flex-col sm:flex-row gap-4 justify-center'>
-						<Link
-							to='https://wa.me/79969979239'
-							target='_blank'
-							rel='noopener noreferrer'
-							className='btn-outline border-black/60 hover:bg-black/5'>
-							Обсудить заказ
-						</Link>
-						<Button
-							as='a'
-							href='tel:+79969979239'
-							className='btn-outline-yellow'>
-							Позвонить сейчас
-							<ArrowRight
-								className='inline ml-2'
-								size={20}
-							/>
-						</Button>
+			<Section variant='form'>
+				<Container>
+					<div className='mx-auto max-w-3xl rounded-2xl border border-secondary-200 bg-white px-8 py-10 text-center sm:px-10'>
+						<h2 className='text-secondary-900 mb-4'>Готовы начать?</h2>
+						<p className='text-secondary-700 text-body mb-8'>
+							Поможем подобрать материалы, рассчитать объём и предложить
+							оптимальные условия поставки
+						</p>
+						<div className='flex flex-col sm:flex-row gap-4 justify-center'>
+							<Link
+								to='https://wa.me/79969979239'
+								target='_blank'
+								rel='noopener noreferrer'
+								className='btn-outline border-secondary-900/50 hover:bg-secondary-50'>
+								Обсудить заказ
+							</Link>
+							<Button
+								as='a'
+								href='tel:+79969979239'>
+								Позвонить сейчас
+								<ArrowRight
+									className='inline ml-2'
+									size={20}
+								/>
+							</Button>
+						</div>
 					</div>
 				</Container>
-			</section>
+			</Section>
 		</>
 	);
 }

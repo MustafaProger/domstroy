@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MessageCircle, Send } from 'lucide-react';
-import { SEO, Container, Button, Card } from '../components';
+import { SEO, Container, Section, Button, Card } from '../components';
 
 export function Contact() {
   return (
@@ -11,16 +11,16 @@ export function Contact() {
         keywords="контакты, поддержка, расценка, запрос"
       />
 
-      <section className="bg-secondary-50 border-b border-secondary-200 py-10 md:py-14">
+      <Section variant="hero" className="bg-secondary-50 border-b border-secondary-200">
         <Container>
           <h1>Свяжитесь с нами</h1>
           <p className="text-secondary-600 mt-2 max-w-xl text-bodySm md:text-body">
             Свяжитесь с нашей командой для расценок, запросов или любых вопросов о нашей продукции и услугах
           </p>
         </Container>
-      </section>
+      </Section>
 
-      <section className="section-padding">
+      <Section>
         <Container>
           <div className="grid lg:grid-cols-4 gap-8 mb-12">
             <Card className="p-6">
@@ -79,9 +79,9 @@ export function Contact() {
             />
           </Card>
         </Container>
-      </section>
+      </Section>
 
-      <section className="bg-secondary-50 py-16 md:py-20">
+      <Section className="bg-secondary-50">
         <Container className="text-center">
           <h2 className="mb-4">Не можете найти то, что нужно?</h2>
           <p className="text-secondary-600 mb-8 max-w-2xl mx-auto text-bodySm md:text-body">
@@ -91,7 +91,7 @@ export function Contact() {
             <Button variant="secondary">Посмотреть все товары</Button>
           </Link>
         </Container>
-      </section>
+      </Section>
     </>
   );
 }

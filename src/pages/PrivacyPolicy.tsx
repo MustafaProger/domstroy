@@ -1,4 +1,4 @@
-import { SEO, Container } from "../components";
+import { SEO, Container, Section } from "../components";
 
 const styles = {
 	containerPoint: "mb-6",
@@ -17,7 +17,7 @@ export function PrivacyPolicy() {
 				keywords='политика конфиденциальности, персональные данные, домстрой'
 			/>
 
-			<section className='bg-secondary-50 border-b border-secondary-200 py-10 md:py-14'>
+			<Section variant='hero' className='bg-secondary-50 border-b border-secondary-200'>
 				<Container>
 					<h1 className='text-h1 md:text-h1'>Политика конфиденциальности</h1>
 					<p className='text-secondary-600 mt-2 max-w-2xl text-bodySm md:text-body'>
@@ -25,9 +25,9 @@ export function PrivacyPolicy() {
 						посетителях сайта.
 					</p>
 				</Container>
-			</section>
+			</Section>
 
-			<section className='section-padding'>
+			<Section>
 				<Container>
 					<div className='max-w-3xl space-y-5'>
 						<div className={containerPoint}>
@@ -115,7 +115,7 @@ export function PrivacyPolicy() {
 						</div>
 					</div>
 				</Container>
-			</section>
+			</Section>
 		</>
 	);
 }

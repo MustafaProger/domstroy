@@ -5,3 +5,4 @@ export { Badge } from './Badge';
 export { Loading, SkeletonCard } from './Loading';
 export { SEO } from './SEO';
 export { Container } from './Container';
+export { Section } from './Section';

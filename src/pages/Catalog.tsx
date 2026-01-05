@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Filter, Search, ArrowDown, ArrowUp } from 'lucide-react';
-import { SEO, Container, Card, Button, SkeletonCard } from '../components';
+import { SEO, Container, Section, Card, Button, SkeletonCard } from '../components';
 import { useCategories, useProducts } from '../hooks';
 
 export function Catalog() {
@@ -99,7 +99,7 @@ export function Catalog() {
         keywords="строительные материалы, товары, каталог"
       />
 
-      <section className="bg-secondary-50 border-b border-secondary-200 py-10 md:py-14">
+      <Section variant="hero" className="bg-secondary-50 border-b border-secondary-200">
         <Container>
           <div className="flex items-center gap-2 mb-4 text-bodySm text-secondary-600">
             <Link to="/" className="hover:text-primary-500">
@@ -113,9 +113,9 @@ export function Catalog() {
             Изучите наш полный ассортимент высококачественных строительных материалов
           </p>
         </Container>
-      </section>
+      </Section>
 
-      <div className="section-padding">
+      <Section>
         <Container>
           <div className="grid lg:grid-cols-4 gap-8">
             <aside className="lg:col-span-1">
@@ -322,7 +322,7 @@ export function Catalog() {
             </main>
           </div>
         </Container>
-      </div>
+      </Section>
     </>
   );
 }

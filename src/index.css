@@ -37,10 +37,6 @@
 }
 
 @layer components {
-  .container {
-    @apply max-w-container mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
   .btn-primary {
     @apply px-6 py-3 bg-primary-500 text-secondary-900 text-bodySm font-semibold rounded-xl shadow-sm hover:bg-primary-600 hover:shadow-md transition-all duration-200 active:bg-primary-700 md:text-body;
   }
@@ -57,16 +53,12 @@
     @apply px-6 py-3 border border-primary-500 text-primary-500 bg-transparent text-bodySm font-semibold rounded-xl hover:text-white hover:border-primary-500 hover:bg-primary-500 transition-colors duration-200 md:text-body;
   }
 
-  .section-padding {
-    @apply py-16 sm:py-20 lg:py-24;
-  }
-
   .fade-in {
     @apply animate-fade-in;
   }
 
   .hero-section {
-    @apply relative text-white min-h-screen flex items-center pt-24 pb-16 md:pt-36 md:pb-24;
+    @apply relative text-white min-h-screen flex items-center;
     background-image: url('/background/hero-construction-site.png');
     background-size: cover;
     background-position: center;

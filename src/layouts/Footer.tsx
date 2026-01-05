@@ -5,8 +5,9 @@ import { Container } from '../components';
 export function Footer() {
   return (
     <footer className="bg-secondary-900 text-white">
-      <Container className="py-14">
-        <div className="grid md:grid-cols-4 gap-10 mb-12">
+      <div className="py-14">
+        <Container>
+          <div className="grid md:grid-cols-4 gap-10 mb-12">
           <div>
             <h3 className="text-h3 font-bold mb-4 text-primary-400">ДомСтрой</h3>
             <p className="text-secondary-300 mb-4 text-bodySm">
@@ -117,19 +118,20 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-secondary-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-secondary-400 text-bodySm">
-              &copy; {new Date().getFullYear()} ДомСтрой. Все права защищены.
-            </p>
-            <div className="flex gap-6">
-              <Link to="/privacy-policy" className="text-secondary-400 hover:text-primary-400 transition-colors text-bodySm">
-                Политика конфиденциальности
-              </Link>
+          <div className="border-t border-secondary-800 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <p className="text-secondary-400 text-bodySm">
+                &copy; {new Date().getFullYear()} ДомСтрой. Все права защищены.
+              </p>
+              <div className="flex gap-6">
+                <Link to="/privacy-policy" className="text-secondary-400 hover:text-primary-400 transition-colors text-bodySm">
+                  Политика конфиденциальности
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </div>
     </footer>
   );
 }

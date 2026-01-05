@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { MessageCircle, Phone, Mail, Share2, ChevronLeft, ChevronRight, Send } from 'lucide-react';
-import { SEO, Container, Button, Card, Loading, Badge } from '../components';
+import { SEO, Container, Section, Button, Card, Loading, Badge } from '../components';
 import { useProductBySlug } from '../hooks';
 
 export function Product() {
@@ -13,15 +13,17 @@ export function Product() {
 
   if (error || !product) {
     return (
-      <Container className="py-12">
-        <div className="text-center">
-          <h1 className="text-h1 font-bold text-secondary-900 mb-4">Товар не найден</h1>
-          <p className="text-secondary-600 mb-8 text-bodySm">Товар, который вы ищете, не существует или был удален.</p>
-          <Link to="/catalog">
-            <Button variant="secondary">Вернуться в каталог</Button>
-          </Link>
-        </div>
-      </Container>
+      <Section variant="hero">
+        <Container>
+          <div className="text-center">
+            <h1 className="text-h1 font-bold text-secondary-900 mb-4">Товар не найден</h1>
+            <p className="text-secondary-600 mb-8 text-bodySm">Товар, который вы ищете, не существует или был удален.</p>
+            <Link to="/catalog">
+              <Button variant="secondary">Вернуться в каталог</Button>
+            </Link>
+          </div>
+        </Container>
+      </Section>
     );
   }
 
@@ -97,7 +99,7 @@ export function Product() {
         keywords={`${product.title}, ${product.category}, строительные материалы`}
       />
 
-      <section className="bg-secondary-50 border-b border-secondary-200 py-4 md:py-6">
+      <Section variant="hero" className="bg-secondary-50 border-b border-secondary-200">
         <Container>
           <div className="flex items-center gap-2 text-bodySm text-secondary-600">
             <Link to="/" className="hover:text-primary-500">
@@ -111,9 +113,9 @@ export function Product() {
             <span>{product.title}</span>
           </div>
         </Container>
-      </section>
+      </Section>
 
-      <section className="section-padding">
+      <Section>
         <Container>
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
@@ -250,7 +252,7 @@ export function Product() {
             </div>
           </div>
         </Container>
-      </section>
+      </Section>
     </>
   );
 }
