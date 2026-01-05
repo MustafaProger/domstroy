@@ -64,16 +64,16 @@ export function Home() {
 							href='https://wa.me/79969979239'
 							target='_blank'
 							rel='noopener noreferrer'
-							className='btn-outline text-white border-white/60 hover:bg-white/20 w-60 m-auto sm:m-[0]'>
+							className='btn-outline text-white bg-white/10 border-white/60 hover:bg-white hover:text-black w-60 m-auto sm:m-[0]'>
 							Написать в WhatsApp
 						</a>
 						<Button
 							as='a'
 							href='/catalog'
-							className='btn-outline-yellow w-60 m-auto sm:m-[0]'>
+							className='btn-outline-yellow w-60 group m-auto sm:m-[0] bg-primary-500/10'>
 							Каталог
 							<ArrowRight
-								className='inline ml-2'
+								className='inline translate-x-1 group-hover:translate-x-2 transition-transform duration-300'
 								size={20}
 							/>
 						</Button>
@@ -248,10 +248,11 @@ export function Home() {
 							</Link>
 							<Button
 								as='a'
-								href='tel:+79969979239'>
+								href='tel:+79969979239'
+                className="group">
 								Позвонить сейчас
 								<ArrowRight
-									className='inline ml-2'
+									className='inline translate-x-1 group-hover:translate-x-2 transition-transform duration-300'
 									size={20}
 								/>
 							</Button>
