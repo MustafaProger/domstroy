@@ -447,15 +447,14 @@ export const testimonials: Testimonial[] = [
 ];
 
 export const companyInfo = {
-	name: "BuildMate",
-	foundedYear: 1995,
+	name: "ДомСтрой",
+	foundedYear: 2006,
 	description:
-		"BuildMate — надежный поставщик строительных материалов с более чем 25-летним опытом. Мы предлагаем качественную продукцию и высокий уровень сервиса.",
+		"ДомСтрой — надежный поставщик строительных материалов с более чем 20-летним опытом. Мы предлагаем качественную продукцию и высокий уровень сервиса.",
 	phone: "+7 996 997 92 39",
 	whatsapp: "+7 996 997 92 39",
 	telegram: "@Abuzarr222",
 	email: "abuzarkamilov@gmail.com",
 	address: "г. Москва, метро Саларьево, улица Адмирала Корнилова, квартал №17",
 	hours: "",
-	image: "https://images.pexels.com/photos/3935702/pexels-photo-3935702.jpeg",
 };

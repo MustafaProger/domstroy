@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, MessageCircle } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Container } from '../components';
 
 const menuItems = [
@@ -36,10 +36,6 @@ export function Header() {
     ? 'flex items-center hover:text-primary-500 gap-3 text-h3 font-bold text-white transition-colors'
     : 'flex items-center gap-3 text-h3 font-bold text-secondary-900 hover:text-primary-500 transition-colors';
 
-  const phoneClasses = isHome && !isScrolled
-    ? 'flex items-center gap-2 px-4 py-2 text-white/90 hover:text-primary-500 rounded-lg transition-colors'
-    : 'flex items-center gap-2 px-4 py-2 text-secondary-900 hover:text-primary-500 rounded-lg transition-colors';
-
   return (
     <header className={headerClasses}>
       <Container className="flex items-center justify-between py-4">
@@ -59,17 +55,6 @@ export function Header() {
             </Link>
           ))}
         </nav>
-
-        <div className="hidden md:flex items-center gap-3">
-          <a
-            href="tel:+79969979239"
-            className={phoneClasses}
-            aria-label="Позвонить нам"
-          >
-            <Phone size={20} />
-            <span className="text-body-sm font-medium">+7 996 997 92 39</span>
-          </a>
-        </div>
 
         <button
           className={`md:hidden p-2 rounded-lg transition-colors ${isHome && !isScrolled ? 'hover:bg-white/10 text-white' : 'hover:bg-secondary-100 text-secondary-900'}`}
@@ -93,24 +78,6 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <div className="pt-4 flex flex-col gap-2">
-              <a
-                href="tel:+79969979239"
-                className="btn-secondary text-center"
-              >
-                <Phone className="inline mr-2" size={18} />
-                Позвонить
-              </a>
-              <a
-                href="https://wa.me/79969979239"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-body-sm font-semibold"
-              >
-                <MessageCircle size={18} />
-                WhatsApp
-              </a>
-            </div>
           </Container>
         </div>
       )}
