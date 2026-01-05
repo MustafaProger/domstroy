@@ -64,13 +64,13 @@ export function Home() {
 							href='https://wa.me/79969979239'
 							target='_blank'
 							rel='noopener noreferrer'
-							className='btn-outline text-white border-white/60 hover:bg-white/20'>
+							className='btn-outline text-white border-white/60 hover:bg-white/20 w-60 m-auto sm:m-[0]'>
 							Написать в WhatsApp
 						</a>
 						<Button
 							as='a'
 							href='/catalog'
-							className='btn-outline-yellow'>
+							className='btn-outline-yellow w-60 m-auto sm:m-[0]'>
 							Каталог
 							<ArrowRight
 								className='inline ml-2'
@@ -83,7 +83,7 @@ export function Home() {
 
 			<Section>
 				<Container>
-					<div className='grid lg:grid-cols-[1fr_auto_1fr] gap-12 items-center'>
+					<div className='grid lg:grid-cols-[1fr_auto_auto] gap-12 items-center'>
 						<div>
 							<h2 className='mb-8'>Наша история</h2>
 							<p className='text-secondary-700 mb-4 leading-relaxed'>
@@ -114,7 +114,7 @@ export function Home() {
 							className='lg:hidden h-px w-full bg-secondary-200/80'
 							aria-hidden='true'
 						/>
-						<div className='space-y-10 lg:pt-2'>
+						<div className='space-y-10 lg:pt-2 text-center lg:text-left'>
 							<div>
 								<p className='text-h1 md:text-display font-extrabold text-primary-500'>
 									20+

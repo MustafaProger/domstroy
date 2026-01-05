@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
 import { Phone, Mail, MessageCircle, Send } from 'lucide-react';
-import { SEO, Container, Section, Button, Card } from '../components';
+import { SEO, Container, Section, Card } from '../components';
 
 export function Contact() {
   return (
@@ -42,7 +41,6 @@ export function Contact() {
               >
                 +7 996 997 92 39
               </a>
-              <p className="text-bodySm text-secondary-500 mt-2">WhatsApp по номеру выше</p>
             </Card>
 
             <Card className="p-6">
@@ -51,7 +49,6 @@ export function Contact() {
               <a href="mailto:abuzarkamilov@gmail.com" className="text-secondary-600 hover:text-primary-500 font-semibold text-bodySm">
                 abuzarkamilov@gmail.com
               </a>
-              <p className="text-bodySm text-secondary-500 mt-2">Ответим в течение 24 часов</p>
             </Card>
 
             <Card className="p-6">
@@ -65,7 +62,6 @@ export function Contact() {
               >
                 @Abuzarr222
               </a>
-              <p className="text-bodySm text-secondary-500 mt-2">Напишите нам в Telegram</p>
             </Card>
           </div>
 
@@ -78,18 +74,6 @@ export function Contact() {
               referrerPolicy="no-referrer-when-downgrade"
             />
           </Card>
-        </Container>
-      </Section>
-
-      <Section className="bg-secondary-50">
-        <Container className="text-center">
-          <h2 className="mb-4">Не можете найти то, что нужно?</h2>
-          <p className="text-secondary-600 mb-8 max-w-2xl mx-auto text-bodySm md:text-body">
-            Просмотрите наш полный каталог продукции или позвольте нашей команде помочь вам найти идеальные материалы для вашего проекта
-          </p>
-          <Link to="/catalog">
-            <Button variant="secondary">Посмотреть все товары</Button>
-          </Link>
         </Container>
       </Section>
     </>
