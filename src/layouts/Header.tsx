@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, MessageCircle } from 'lucide-react';
 import { Container } from '../components';
 
@@ -11,11 +11,39 @@ const menuItems = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const { pathname } = useLocation();
+  const isHome = pathname === '/';
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 8);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const headerClasses = isHome && !isScrolled
+    ? 'fixed top-0 left-0 right-0 z-50 bg-transparent border-transparent shadow-none transition-colors duration-300'
+    : 'fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-md border-b border-secondary-200/70 shadow-sm transition-colors duration-300';
+
+  const linkClasses = isHome && !isScrolled
+    ? 'text-white/90 hover:text-white font-medium transition-colors'
+    : 'text-secondary-900 hover:text-primary-500 font-medium transition-colors';
+
+  const brandClasses = isHome && !isScrolled
+    ? 'flex items-center gap-3 text-h3 font-bold text-white hover:text-white transition-colors'
+    : 'flex items-center gap-3 text-h3 font-bold text-secondary-900 hover:text-primary-500 transition-colors';
+
+  const phoneClasses = isHome && !isScrolled
+    ? 'flex items-center gap-2 px-4 py-2 text-white/90 hover:bg-white/10 rounded-lg transition-colors'
+    : 'flex items-center gap-2 px-4 py-2 text-secondary-900 hover:bg-secondary-50 rounded-lg transition-colors';
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-secondary-200 shadow-sm">
+    <header className={headerClasses}>
       <Container className="flex items-center justify-between py-4">
-        <Link to="/" className="flex items-center gap-3 text-2xl font-bold text-secondary-900 hover:text-primary-500 transition-colors">
+        <Link to="/" className={brandClasses}>
           <img src="/icon.png" alt="ДомСтрой" className="h-8 w-8 object-contain" />
           ДомСтрой
         </Link>
@@ -25,7 +53,7 @@ export function Header() {
             <Link
               key={item.href}
               to={item.href}
-              className="text-secondary-900 hover:text-primary-500 font-medium transition-colors"
+              className={linkClasses}
             >
               {item.label}
             </Link>
@@ -35,11 +63,11 @@ export function Header() {
         <div className="hidden md:flex items-center gap-3">
           <a
             href="tel:+79969979239"
-            className="flex items-center gap-2 px-4 py-2 text-secondary-900 hover:bg-secondary-50 rounded-lg transition-colors"
+            className={phoneClasses}
             aria-label="Позвонить нам"
           >
             <Phone size={20} />
-            <span className="text-sm font-medium">+7 996 997 92 39</span>
+            <span className="text-body-sm font-medium">+7 996 997 92 39</span>
           </a>
           <a
             href="https://wa.me/79969979239"
@@ -49,12 +77,12 @@ export function Header() {
             aria-label="Написать в WhatsApp"
           >
             <MessageCircle size={20} />
-            <span className="text-sm font-medium">WhatsApp</span>
+            <span className="text-body-sm font-medium">WhatsApp</span>
           </a>
         </div>
 
         <button
-          className="md:hidden p-2 hover:bg-secondary-100 rounded-lg transition-colors"
+          className={`md:hidden p-2 rounded-lg transition-colors ${isHome && !isScrolled ? 'hover:bg-white/10 text-white' : 'hover:bg-secondary-100 text-secondary-900'}`}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Переключить меню"
         >
@@ -63,13 +91,13 @@ export function Header() {
       </Container>
 
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-secondary-200 bg-secondary-50">
+        <div className={`md:hidden border-t ${isHome && !isScrolled ? 'border-white/10 bg-secondary-900/95 text-white' : 'border-secondary-200 bg-secondary-50'}`}>
           <Container className="py-4 flex flex-col gap-4">
             {menuItems.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
-                className="text-secondary-900 hover:text-primary-500 font-medium py-2"
+                className={`${isHome && !isScrolled ? 'text-white/90 hover:text-white' : 'text-secondary-900 hover:text-primary-500'} font-medium py-2`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.label}
@@ -78,7 +106,7 @@ export function Header() {
             <div className="pt-4 flex flex-col gap-2">
               <a
                 href="tel:+79969979239"
-                className="btn-secondary text-center text-sm"
+                className="btn-secondary text-center"
               >
                 <Phone className="inline mr-2" size={18} />
                 Позвонить
@@ -87,7 +115,7 @@ export function Header() {
                 href="https://wa.me/79969979239"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm font-semibold"
+                className="flex items-center justify-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-body-sm font-semibold"
               >
                 <MessageCircle size={18} />
                 WhatsApp

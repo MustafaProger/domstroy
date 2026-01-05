@@ -16,12 +16,13 @@ export function Home() {
         keywords="строительные материалы, цемент, кирпич, сталь, инструменты, поставки"
       />
 
-      <section className="bg-gradient-to-r from-secondary-900 via-secondary-800 to-secondary-900 text-white pt-20 pb-16 md:pt-32 md:pb-24">
-        <Container className="text-center">
-          <h1 className="text-display-xl mb-4 leading-tight">
+      <section className="hero-section">
+        <div className="hero-overlay" aria-hidden="true" />
+        <Container className="relative z-10 text-center">
+          <h1 className="text-h1 mb-4 text-white md:text-display">
             Премиальные строительные <br /> материалы для каждого проекта
           </h1>
-          <p className="text-lg md:text-xl text-secondary-200 mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-body md:text-h3 text-secondary-200 mb-8 max-w-2xl mx-auto">
             Надежный поставщик высококачественных строительных материалов. Быстрая доставка, конкурентные цены и профессиональный сервис.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
