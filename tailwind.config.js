@@ -42,8 +42,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-main)'],
       },
       fontSize: {
         'display-xl': ['3.5rem', { lineHeight: '1.1', fontWeight: '700' }],
