@@ -29,16 +29,16 @@ export function Header() {
     : 'fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-md border-b border-secondary-200/70 shadow-sm transition-colors duration-300';
 
   const linkClasses = isHome && !isScrolled
-    ? 'text-white/90 hover:text-white font-medium transition-colors'
+    ? 'text-white/90 hover:text-primary-500 font-medium transition-colors'
     : 'text-secondary-900 hover:text-primary-500 font-medium transition-colors';
 
   const brandClasses = isHome && !isScrolled
-    ? 'flex items-center gap-3 text-h3 font-bold text-white hover:text-white transition-colors'
+    ? 'flex items-center hover:text-primary-500 gap-3 text-h3 font-bold text-white transition-colors'
     : 'flex items-center gap-3 text-h3 font-bold text-secondary-900 hover:text-primary-500 transition-colors';
 
   const phoneClasses = isHome && !isScrolled
-    ? 'flex items-center gap-2 px-4 py-2 text-white/90 hover:bg-white/10 rounded-lg transition-colors'
-    : 'flex items-center gap-2 px-4 py-2 text-secondary-900 hover:bg-secondary-50 rounded-lg transition-colors';
+    ? 'flex items-center gap-2 px-4 py-2 text-white/90 hover:text-primary-500 rounded-lg transition-colors'
+    : 'flex items-center gap-2 px-4 py-2 text-secondary-900 hover:text-primary-500 rounded-lg transition-colors';
 
   return (
     <header className={headerClasses}>
@@ -68,16 +68,6 @@ export function Header() {
           >
             <Phone size={20} />
             <span className="text-body-sm font-medium">+7 996 997 92 39</span>
-          </a>
-          <a
-            href="https://wa.me/79969979239"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-            aria-label="Написать в WhatsApp"
-          >
-            <MessageCircle size={20} />
-            <span className="text-body-sm font-medium">WhatsApp</span>
           </a>
         </div>
 
