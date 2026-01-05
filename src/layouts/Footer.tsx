@@ -123,9 +123,9 @@ export function Footer() {
               &copy; {new Date().getFullYear()} ДомСтрой. Все права защищены.
             </p>
             <div className="flex gap-6">
-              <a href="#" className="text-secondary-400 hover:text-primary-400 transition-colors text-sm">
+              <Link to="/privacy-policy" className="text-secondary-400 hover:text-primary-400 transition-colors text-sm">
                 Политика конфиденциальности
-              </a>
+              </Link>
               <a href="#" className="text-secondary-400 hover:text-primary-400 transition-colors text-sm">
                 Условия использования
               </a>

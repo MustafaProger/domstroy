@@ -53,7 +53,7 @@ export function Home() {
 					<h1 className='text-h1 mb-4 text-white md:text-display'>
 						Премиальные строительные <br /> материалы для каждого проекта
 					</h1>
-					<p className='text-body md:text-h3 text-secondary-200 mb-8 max-w-2xl mx-auto'>
+					<p className='text-body md:text-h3 text-secondary-200 mb-8 max-w-2xl mx-auto leading-relaxed'>
 						Надежный поставщик высококачественных строительных материалов.
 						Быстрая доставка, конкурентные цены и профессиональный сервис.
 					</p>
@@ -81,9 +81,9 @@ export function Home() {
 
 			<section className='section-padding'>
 				<Container>
-					<div className='grid lg:grid-cols-2 gap-12 items-center'>
+					<div className='grid lg:grid-cols-[1fr_auto_auto] gap-12 items-center'>
 						<div>
-							<h2 className='mb-4'>Наша история</h2>
+							<h2 className='mb-8'>Наша история</h2>
 							<p className='text-secondary-700 mb-4 leading-relaxed'>
 								Основанная в 2006 году, компания ДомСтрой начала с простой
 								миссии: предоставлять высококачественные строительные материалы
@@ -104,12 +104,35 @@ export function Home() {
 								опытных профессионалов, преданных вашему успеху.
 							</p>
 						</div>
-						<div>
-							<img
-								src='/img/about-us.png'
-								alt='Объект ДомСтрой'
-								className='rounded-lg shadow-lg w-full h-96 object-cover'
-							/>
+						<div
+							className='hidden lg:block h-full w-px bg-secondary-200/80'
+							aria-hidden='true'
+						/>
+						<div
+							className='lg:hidden h-px w-full bg-secondary-200/80'
+							aria-hidden='true'
+						/>
+						<div className='space-y-10 lg:pt-2'>
+							<div>
+								<p className='text-6xl font-extrabold text-primary-500'>20+</p>
+								<p className='mt-2 text-secondary-600 text-sm md:text-base'>
+									Надёжный поставщик в отрасли
+								</p>
+							</div>
+							<div>
+								<p className='text-6xl font-extrabold text-primary-500'>
+									1500+
+								</p>
+								<p className='mt-2 text-secondary-600 text-sm md:text-base'>
+									Строительные профессионалы и компании
+								</p>
+							</div>
+							<div>
+								<p className='text-6xl font-extrabold text-primary-500'>300+</p>
+								<p className='mt-2 text-secondary-600 text-sm md:text-base'>
+									Полный ассортимент материалов
+								</p>
+							</div>
 						</div>
 					</div>
 				</Container>
@@ -201,38 +224,12 @@ export function Home() {
 				</Container>
 			</section>
 
-			<section className='bg-secondary-100 py-12 md:py-16'>
-				<Container>
-					<div className='grid sm:grid-cols-3 gap-8'>
-						<div className='text-center'>
-							<Award className='w-12 h-12 mx-auto text-primary-500 mb-4' />
-							<h3 className='font-bold text-lg mb-2'>20+ лет</h3>
-							<p className='text-secondary-700'>Надежный поставщик в отрасли</p>
-						</div>
-						<div className='text-center'>
-							<Users className='w-12 h-12 mx-auto text-primary-500 mb-4' />
-							<h3 className='font-bold text-lg mb-2'>1500+ клиентов</h3>
-							<p className='text-secondary-700'>
-								Строительные профессионалы и компании
-							</p>
-						</div>
-						<div className='text-center'>
-							<TrendingUp className='w-12 h-12 mx-auto text-primary-500 mb-4' />
-							<h3 className='font-bold text-lg mb-2'>300+ товаров</h3>
-							<p className='text-secondary-700'>
-								Полный ассортимент материалов
-							</p>
-						</div>
-					</div>
-				</Container>
-			</section>
-
 			<section className='bg-primary-500 text-secondary-900 py-12 md:py-16'>
 				<Container className='text-center'>
 					<h2 className='text-white mb-4'>Готовы начать?</h2>
 					<p className='text-white text-lg mb-8 max-w-2xl mx-auto'>
-						Свяжитесь с нами сегодня для получения расценки или обсуждения ваших
-						потребностей в строительных материалах
+						Поможем подобрать материалы, рассчитать объём и предложить
+						оптимальные условия поставки
 					</p>
 					<div className='flex flex-col sm:flex-row gap-4 justify-center'>
 						<a
@@ -241,9 +238,11 @@ export function Home() {
 							Позвонить сейчас
 						</a>
 						<Link
-							to='/contact'
+							to='https://wa.me/79969979239'
+							target='_blank'
+							rel='noopener noreferrer'
 							className='btn-outline text-center'>
-							Запросить расценку
+							Обсудить заказ
 						</Link>
 					</div>
 				</Container>
