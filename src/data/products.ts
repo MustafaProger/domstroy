@@ -66,7 +66,7 @@ export const products: Product[] = [
 			fineness: "3000 см²/г",
 			moisture_content: "<1%",
 		},
-		inStock: true,
+		inStock: false,
 	},
 	{
 		id: "prod-002",
@@ -88,7 +88,7 @@ export const products: Product[] = [
 			density: "1450 кг/м³",
 			water_absorption: "8%",
 		},
-		inStock: true,
+		inStock: false,
 	},
 	{
 		id: "prod-003",
