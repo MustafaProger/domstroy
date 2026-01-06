@@ -1,6 +1,18 @@
-import { useState, useMemo, useEffect } from "react";
+import {
+	useState,
+	useMemo,
+	useEffect,
+	useRef,
+	type MouseEvent,
+} from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { ArrowRight, Search, ArrowDown, ArrowUp } from "lucide-react";
+import {
+	ArrowRight,
+	Search,
+	ArrowDown,
+	ArrowUp,
+	ArrowLeft,
+} from "lucide-react";
 import {
 	SEO,
 	Container,
@@ -10,17 +22,136 @@ import {
 	SkeletonCard,
 } from "../components";
 import { useCategories, useProducts } from "../hooks";
+import type { Product } from "../types";
+
+const getCurrencySuffix = (price?: string) => {
+	if (!price) return "";
+	const cleaned = price.replace(/[0-9\s.,]/g, "").trim();
+	if (!cleaned) return "";
+	if (cleaned.includes("₽") || cleaned.toUpperCase() === "RUB") return "₽";
+	return cleaned;
+};
+
+const formatPrice = (value: number, currency?: string) => {
+	const formatted = new Intl.NumberFormat("ru-RU").format(value);
+	return currency ? `${formatted} ${currency}` : formatted;
+};
+
+function ProductCard({ product }: { product: Product }) {
+	const [qty, setQty] = useState(1);
+	const unitPrice = product.price
+		? Number(product.price.replace(/[^\d]/g, ""))
+		: null;
+	const currency = product.price ? getCurrencySuffix(product.price) || "₽" : "";
+	const totalPrice =
+		unitPrice !== null ? formatPrice(unitPrice * qty, currency) : "";
+
+	const handleDecrement = (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+		event.stopPropagation();
+		setQty((prev) => Math.max(1, prev - 1));
+	};
+
+	const handleIncrement = (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+		event.stopPropagation();
+		setQty((prev) => prev + 1);
+	};
+
+	return (
+		<Link
+			to={`/product/${product.slug}`}
+			className='h-full'>
+			<Card
+				hover
+				className='group overflow-hidden h-full flex flex-col bg-white border-secondary-200/70 shadow-sm'>
+				<div className='w-full h-48 overflow-hidden bg-secondary-100'>
+					<img
+						src={product.images[0]}
+						alt={product.title}
+						className='w-full h-full object-cover transition-transform duration-300 group-hover:scale-110'
+					/>
+				</div>
+				<div className='p-5 flex flex-col flex-1'>
+					<h3 className='font-medium text-base text-secondary-900 mb-3 min-h-[3rem]'>
+						{product.title}
+					</h3>
+					<div className='mt-auto flex flex-col gap-3 pt-4 border-t border-secondary-200'>
+						{product.price && unitPrice !== null && (
+							<div className='flex flex-wrap items-center justify-between gap-3 sm:flex-nowrap'>
+								<span className='text-secondary-900 font-semibold text-lg leading-tight'>
+									{totalPrice}
+								</span>
+								<div className='flex items-center gap-2 sm:gap-1'>
+									<button
+										type='button'
+										onClick={handleDecrement}
+										disabled={qty === 1}
+										aria-label='Уменьшить количество'
+										className='h-8 w-8 text-base sm:h-6 sm:w-6 sm:text-sm rounded-lg border border-secondary-200 text-secondary-700 transition-all hover:bg-secondary-100 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed'>
+										-
+									</button>
+									<span className='min-w-[1.5rem] text-center text-bodySm font-semibold text-secondary-900'>
+										{qty}
+									</span>
+									<button
+										type='button'
+										onClick={handleIncrement}
+										aria-label='Увеличить количество'
+										className='h-8 w-8 text-base sm:h-6 sm:w-6 sm:text-sm rounded-lg border border-secondary-200 text-secondary-700 transition-all hover:bg-secondary-100 active:scale-95'>
+										+
+									</button>
+								</div>
+							</div>
+						)}
+						<div className='flex items-center justify-between'>
+							{product.inStock ? (
+								<span className='text-caption font-semibold text-green-600'>
+									В наличии
+								</span>
+							) : (
+								<span className='text-caption font-semibold text-red-600'>
+									Нет в наличии
+								</span>
+							)}
+							<ArrowRight
+								size={20}
+								className='text-primary-500 transition-transform duration-300 group-hover:translate-x-1'
+							/>
+						</div>
+					</div>
+				</div>
+			</Card>
+		</Link>
+	);
+}
 
 export function Catalog() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const selectedCategory = searchParams.get("category") || "";
+	const stockParam = searchParams.get("stock");
+	const stockFilter =
+		stockParam === "in" || stockParam === "out" ? stockParam : "all";
 	const [searchTerm, setSearchTerm] = useState("");
-	const [currentPage, setCurrentPage] = useState(1);
-	const [priceSort, setPriceSort] = useState<"none" | "asc" | "desc">("none");
+	const sortParam = searchParams.get("sort");
+	const priceSort =
+		sortParam === "price_asc"
+			? "asc"
+			: sortParam === "price_desc"
+			? "desc"
+			: "none";
 	const pageSize = 9;
+	const listTopRef = useRef<HTMLDivElement | null>(null);
+	const isFirstRender = useRef(true);
+	const isFirstFilterSync = useRef(true);
 
 	const { categories, loading: categoriesLoading } = useCategories();
 	const { products, loading: productsLoading } = useProducts();
+	const currentPage = useMemo(() => {
+		const pageParam = Number(searchParams.get("page"));
+		if (!Number.isFinite(pageParam) || pageParam < 1) return 1;
+		return Math.floor(pageParam);
+	}, [searchParams]);
 
 	const parsePrice = (price?: string) => {
 		if (!price) return null;
@@ -35,14 +166,20 @@ export function Catalog() {
 		const byCategory = selectedCategory
 			? products.filter((p) => p.category === categoryName)
 			: products;
+		const byStock =
+			stockFilter === "all"
+				? byCategory
+				: byCategory.filter((product) =>
+						stockFilter === "in" ? product.inStock : !product.inStock
+				  );
 		const query = searchTerm.trim().toLowerCase();
 		const searched = query
-			? byCategory.filter((product) => {
+			? byStock.filter((product) => {
 					const haystack =
 						`${product.title} ${product.shortDescription} ${product.category}`.toLowerCase();
 					return haystack.includes(query);
 			  })
-			: byCategory;
+			: byStock;
 
 		if (priceSort === "none") return searched;
 
@@ -54,7 +191,14 @@ export function Catalog() {
 			if (bPrice === null) return -1;
 			return priceSort === "asc" ? aPrice - bPrice : bPrice - aPrice;
 		});
-	}, [products, categories, selectedCategory, searchTerm, priceSort]);
+	}, [
+		products,
+		categories,
+		selectedCategory,
+		stockFilter,
+		searchTerm,
+		priceSort,
+	]);
 
 	const totalPages = Math.max(1, Math.ceil(filteredProducts.length / pageSize));
 
@@ -64,46 +208,71 @@ export function Catalog() {
 	}, [filteredProducts, currentPage, pageSize]);
 
 	useEffect(() => {
-		setCurrentPage(1);
-	}, [selectedCategory, searchTerm, priceSort]);
+		if (isFirstFilterSync.current) {
+			isFirstFilterSync.current = false;
+			return;
+		}
+		if (currentPage === 1) return;
+		const params = new URLSearchParams(searchParams);
+		params.set("page", "1");
+		setSearchParams(params);
+	}, [searchTerm]);
 
 	useEffect(() => {
-		window.scrollTo({ top: 0, behavior: "instant" });
-	}, [currentPage]);
+		if (productsLoading) return;
+		if (isFirstRender.current) {
+			isFirstRender.current = false;
+			return;
+		}
+		const frame = window.requestAnimationFrame(() => {
+			const target = listTopRef.current;
+			if (!target) return;
+			const header = document.querySelector("header");
+			const headerOffset =
+				header instanceof HTMLElement ? header.offsetHeight : 0;
+			const targetTop =
+				target.getBoundingClientRect().top + window.scrollY - headerOffset - 16;
+			window.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" });
+		});
+		return () => window.cancelAnimationFrame(frame);
+	}, [currentPage, productsLoading]);
 
 	const handlePriceSortToggle = () => {
-		setPriceSort((prev) =>
-			prev === "none" ? "asc" : prev === "asc" ? "desc" : "none"
-		);
+		const params = new URLSearchParams(searchParams);
+		if (priceSort === "none") {
+			params.set("sort", "price_asc");
+		} else if (priceSort === "asc") {
+			params.set("sort", "price_desc");
+		} else {
+			params.delete("sort");
+		}
+		params.set("page", "1");
+		setSearchParams(params);
 	};
 
 	const getPaginationItems = () => {
-		const items: Array<number | "ellipsis"> = [];
+		const items: number[] = [];
 		if (totalPages <= 5) {
 			for (let page = 1; page <= totalPages; page += 1) items.push(page);
 			return items;
 		}
 
-		const startPage = Math.max(2, Math.min(currentPage - 1, totalPages - 3));
-		const endPage = Math.min(totalPages - 1, startPage + 2);
+		const startPage = Math.min(
+			Math.max(1, currentPage),
+			Math.max(1, totalPages - 4)
+		);
 
-		items.push(1);
-
-		if (startPage > 2) items.push("ellipsis");
-
-		for (let page = startPage; page <= endPage; page += 1) {
+		for (let page = startPage; page <= startPage + 4; page += 1) {
 			items.push(page);
 		}
 
-		if (endPage < totalPages - 1) items.push("ellipsis");
-		items.push(totalPages);
 		return items;
 	};
 
 	const handleCategoryChange = (slug: string) => {
 		const params = new URLSearchParams(searchParams);
 
-		if (slug === selectedCategory) {
+		if (!slug || slug === selectedCategory) {
 			params.delete("category");
 		} else {
 			params.set("category", slug);
@@ -113,6 +282,24 @@ export function Catalog() {
 
 		setSearchParams(params);
 		setSearchTerm("");
+	};
+
+	const handleStockChange = (value: "all" | "in" | "out") => {
+		const params = new URLSearchParams(searchParams);
+		if (value === "all") {
+			params.delete("stock");
+		} else {
+			params.set("stock", value);
+		}
+		params.set("page", "1");
+		setSearchParams(params);
+	};
+
+	const handlePageChange = (page: number) => {
+		const params = new URLSearchParams(searchParams);
+		const nextPage = Math.max(1, page);
+		params.set("page", String(nextPage));
+		setSearchParams(params);
 	};
 
 	return (
@@ -183,12 +370,7 @@ export function Catalog() {
 															? "bg-primary-500 text-secondary-900 font-semibold"
 															: "text-secondary-700 hover:bg-secondary-100"
 													}`}>
-													<div className='flex justify-between items-center'>
-														<span>{category.name}</span>
-														<span className='text-caption font-semibold opacity-75'>
-															({category.productCount})
-														</span>
-													</div>
+													<span>{category.name}</span>
 												</button>
 											))}
 										</div>
@@ -199,7 +381,7 @@ export function Catalog() {
 
 						<main className='xl:col-span-3 lg:col-span-4 bg-white/70 backdrop-blur-sm rounded-3xl border border-secondary-200/60 p-4 sm:p-6 shadow-sm'>
 							<div className='mb-10 flex flex-col gap-6'>
-								<div>
+								<div ref={listTopRef}>
 									<h2 className='text-h2 font-bold text-secondary-900'>
 										{selectedCategory
 											? categories.find((c) => c.slug === selectedCategory)
@@ -253,8 +435,8 @@ export function Catalog() {
 								</div>
 
 								<div className='w-full'>
-									<div className='flex w-full flex-row items-center gap-2 sm:gap-3'>
-										<div className='relative flex-1 min-w-0'>
+									<div className='flex w-full flex-col gap-3 sm:flex-row sm:items-center'>
+										<div className='relative w-full sm:flex-1'>
 											<Search
 												className='absolute left-3 top-1/2 -translate-y-1/2 text-secondary-400'
 												size={18}
@@ -264,20 +446,47 @@ export function Catalog() {
 												onChange={(event) => setSearchTerm(event.target.value)}
 												placeholder='Поиск товаров'
 												aria-label='Поиск товаров'
-												className='w-full rounded-xl border border-secondary-300/70 bg-white/90 pl-10 pr-4 py-2.5 text-bodySm text-secondary-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200 transition-colors'
+												className='h-12 w-full rounded-xl border border-secondary-300/70 bg-white/90 pl-10 pr-4 text-bodySm text-secondary-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200 transition-colors'
 											/>
 										</div>
-										<Button
-											variant='outline'
-											size='sm'
-											onClick={handlePriceSortToggle}
-											className='shrink-0 w-auto min-w-[92px]'>
-											<span className='flex items-center gap-2'>
-												Цена
-												{priceSort === "asc" && <ArrowDown size={16} />}
-												{priceSort === "desc" && <ArrowUp size={16} />}
-											</span>
-										</Button>
+										<div className='flex w-full gap-3 sm:w-auto'>
+											<div className='relative flex-1 sm:w-44 sm:flex-none'>
+												<select
+													value={stockFilter}
+													onChange={(event) =>
+														handleStockChange(
+															event.target.value as "all" | "in" | "out"
+														)
+													}
+													aria-label='Наличие'
+													className='h-12 w-full appearance-none rounded-xl border border-secondary-300/70 bg-white/90 pl-3 pr-10 text-bodySm text-secondary-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200 transition-colors'>
+													<option value='all'>Наличие: все</option>
+													<option value='in'>Наличие: в наличии</option>
+													<option value='out'>Наличие: нет</option>
+												</select>
+												<span
+													aria-hidden='true'
+													className={`pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full ${
+														stockFilter === "in"
+															? "bg-green-500"
+															: stockFilter === "out"
+															? "bg-red-500"
+															: "bg-secondary-300"
+													}`}
+												/>
+											</div>
+											<Button
+												variant='outline'
+												size='sm'
+												onClick={handlePriceSortToggle}
+												className='h-12 flex-1 sm:w-36 sm:flex-none font-normal'>
+												<span className='flex items-center justify-center gap-2'>
+													Цена
+													{priceSort === "asc" && <ArrowDown size={16} />}
+													{priceSort === "desc" && <ArrowUp size={16} />}
+												</span>
+											</Button>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -293,52 +502,10 @@ export function Catalog() {
 							) : filteredProducts.length > 0 ? (
 								<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'>
 									{paginatedProducts.map((product) => (
-										<Link
+										<ProductCard
 											key={product.id}
-											to={`/product/${product.slug}`}>
-											<Card
-												hover
-												className='overflow-hidden h-full flex flex-col bg-white border-secondary-200/70 shadow-sm'>
-												<div className='w-full h-40 sm:h-48 overflow-hidden bg-secondary-100'>
-													<img
-														src={product.images[0]}
-														alt={product.title}
-														className='w-full h-full object-cover hover:scale-110 transition-transform duration-300'
-													/>
-												</div>
-												<div className='p-5 flex-grow flex flex-col'>
-													<p className='text-caption font-semibold text-primary-600 uppercase mb-2'>
-														{product.category}
-													</p>
-													<h3 className='text-h3 font-bold text-secondary-900 mb-2 line-clamp-2'>
-														{product.title}
-													</h3>
-													{product.price && (
-														<p className='text-secondary-900 font-semibold mb-2 text-bodySm'>
-															{product.price}
-														</p>
-													)}
-													<p className='text-bodySm text-secondary-600 mb-4 flex-grow line-clamp-3'>
-														{product.shortDescription}
-													</p>
-													<div className='flex items-center justify-between pt-4 border-t border-secondary-200'>
-														{product.inStock ? (
-															<span className='text-caption font-semibold text-green-600'>
-																В наличии
-															</span>
-														) : (
-															<span className='text-caption font-semibold text-red-600'>
-																Нет в наличии
-															</span>
-														)}
-														<ArrowRight
-															size={16}
-															className='text-primary-500'
-														/>
-													</div>
-												</div>
-											</Card>
-										</Link>
+											product={product}
+										/>
 									))}
 								</div>
 							) : (
@@ -358,46 +525,36 @@ export function Catalog() {
 								<div className='mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2'>
 									<button
 										type='button'
-										className='sr-only'
 										onClick={() =>
-											setCurrentPage((prev) => Math.max(1, prev - 1))
+											handlePageChange(Math.max(1, currentPage - 1))
 										}
 										disabled={currentPage === 1}
 										aria-label='Предыдущая страница'
-									/>
-									{getPaginationItems().map((item, index) => {
-										if (item === "ellipsis") {
-											return (
-												<span
-													key={`ellipsis-${index}`}
-													className='text-secondary-500'>
-													...
-												</span>
-											);
-										}
-										const page = item;
-										return (
-											<button
-												key={page}
-												className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg border transition-colors ${
-													page === currentPage
-														? "bg-primary-500 text-secondary-900 border-primary-500 font-semibold"
-														: "border-secondary-200 text-secondary-700 hover:bg-secondary-50"
-												}`}
-												onClick={() => setCurrentPage(page)}>
-												{page}
-											</button>
-										);
-									})}
+										className='w-9 h-9 sm:w-10 sm:h-10 rounded-lg border border-secondary-200 text-secondary-700 flex items-center justify-center transition-colors hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed'>
+										<ArrowLeft size={18} />
+									</button>
+									{getPaginationItems().map((page) => (
+										<button
+											key={page}
+											className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg border transition-colors ${
+												page === currentPage
+													? "bg-primary-500 text-secondary-900 border-primary-500 font-semibold"
+													: "border-secondary-200 text-secondary-700 hover:bg-secondary-50"
+											}`}
+											onClick={() => handlePageChange(page)}>
+											{page}
+										</button>
+									))}
 									<button
 										type='button'
-										className='sr-only'
 										onClick={() =>
-											setCurrentPage((prev) => Math.min(totalPages, prev + 1))
+											handlePageChange(Math.min(totalPages, currentPage + 1))
 										}
 										disabled={currentPage === totalPages}
 										aria-label='Следующая страница'
-									/>
+										className='w-9 h-9 sm:w-10 sm:h-10 rounded-lg border border-secondary-200 text-secondary-700 flex items-center justify-center transition-colors hover:bg-secondary-50 disabled:opacity-50 disabled:cursor-not-allowed'>
+										<ArrowRight size={18} />
+									</button>
 								</div>
 							)}
 						</main>

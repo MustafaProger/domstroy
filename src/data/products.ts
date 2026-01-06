@@ -48,14 +48,14 @@ const baseCategories: Array<Omit<Category, "productCount">> = [
 export const products: Product[] = [
 	{
 		id: "prod-001",
-		title: "Портландцемент 50 кг",
+		title: "Шпатлевка готовая 'DANOGIPS SuperFinish'e (28кг/17л) (33шт/под)",
 		slug: "portlandcement-50kg",
 		category: "Цемент и бетон",
 		categoryId: "1",
 		description:
 			"Высококачественный портландцемент, подходящий для всех бетонных работ. Соответствует международным стандартам прочности и долговечности.",
 		shortDescription: "Премиальный цемент для бетонных конструкций",
-		price: "650 RUB",
+		price: "650",
 		images: [
 			"https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg",
 		],
@@ -77,7 +77,7 @@ export const products: Product[] = [
 		description:
 			"Конструкционные бетонные блоки для несущих стен. Высокая прочность и отличная износостойкость.",
 		shortDescription: "Несущие бетонные блоки",
-		price: "85 RUB",
+		price: "85",
 		images: [
 			"https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg",
 		],
@@ -99,7 +99,7 @@ export const products: Product[] = [
 		description:
 			"Высокопрочная арматура для железобетонных конструкций. Соответствует всем строительным нормам.",
 		shortDescription: "Арматура для строительных конструкций",
-		price: "1 200 RUB",
+		price: "1 200",
 		images: [
 			"https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg",
 		],
@@ -121,7 +121,7 @@ export const products: Product[] = [
 		description:
 			"Мощная профессиональная дрель для строительных работ. Регулировка скорости и эргономичный дизайн.",
 		shortDescription: "Промышленная дрель",
-		price: "8 900 RUB",
+		price: "8 900",
 		images: [
 			"https://images.pexels.com/photos/2663867/pexels-photo-2663867.jpeg",
 		],
@@ -143,7 +143,7 @@ export const products: Product[] = [
 		description:
 			"Качественная фанера для опалубки и внутренних работ. Многослойная структура обеспечивает прочность.",
 		shortDescription: "Фанера для строительства",
-		price: "2 150 RUB",
+		price: "2 150",
 		images: [
 			"https://images.pexels.com/photos/1884580/pexels-photo-1884580.jpeg",
 		],
@@ -165,7 +165,7 @@ export const products: Product[] = [
 		description:
 			"Премиальная фасадная краска с высокой устойчивостью к погодным условиям и ультрафиолету.",
 		shortDescription: "Устойчивая фасадная краска",
-		price: "6 900 RUB",
+		price: "6 900",
 		images: [
 			"https://images.pexels.com/photos/3962285/pexels-photo-3962285.jpeg",
 		],
@@ -187,7 +187,7 @@ export const products: Product[] = [
 		description:
 			"Универсальная сухая смесь для стяжек, кладки и мелкого ремонта. Устойчива к трещинообразованию.",
 		shortDescription: "Универсальная смесь для строительных работ",
-		price: "520 RUB",
+		price: "520",
 		images: [
 			"https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg",
 		],
@@ -209,7 +209,7 @@ export const products: Product[] = [
 		description:
 			"Готовая бетонная смесь для фундаментов, дорожек и площадок. Стабильная прочность и удобная укладка.",
 		shortDescription: "Готовый бетон для общестроительных работ",
-		price: "5 200 RUB",
+		price: "5 200",
 		images: [
 			"https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg",
 		],
@@ -231,7 +231,7 @@ export const products: Product[] = [
 		description:
 			"Классический полнотелый кирпич для несущих стен и перегородок. Надежный и долговечный материал.",
 		shortDescription: "Полнотелый кирпич для кладки",
-		price: "32 RUB",
+		price: "32",
 		images: [
 			"https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg",
 		],
@@ -253,7 +253,7 @@ export const products: Product[] = [
 		description:
 			"Легкие блоки для теплых стен. Удобные размеры для быстрой кладки и высокой теплоизоляции.",
 		shortDescription: "Газобетонные блоки для наружных стен",
-		price: "290 RUB",
+		price: "290",
 		images: [
 			"https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg",
 		],
@@ -275,7 +275,7 @@ export const products: Product[] = [
 		description:
 			"Арматура для армирования железобетонных конструкций. Хорошая свариваемость и высокая прочность.",
 		shortDescription: "Арматура для каркасов и фундаментов",
-		price: "980 RUB",
+		price: "980",
 		images: [
 			"https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg",
 		],
@@ -297,7 +297,7 @@ export const products: Product[] = [
 		description:
 			"Равнополочный стальной уголок для каркасов, усилений и металлических конструкций.",
 		shortDescription: "Уголок для металлоконструкций",
-		price: "1 350 RUB",
+		price: "1 350",
 		images: [
 			"https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg",
 		],
@@ -319,7 +319,7 @@ export const products: Product[] = [
 		description:
 			"Надежный перфоратор для бурения и долбления бетона. Подходит для интенсивной работы.",
 		shortDescription: "Перфоратор для профессионального использования",
-		price: "12 900 RUB",
+		price: "12 900",
 		images: [
 			"https://images.pexels.com/photos/2663867/pexels-photo-2663867.jpeg",
 		],
@@ -341,7 +341,7 @@ export const products: Product[] = [
 		description:
 			"Самовыравнивающийся лазерный уровень для точной разметки. Проецирует 360° плоскости.",
 		shortDescription: "Лазерный уровень для точных измерений",
-		price: "7 800 RUB",
+		price: "7 800",
 		images: [
 			"https://images.pexels.com/photos/2663867/pexels-photo-2663867.jpeg",
 		],
@@ -363,7 +363,7 @@ export const products: Product[] = [
 		description:
 			"Сухой строганный брус для каркасного строительства и кровельных работ.",
 		shortDescription: "Брус для каркасных конструкций",
-		price: "750 RUB",
+		price: "750",
 		images: [
 			"https://images.pexels.com/photos/1884580/pexels-photo-1884580.jpeg",
 		],
@@ -376,7 +376,6 @@ export const products: Product[] = [
 		},
 		inStock: true,
 	},
-  
 	{
 		id: "prod-016",
 		title: "Интерьерная краска 10 л",
@@ -386,7 +385,7 @@ export const products: Product[] = [
 		description:
 			"Интерьерная краска для стен и потолков. Равномерное нанесение и стойкость к истиранию.",
 		shortDescription: "Краска для внутренних работ",
-		price: "3 900 RUB",
+		price: "3 900",
 		images: [
 			"https://images.pexels.com/photos/3962285/pexels-photo-3962285.jpeg",
 		],
@@ -399,7 +398,7 @@ export const products: Product[] = [
 		},
 		inStock: true,
 	},
-  
+	
 ];
 
 export const categories: Category[] = baseCategories.map((category) => ({
