@@ -1,37 +1,9 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Award, Users, TrendingUp, Heart } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { SEO, Container, Section, Button, Card, SkeletonCard } from "../components";
 import { useCategories } from "../hooks";
 import { companyInfo } from "../data/products";
-
-const features = [
-	{
-		number: "01",
-		title: "Качество",
-		description:
-			"Продукты соответствуют международным стандартам и проходят контроль качества",
-		icon: Award,
-	},
-	{
-		number: "02",
-		title: "Поддержка",
-		description: "Наша команда предоставляет профессиональные консультации",
-		icon: Users,
-	},
-	{
-		number: "03",
-		title: "Цены",
-		description: "Лучшие цены на рынке без компромиссов в качестве",
-		icon: TrendingUp,
-	},
-	{
-		number: "04",
-		title: "Надежность",
-		description:
-			"Быстрая доставка и стабильный сервис, на который можно положиться",
-		icon: Heart,
-	},
-];
+import { HOME_FEATURES } from "../features/home/constants";
 
 export function Home() {
 	const { categories, loading: categoriesLoading } = useCategories();
@@ -155,7 +127,7 @@ export function Home() {
 					</div>
 
 					<div className='grid sm:grid-cols-2 lg:grid-cols-4 gap-6'>
-						{features.map(({ number, title, description, icon: Icon }) => (
+						{HOME_FEATURES.map(({ number, title, description, icon: Icon }) => (
 							<Card
 								key={number}
 								className='feature-card transition-all duration-300'>
