@@ -3,16 +3,14 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Card } from "../../components";
 import type { Product } from "../../types";
-import { formatPrice, getCurrencySuffix } from "./utils";
+import { formatPrice } from "./utils";
 
 export function ProductCard({ product }: { product: Product }) {
 	const [qty, setQty] = useState(1);
 	const unitPrice = product.price
 		? Number(product.price.replace(/[^\d]/g, ""))
 		: null;
-	const currency = product.price ? getCurrencySuffix(product.price) || "₽" : "";
-	const totalPrice =
-		unitPrice !== null ? formatPrice(unitPrice * qty, currency) : "";
+	const totalPrice = unitPrice !== null ? formatPrice(unitPrice * qty) : "";
 
 	const handleDecrement = (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
@@ -45,7 +43,7 @@ export function ProductCard({ product }: { product: Product }) {
 						{product.title}
 					</h3>
 					<div className='mt-auto flex flex-col gap-3 pt-4 border-t border-secondary-200'>
-						{product.price && unitPrice !== null && (
+						{unitPrice !== null ? (
 							<div className='flex flex-wrap items-center justify-between gap-3 sm:flex-nowrap'>
 								<span className='text-secondary-900 font-semibold text-lg leading-tight'>
 									{totalPrice}
@@ -71,6 +69,10 @@ export function ProductCard({ product }: { product: Product }) {
 									</button>
 								</div>
 							</div>
+						) : (
+							<span className='text-secondary-700 text-bodySm font-semibold'>
+								Цена по запросу
+							</span>
 						)}
 						<div className='flex items-center justify-between'>
 							{product.inStock ? (

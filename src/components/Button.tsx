@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 interface ButtonProps {
   children: ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'glass';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
   disabled?: boolean;
@@ -19,6 +19,7 @@ const variants = {
   primary: 'btn-primary',
   secondary: 'btn-secondary',
   outline: 'btn-outline',
+  glass: 'btn-glass',
 };
 
 const sizes = {

@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import {
 	SEO,
 	Container,
@@ -7,6 +7,7 @@ import {
 	Card,
 	Button,
 	SkeletonCard,
+	Breadcrumbs,
 } from "../components";
 import { useCategories, useProducts } from "../hooks";
 import { CategoryChips } from "./catalog/CategoryChips";
@@ -138,6 +139,10 @@ export function Catalog() {
 		() => getPaginationItems(totalPages, currentPage),
 		[totalPages, currentPage]
 	);
+	const selectedCategoryName = selectedCategory
+		? categories.find((c) => c.slug === selectedCategory)?.name ||
+		  selectedCategory
+		: "";
 
 	const handleCategoryChange = (slug: string) => {
 		const params = new URLSearchParams(searchParams);
@@ -184,15 +189,17 @@ export function Catalog() {
 				variant='hero'
 				className='bg-gradient-to-b from-secondary-100/90 via-secondary-50 to-secondary-50 border-b border-secondary-200/70'>
 				<Container>
-					<div className='flex items-center gap-2 mb-4 text-bodySm text-secondary-600'>
-						<Link
-							to='/'
-							className='hover:text-primary-500'>
-							Главная
-						</Link>
-						<span>/</span>
-						<span>Каталог</span>
-					</div>
+					<Breadcrumbs
+						className='mb-4'
+						glass
+						items={[
+							{ label: "Главная", href: "/" },
+							{ label: "Каталог", href: "/catalog" },
+							...(selectedCategoryName
+								? [{ label: selectedCategoryName }]
+								: []),
+						]}
+					/>
 					<h1>Каталог продукции</h1>
 					<p className='text-secondary-600 mt-2 max-w-xl text-bodySm md:text-body'>
 						Изучите наш полный ассортимент высококачественных строительных
