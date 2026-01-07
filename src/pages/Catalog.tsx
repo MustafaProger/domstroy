@@ -186,12 +186,11 @@ export function Catalog() {
 			/>
 
 			<Section
-				variant='hero'
-				className='bg-gradient-to-b from-secondary-100/90 via-secondary-50 to-secondary-50 border-b border-secondary-200/70'>
+				variant='default'
+				className='liquid-glass-for-bread-crumbs'>
 				<Container>
 					<Breadcrumbs
-						className='mb-4'
-						glass
+						className='mt-4 mb-4'
 						items={[
 							{ label: "Главная", href: "/" },
 							{ label: "Каталог", href: "/catalog" },
@@ -208,7 +207,7 @@ export function Catalog() {
 				</Container>
 			</Section>
 
-			<Section className='bg-secondary-100/60 border-t border-secondary-200/60'>
+			<Section variant="catalog" className='bg-secondary-100/60 border-t border-secondary-200/60'>
 				<Container>
 					<div className='grid lg:grid-cols-4 gap-8 items-start'>
 						<CategorySidebar

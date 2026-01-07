@@ -57,7 +57,7 @@ export function Home() {
 				<Container>
 					<div className='grid lg:grid-cols-[1fr_auto_auto] gap-12 items-center'>
 						<div>
-							<h2 className='mb-8'>Наша история</h2>
+							<h2 className='mb-8 text-h2 md:text-h1'>Наша история</h2>
 							<p className='text-secondary-700 mb-4 leading-relaxed'>
 								Основанная в 2006 году, компания ДомСтрой начала с простой
 								миссии: предоставлять высококачественные строительные материалы
@@ -119,7 +119,7 @@ export function Home() {
 			<Section className='bg-secondary-50'>
 				<Container>
 					<div className='mb-12 text-center'>
-						<h2>Почему выбирают нас</h2>
+						<h2 className='text-h2 md:text-h1'>Почему выбирают нас</h2>
 						<p className='text-secondary-600 mt-4 max-w-xl mx-auto text-bodySm md:text-body'>
 							Мы преданы успеху вашего проекта благодаря качественным материалам
 							и профессиональному сервису
@@ -152,7 +152,7 @@ export function Home() {
 			<Section>
 				<Container>
 					<div className='mb-12 text-center'>
-						<h2>Категории продукции</h2>
+						<h2 className='text-h2 md:text-h1'>Категории продукции</h2>
 						<p className='text-secondary-600 mt-4 max-w-xl mx-auto text-bodySm md:text-body'>
 							Изучите наш полный ассортимент строительных материалов,
 							организованный по категориям
@@ -205,7 +205,9 @@ export function Home() {
 			<Section variant='form'>
 				<Container>
 					<div className='mx-auto max-w-3xl rounded-2xl border border-secondary-200 bg-white px-8 py-10 text-center sm:px-10'>
-						<h2 className='text-secondary-900 mb-4'>Готовы начать?</h2>
+						<h2 className='text-secondary-900 mb-4 text-h2 md:text-h1'>
+							Готовы начать?
+						</h2>
 						<p className='text-secondary-700 text-body mb-8'>
 							Поможем подобрать материалы, рассчитать объём и предложить
 							оптимальные условия поставки

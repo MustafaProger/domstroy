@@ -58,6 +58,11 @@ export const products: Product[] = [
 		price: "650",
 		images: [
 			"https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg",
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTRen2XYJa6Hnz5CUl5PXEviZMPI1xFGIbJA&s",
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaWuqpfsfwRuVxR2xI3-h2BwlnJLGJr4kX0g&s",
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3bH4QF9TsjjlqXbDhcQ2htXe2dBLGuPg1Dg&s",
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3MRBY3CNpxA_zzEl8fdtwP74sASAeH6g1ZQ&s",
+
 		],
 		specifications: {
 			weight: "50 кг",

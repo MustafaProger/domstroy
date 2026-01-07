@@ -84,6 +84,10 @@
 	.feature-number {
 		@apply text-2xl font-extrabold text-secondary-500 mb-1;
 	}
+
+	.liquid-glass-for-bread-crumbs {
+		@apply bg-gradient-to-b from-secondary-100/90 via-secondary-50 to-secondary-50
+	}
 }
 
 @layer utilities {
