@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 interface ButtonProps {
   children: ReactNode;
@@ -46,14 +47,14 @@ export function Button({
 
   if (as === 'a' && href) {
     return (
-      <a
-        href={href}
+      <Link
+        to={href}
         target={target}
         rel={rel}
         className={`inline-block ${baseClasses} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
       >
         {children}
-      </a>
+      </Link>
     );
   }
 

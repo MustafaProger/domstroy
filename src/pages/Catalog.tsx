@@ -186,7 +186,7 @@ export function Catalog() {
 			/>
 
 			<Section
-				variant='default'
+				variant='breadCrumbs'
 				className='liquid-glass-for-bread-crumbs'>
 				<Container>
 					<Breadcrumbs

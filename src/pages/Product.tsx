@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, type MouseEvent } from "react";
 import { Link, useParams } from "react-router-dom";
 import { MessageCircle, Phone, Mail, Send } from "lucide-react";
 import {
@@ -12,7 +12,7 @@ import {
 } from "../components";
 import { useCategories, useProductBySlug } from "../hooks";
 import { SPEC_LABELS } from "../features/product/constants";
-import { formatPrice, parsePrice } from "../utils/price";
+import { formatPrice } from "../utils/price";
 
 export function Product() {
 	const { slug = "" } = useParams();
@@ -20,6 +20,19 @@ export function Product() {
 	const { categories } = useCategories();
 	const [selectedImage, setSelectedImage] = useState(0);
 	const sliderRef = useRef<HTMLDivElement | null>(null);
+	const [qty, setQty] = useState(1);
+
+	const handleDecrement = (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+		event.stopPropagation();
+		setQty((prev) => Math.max(1, prev - 1));
+	};
+
+	const handleIncrement = (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+		event.stopPropagation();
+		setQty((prev) => prev + 1);
+	};
 
 	const handleSlideSelect = (index: number) => {
 		setSelectedImage(index);
@@ -54,6 +67,11 @@ export function Product() {
 		return match?.slug || "";
 	}, [categories, product]);
 
+	const unitPrice = product?.price
+		? Number(product.price.replace(/[^\d]/g, ""))
+		: null;
+	const totalPrice = unitPrice !== null ? formatPrice(unitPrice * qty) : "";
+
 	if (loading) return <Loading />;
 
 	if (error || !product) {
@@ -76,10 +94,6 @@ export function Product() {
 		);
 	}
 
-	const priceValue = parsePrice(product.price);
-	const formattedPrice = priceValue
-		? formatPrice(priceValue)
-		: "Цена по запросу";
 	const specEntries = Object.entries(product.specifications);
 
 	return (
@@ -91,7 +105,7 @@ export function Product() {
 			/>
 
 			<Section
-				variant='default'
+				variant='breadCrumbs'
 				className='liquid-glass-for-bread-crumbs pb-4'>
 				<Container>
 					<Breadcrumbs
@@ -113,9 +127,9 @@ export function Product() {
 				</Container>
 			</Section>
 
-			<Section className='pt-0 md:pt-0'>
-				<Container>
-					<div className='grid lg:grid-cols-[1.1fr_0.9fr] gap-6 sm:gap-8 lg:gap-10 items-start'>
+			<Section className='!pt-0 !md:pt-0'>
+				<Container className='space-y-8'>
+					<div className='grid lg:grid-cols-[1fr_1fr] gap-6 sm:gap-8 lg:gap-10 items-start'>
 						<div className='w-full'>
 							<div className='glass-panel rounded-3xl overflow-hidden relative aspect-[4/3] w-full'>
 								{product.images.length > 0 ? (
@@ -165,64 +179,44 @@ export function Product() {
 							<h1 className='text-2xl lg:text-3xl font-semibold leading-tight text-secondary-900 lg:flex-1'>
 								{product.title}
 							</h1>
-							<div className='flex flex-wrap items-center gap-3'>
-								<p className='text-2xl sm:text-3xl font-semibold text-secondary-900'>
-									{formattedPrice}
+							{product.inStock ? (
+								<Badge variant='success'>В наличии</Badge>
+							) : (
+								<Badge variant='danger'>Нет в наличии</Badge>
+							)}
+							<div className='flex flex-wrap items-center gap-6'>
+								<p className='text-3xl sm:text-4xl font-semibold text-secondary-900'>
+									{totalPrice}
 								</p>
-								{product.inStock ? (
-									<Badge variant='success'>В наличии</Badge>
-								) : (
-									<Badge variant='danger'>Нет в наличии</Badge>
-								)}
+								<div className='flex items-center gap-2 sm:gap-1'>
+									<button
+										type='button'
+										onClick={handleDecrement}
+										disabled={qty === 1}
+										aria-label='Уменьшить количество'
+										className='h-10 w-10 text-base sm:h-8 sm:w-8 sm:text-sm rounded-lg border border-secondary-200 text-secondary-700 transition-all hover:bg-secondary-100 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed'>
+										-
+									</button>
+									<span className='min-w-[2rem] text-center text-lg font-semibold text-secondary-900'>
+										{qty}
+									</span>
+									<button
+										type='button'
+										onClick={handleIncrement}
+										aria-label='Увеличить количество'
+										className='h-10 w-10 text-base sm:h-8 sm:w-8 sm:text-sm rounded-lg border border-secondary-200 text-secondary-700 transition-all hover:bg-secondary-100 active:scale-95'>
+										+
+									</button>
+								</div>
 							</div>
+
 							<p className='text-secondary-600 text-bodySm md:text-body line-clamp-3'>
 								{product.shortDescription || product.description}
 							</p>
-
-							<div className='glass-panel rounded-2xl p-4 sm:p-5'>
-								<h3 className='text-xl lg:text-2xl font-semibold text-secondary-900 mb-6'>
-									Связаться с нами
-								</h3>
-								<div className='grid gap-3 sm:grid-cols-2'>
-									<Button
-										as='a'
-										href='https://wa.me/79969979239'
-										target='_blank'
-										rel='noopener noreferrer'
-										className='w-full flex items-center justify-center gap-2 text-white bg-[#27D366] hover:bg-[#27C366]'>
-										<MessageCircle size={18} />
-										WhatsApp
-									</Button>
-									<Button
-										as='a'
-										href='https://t.me/Abuzarr222'
-										target='_blank'
-										rel='noopener noreferrer'
-										className='w-full flex items-center justify-center gap-2 text-white bg-[#3490EC] hover:bg-[#3284d7]'>
-										<Send size={18} />
-										Telegram
-									</Button>
-									<Button
-										as='a'
-										href='tel:+79969979239'
-										variant='secondary'
-										className='w-full flex items-center justify-center gap-2'>
-										<Phone size={18} />
-										Позвонить
-									</Button>
-									<Button
-										as='a'
-										href='mailto:abuzarkamilov@gmail.com'
-										className='w-full flex items-center justify-center gap-2'>
-										<Mail size={18} />
-										Email
-									</Button>
-								</div>
-							</div>
 						</div>
 					</div>
 
-					<div className='mt-8 sm:mt-10'>
+					<div className=''>
 						<div className='glass-panel rounded-2xl p-4 sm:p-6'>
 							<h3 className='text-xl lg:text-2xl font-semibold text-secondary-900 mb-8'>
 								Характеристики
@@ -241,6 +235,47 @@ export function Product() {
 									</div>
 								))}
 							</div>
+						</div>
+					</div>
+
+					<div className='glass-panel rounded-2xl p-4 sm:p-5'>
+						<h3 className='text-xl lg:text-2xl font-semibold text-secondary-900 mb-6'>
+							Связаться с нами
+						</h3>
+						<div className='grid gap-3 sm:grid-cols-2 md:grid-cols-4'>
+							<Button
+								as='a'
+								href='mailto:abuzarkamilov@gmail.com'
+								className='w-full flex items-center justify-center gap-2'>
+								<Mail size={18} />
+								Email
+							</Button>
+							<Button
+								as='a'
+								href='tel:+79969979239'
+								variant='secondary'
+								className='w-full flex items-center justify-center gap-2'>
+								<Phone size={18} />
+								Позвонить
+							</Button>
+							<Button
+								as='a'
+								href='https://wa.me/79969979239'
+								target='_blank'
+								rel='noopener noreferrer'
+								className='w-full flex items-center justify-center gap-2 text-white bg-[#27D366] hover:bg-[#27C366]'>
+								<MessageCircle size={18} />
+								WhatsApp
+							</Button>
+							<Button
+								as='a'
+								href='https://t.me/Abuzarr222'
+								target='_blank'
+								rel='noopener noreferrer'
+								className='w-full flex items-center justify-center gap-2 text-white bg-[#3490EC] hover:bg-[#3284d7]'>
+								<Send size={18} />
+								Telegram
+							</Button>
 						</div>
 					</div>
 				</Container>
