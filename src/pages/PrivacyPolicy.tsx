@@ -1,4 +1,4 @@
-import { SEO, Container, Section } from "../components";
+import { SEO, Container, Section, Card } from "../components";
 
 const styles = {
 	containerPoint: "mb-6",
@@ -17,9 +17,13 @@ export function PrivacyPolicy() {
 				keywords='политика конфиденциальности, персональные данные, домстрой'
 			/>
 
-			<Section variant='hero' className='bg-secondary-50 border-b border-secondary-200'>
+			<Section
+				variant='contacts'
+				className='liquid-glass-for-bread-crumbs'>
 				<Container>
-					<h1 className='text-h1 md:text-h1'>Политика конфиденциальности</h1>
+					<h1 className='break-words hyphens-auto' lang='ru'>
+						Политика конфиденциальности
+					</h1>
 					<p className='text-secondary-600 mt-2 max-w-2xl text-bodySm md:text-body'>
 						Настоящая политика определяет порядок обработки информации о
 						посетителях сайта.
@@ -27,9 +31,9 @@ export function PrivacyPolicy() {
 				</Container>
 			</Section>
 
-			<Section>
+			<Section className='bg-secondary-100/60 border-t border-secondary-200/60'>
 				<Container>
-					<div className='max-w-3xl space-y-5'>
+					<Card className='max-w-3xl space-y-5 p-5 sm:p-10 m-[0_auto]'>
 						<div className={containerPoint}>
 							<h2 className={titlePoint}>1. Общие положения</h2>
 							<p className={textPoint}>
@@ -48,7 +52,9 @@ export function PrivacyPolicy() {
 									сайта (например, IP-адрес, тип браузера, сведения об
 									устройстве, дата и время посещения).
 								</li>
-								<li className={textPoint}>Файлы cookies и данные аналитики посещений.</li>
+								<li className={textPoint}>
+									Файлы cookies и данные аналитики посещений.
+								</li>
 								<li className={textPoint}>
 									Сведения, передаваемые пользователем при обращении по
 									телефону, email, WhatsApp или Telegram.
@@ -64,9 +70,15 @@ export function PrivacyPolicy() {
 						<div className={containerPoint}>
 							<h2 className={titlePoint}>3. Цели обработки данных</h2>
 							<ul className='list-disc pl-5 space-y-1'>
-								<li className={textPoint}>Связь с клиентом и обработка обращений.</li>
-								<li className={textPoint}>Подготовка ответов и коммерческих предложений.</li>
-								<li className={textPoint}>Аналитика и улучшение работы сайта.</li>
+								<li className={textPoint}>
+									Связь с клиентом и обработка обращений.
+								</li>
+								<li className={textPoint}>
+									Подготовка ответов и коммерческих предложений.
+								</li>
+								<li className={textPoint}>
+									Аналитика и улучшение работы сайта.
+								</li>
 							</ul>
 						</div>
 
@@ -94,8 +106,12 @@ export function PrivacyPolicy() {
 						<div className={containerPoint}>
 							<h2 className={titlePoint}>6. Права пользователя</h2>
 							<ul className='list-disc pl-5 space-y-1'>
-								<li className={textPoint}>Запросить сведения о данных, которые обрабатываются.</li>
-								<li className={textPoint}>Попросить уточнить или обновить данные.</li>
+								<li className={textPoint}>
+									Запросить сведения о данных, которые обрабатываются.
+								</li>
+								<li className={textPoint}>
+									Попросить уточнить или обновить данные.
+								</li>
 								<li className={textPoint}>
 									Попросить удалить данные, если это не противоречит
 									обязательным требованиям.
@@ -113,7 +129,7 @@ export function PrivacyPolicy() {
 								и<a href='tel:+79969979239'> +7 996 997 92 39</a>.
 							</p>
 						</div>
-					</div>
+					</Card>
 				</Container>
 			</Section>
 		</>
