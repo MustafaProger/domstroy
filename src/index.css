@@ -78,7 +78,7 @@
 	}
 
 	.feature-card {
-		@apply p-7 text-center bg-white border border-secondary-100 transition-transform duration-300 hover:-translate-y-1 hover:border-primary-500 hover:shadow-lg;
+		@apply py-7 px-4 text-center bg-white border border-secondary-100 transition-transform duration-300 hover:-translate-y-1 hover:border-primary-500 hover:shadow-lg;
 	}
 
 	.feature-number {

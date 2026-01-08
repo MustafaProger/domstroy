@@ -1,6 +1,12 @@
 import { ReactNode } from "react";
 
-type SectionVariant = "default" | "hero" | "form" | "catalog" | "breadCrumbs";
+type SectionVariant =
+	| "default"
+	| "hero"
+	| "form"
+	| "catalog"
+	| "breadCrumbs"
+	| "contacts";
 
 interface SectionProps {
 	children: ReactNode;
@@ -9,11 +15,12 @@ interface SectionProps {
 }
 
 const variantClasses: Record<SectionVariant, string> = {
-	default: 'py-8 md:py-12',
+	default: "py-8 md:py-12",
 	breadCrumbs: "pt-20 pb-10",
 	hero: "pt-20 pb-12 md:pt-24 md:pb-16",
 	form: "py-6 md:py-12 md:pt-4",
 	catalog: "py-8 md:py-12",
+	contacts: "pt-24 pb-8 sm:pt-28 sm:pb-10",
 };
 
 export function Section({
