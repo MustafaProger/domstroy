@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { SEO, Container, Section, Button, Card, SkeletonCard } from "../components";
 import { useCategories } from "../hooks";
-import { companyInfo } from "../data/products";
 import { HOME_FEATURES } from "../features/home/constants";
 
 export function Home() {
@@ -66,7 +65,7 @@ export function Home() {
 								региона для строительных профессионалов.
 							</p>
 							<p className='text-secondary-700 mb-4 leading-relaxed'>
-								За {new Date().getFullYear() - companyInfo.foundedYear} лет мы
+								За {new Date().getFullYear() - 2006} лет мы
 								построили прочные отношения с подрядчиками, строительными
 								компаниями и индивидуальными строителями. Наша приверженность
 								качеству, надежности и исключительному обслуживанию клиентов

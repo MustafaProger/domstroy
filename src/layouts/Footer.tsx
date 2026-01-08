@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MessageCircle, Send } from "lucide-react";
 import { Container } from "../components";
+import { categoryLinks } from "../data/categories";
+import { contactItems } from "../data/contacts";
+
+const quickLinks = [
+	{ to: "/", label: "Главная" },
+	{ to: "/catalog", label: "Продукция" },
+	{ to: "/contact", label: "Контакты" },
+];
 
 export function Footer() {
 	return (
@@ -23,27 +30,15 @@ export function Footer() {
 								Быстрые ссылки
 							</h4>
 							<ul className='space-y-2'>
-								<li>
-									<Link
-										to='/'
-										className='text-secondary-300 hover:text-primary-400 transition-colors text-bodySm'>
-										Главная
-									</Link>
-								</li>
-								<li>
-									<Link
-										to='/catalog'
-										className='text-secondary-300 hover:text-primary-400 transition-colors text-bodySm'>
-										Продукция
-									</Link>
-								</li>
-								<li>
-									<Link
-										to='/contact'
-										className='text-secondary-300 hover:text-primary-400 transition-colors text-bodySm'>
-										Контакты
-									</Link>
-								</li>
+								{quickLinks.map((link) => (
+									<li key={link.to}>
+										<Link
+											to={link.to}
+											className='text-secondary-300 hover:text-primary-400 transition-colors text-bodySm'>
+											{link.label}
+										</Link>
+									</li>
+								))}
 							</ul>
 						</div>
 
@@ -52,34 +47,15 @@ export function Footer() {
 								Категории
 							</h4>
 							<ul className='space-y-2'>
-								<li>
-									<a
-										href='#'
-										className='text-secondary-300 hover:text-primary-400 transition-colors text-bodySm'>
-										Цемент и бетон
-									</a>
-								</li>
-								<li>
-									<a
-										href='#'
-										className='text-secondary-300 hover:text-primary-400 transition-colors text-bodySm'>
-										Кирпич и блоки
-									</a>
-								</li>
-								<li>
-									<a
-										href='#'
-										className='text-secondary-300 hover:text-primary-400 transition-colors text-bodySm'>
-										Сталь и железо
-									</a>
-								</li>
-								<li>
-									<a
-										href='#'
-										className='text-secondary-300 hover:text-primary-400 transition-colors text-bodySm'>
-										Инструменты и оборудование
-									</a>
-								</li>
+								{categoryLinks.map((link) => (
+									<li key={link.label}>
+										<Link
+											to={link.to}
+											className='text-secondary-300 hover:text-primary-400 transition-colors text-bodySm'>
+											{link.label}
+										</Link>
+									</li>
+								))}
 							</ul>
 						</div>
 
@@ -88,66 +64,26 @@ export function Footer() {
 								Контактная информация
 							</h4>
 							<div className='space-y-3'>
-								<div className='flex items-start gap-3'>
-									<Phone
-										size={18}
-										className='mt-1 text-primary-400 flex-shrink-0'
-									/>
-									<div>
-										<p className='text-caption text-secondary-400'>Телефон</p>
-										<a
-											href='tel:+79969979239'
-											className='text-secondary-100 hover:text-primary-400 transition-colors text-bodySm'>
-											+7 996 997 92 39
-										</a>
+								{contactItems.map(({ label, value, href, Icon, external }) => (
+									<div
+										key={label}
+										className='flex items-start gap-3'>
+										<Icon
+											size={18}
+											className='mt-1 text-primary-400 flex-shrink-0'
+										/>
+										<div>
+											<p className='text-caption text-secondary-400'>{label}</p>
+											<a
+												href={href}
+												target={external ? "_blank" : undefined}
+												rel={external ? "noopener noreferrer" : undefined}
+												className='text-secondary-100 hover:text-primary-400 transition-colors text-bodySm'>
+												{value}
+											</a>
+										</div>
 									</div>
-								</div>
-								<div className='flex items-start gap-3'>
-									<MessageCircle
-										size={18}
-										className='mt-1 text-primary-400 flex-shrink-0'
-									/>
-									<div>
-										<p className='text-caption text-secondary-400'>WhatsApp</p>
-										<a
-											href='https://wa.me/79969979239'
-											target='_blank'
-											rel='noopener noreferrer'
-											className='text-secondary-100 hover:text-primary-400 transition-colors text-bodySm'>
-											+7 996 997 92 39
-										</a>
-									</div>
-								</div>
-								<div className='flex items-start gap-3'>
-									<Mail
-										size={18}
-										className='mt-1 text-primary-400 flex-shrink-0'
-									/>
-									<div>
-										<p className='text-caption text-secondary-400'>Email</p>
-										<a
-											href='mailto:abuzarkamilov@gmail.com'
-											className='text-secondary-100 hover:text-primary-400 transition-colors text-bodySm'>
-											abuzarkamilov@gmail.com
-										</a>
-									</div>
-								</div>
-								<div className='flex items-start gap-3'>
-									<Send
-										size={18}
-										className='mt-1 text-primary-400 flex-shrink-0'
-									/>
-									<div>
-										<p className='text-caption text-secondary-400'>Telegram</p>
-										<a
-											href='https://t.me/Abuzarr222'
-											target='_blank'
-											rel='noopener noreferrer'
-											className='text-secondary-100 hover:text-primary-400 transition-colors text-bodySm'>
-											@Abuzarr222
-										</a>
-									</div>
-								</div>
+								))}
 							</div>
 						</div>
 					</div>
