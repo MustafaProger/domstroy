@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Product } from '../types';
 import { productService } from '../services/api';
+import { fetchProductBySlug } from "../services/wp";
 
 export function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -37,7 +38,7 @@ export function useProductBySlug(slug: string) {
       try {
         setLoading(true);
         setError(null);
-        const data = await productService.getProductBySlug(slug);
+        const data = await fetchProductBySlug(slug);
         setProduct(data);
         if (!data) {
           setError('Product not found');

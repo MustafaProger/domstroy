@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Container } from "../components";
 import { categoryLinks } from "../data/categories";
-import { contactItems } from "../data/contacts";
+import { useContacts } from "../hooks";
 
 const quickLinks = [
 	{ to: "/", label: "Главная" },
@@ -10,6 +10,8 @@ const quickLinks = [
 ];
 
 export function Footer() {
+	const { contactItems, loading } = useContacts();
+
 	return (
 		<footer className='bg-secondary-900 text-white'>
 			<div className='py-14'>
@@ -63,28 +65,41 @@ export function Footer() {
 							<h4 className='font-semibold mb-4 text-body text-secondary-100'>
 								Контактная информация
 							</h4>
-							<div className='space-y-3'>
-								{contactItems.map(({ label, value, href, Icon, external }) => (
-									<div
-										key={label}
-										className='flex items-start gap-3'>
-										<Icon
-											size={18}
-											className='mt-1 text-primary-400 flex-shrink-0'
-										/>
-										<div>
-											<p className='text-caption text-secondary-400'>{label}</p>
-											<a
-												href={href}
-												target={external ? "_blank" : undefined}
-												rel={external ? "noopener noreferrer" : undefined}
-												className='text-secondary-100 hover:text-primary-400 transition-colors text-bodySm'>
-												{value}
-											</a>
+							{loading ? (
+								<div className='space-y-3'>
+									{Array(3)
+										.fill(null)
+										.map((_, index) => (
+											<div
+												key={index}
+												className='h-5 bg-secondary-800/70 rounded animate-pulse'
+											/>
+										))}
+								</div>
+							) : contactItems.length > 0 ? (
+								<div className='space-y-3'>
+									{contactItems.map(({ label, value, href, Icon, external }) => (
+										<div
+											key={label}
+											className='flex items-start gap-3'>
+											<Icon
+												size={18}
+												className='mt-1 text-primary-400 flex-shrink-0'
+											/>
+											<div>
+												<p className='text-caption text-secondary-400'>{label}</p>
+												<a
+													href={href}
+													target={external ? "_blank" : undefined}
+													rel={external ? "noopener noreferrer" : undefined}
+													className='text-secondary-100 hover:text-primary-400 transition-colors text-bodySm'>
+													{value}
+												</a>
+											</div>
 										</div>
-									</div>
-								))}
-							</div>
+									))}
+								</div>
+							) : null}
 						</div>
 					</div>
 

@@ -1,4 +1,5 @@
 import { SEO, Container, Section, Card } from "../components";
+import { useContacts } from "../hooks";
 
 const styles = {
 	containerPoint: "mb-6",
@@ -9,6 +10,8 @@ const styles = {
 const { containerPoint, titlePoint, textPoint } = styles;
 
 export function PrivacyPolicy() {
+	const { contacts, links, loading } = useContacts();
+
 	return (
 		<>
 			<SEO
@@ -122,11 +125,21 @@ export function PrivacyPolicy() {
 						<div className={containerPoint}>
 							<h2 className={titlePoint}>7. Контакты</h2>
 							<p className={textPoint}>
-								По вопросам обработки данных:{" "}
-								<a href='mailto:abuzarkamilov@gmail.com'>
-									abuzarkamilov@gmail.com
-								</a>{" "}
-								и<a href='tel:+79969979239'> +7 996 997 92 39</a>.
+								{!loading && contacts ? (
+									<>
+										По вопросам обработки данных:{" "}
+										{links.email ? (
+											<a href={links.email}>{contacts.email}</a>
+										) : null}
+										{links.email && links.phone ? " и " : ""}
+										{links.phone ? (
+											<a href={links.phone}>{contacts.phone}</a>
+										) : null}
+										.
+									</>
+								) : (
+									"По вопросам обработки данных: свяжитесь с нами."
+								)}
 							</p>
 						</div>
 					</Card>

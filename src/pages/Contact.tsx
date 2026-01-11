@@ -1,7 +1,9 @@
 import { SEO, Container, Section, Card } from "../components";
-import { contactItems } from "../data/contacts";
+import { useContacts } from "../hooks";
 
 export function Contact() {
+	const { contactItems, loading } = useContacts();
+
 	return (
 		<>
 			<SEO
@@ -25,21 +27,37 @@ export function Contact() {
 			<Section className='bg-secondary-100/60 border-t border-secondary-200/60'>
 				<Container>
 					<div className='grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-12'>
-						{contactItems.map(({ label, value, href, Icon: Icon, external }) => (
-							<Card
-								key={label}
-								className='feature-card transition-all duration-300'>
-								<Icon className='w-12 h-12 text-primary-500 mx-auto mb-4' />
-								<h3 className='text-h3 font-bold mb-2 text-center'>{label}</h3>
-								<a
-									href={href}
-									target={external ? "_blank" : undefined}
-									rel={external ? "noopener noreferrer" : undefined}
-									className='text-secondary-600 hover:text-primary-500 font-semibold text-bodySm text-center'>
-									{value}
-								</a>
-							</Card>
-						))}
+						{loading
+							? Array(4)
+									.fill(null)
+									.map((_, index) => (
+										<Card
+											key={index}
+											className='feature-card transition-all duration-300'>
+											<div className='h-12 w-12 rounded-full bg-secondary-200/70 animate-pulse mx-auto mb-4' />
+											<div className='h-5 w-32 bg-secondary-200/70 animate-pulse mx-auto mb-3 rounded' />
+											<div className='h-4 w-40 bg-secondary-200/70 animate-pulse mx-auto rounded' />
+										</Card>
+									))
+							: contactItems.map(
+									({ label, value, href, Icon: Icon, external }) => (
+										<Card
+											key={label}
+											className='feature-card transition-all duration-300'>
+											<Icon className='w-12 h-12 text-primary-500 mx-auto mb-4' />
+											<h3 className='text-h3 font-bold mb-2 text-center'>
+												{label}
+											</h3>
+											<a
+												href={href}
+												target={external ? "_blank" : undefined}
+												rel={external ? "noopener noreferrer" : undefined}
+												className='text-secondary-600 hover:text-primary-500 font-semibold text-bodySm text-center'>
+												{value}
+											</a>
+										</Card>
+									)
+							  )}
 					</div>
 
 					<Card className='p-0 overflow-hidden'>

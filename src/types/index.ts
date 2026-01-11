@@ -13,12 +13,14 @@ export interface Product {
   slug: string;
   category: string;
   categoryId: string;
+  categoryIds?: string[];
   price?: string;
   description: string;
   shortDescription: string;
   images: string[];
   specifications: Record<string, string>;
   inStock: boolean;
+  characteristicsText?: string;
 }
 
 export interface PageMeta {
@@ -27,4 +29,11 @@ export interface PageMeta {
   ogImage?: string;
   canonical?: string;
   keywords?: string;
+}
+
+export interface Contacts {
+  phone: string;
+  whatsapp: string;
+  email: string;
+  telegram: string;
 }

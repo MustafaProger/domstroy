@@ -9,7 +9,7 @@ import {
 	SkeletonCard,
 	Breadcrumbs,
 } from "../components";
-import { useCategories, useProducts } from "../hooks";
+import { useWpCatalog } from "../hooks";
 import { CategoryChips } from "./catalog/CategoryChips";
 import { CategorySidebar } from "./catalog/CategorySidebar";
 import { CatalogFilters } from "./catalog/CatalogFilters";
@@ -36,39 +36,38 @@ export function Catalog() {
 	const isFirstRender = useRef(true);
 	const isFirstFilterSync = useRef(true);
 
-	const { categories, loading: categoriesLoading } = useCategories();
-	const { products, loading: productsLoading } = useProducts();
 	const currentPage = useMemo(() => {
 		const pageParam = Number(searchParams.get("page"));
 		if (!Number.isFinite(pageParam) || pageParam < 1) return 1;
 		return Math.floor(pageParam);
 	}, [searchParams]);
 
+	const {
+		items,
+		categories,
+		total,
+		totalPages,
+		loading: productsLoading,
+		error,
+		categoriesLoading,
+	} = useWpCatalog({
+		page: currentPage,
+		perPage: pageSize,
+		search: searchTerm,
+		categorySlug: selectedCategory,
+	});
+
 	const filteredProducts = useMemo(() => {
-		const categoryName = categories.find(
-			(c) => c.slug === selectedCategory
-		)?.name;
-		const byCategory = selectedCategory
-			? products.filter((p) => p.category === categoryName)
-			: products;
 		const byStock =
 			stockFilter === "all"
-				? byCategory
-				: byCategory.filter((product) =>
+				? items
+				: items.filter((product) =>
 						stockFilter === "in" ? product.inStock : !product.inStock
 				  );
-		const query = searchTerm.trim().toLowerCase();
-		const searched = query
-			? byStock.filter((product) => {
-					const haystack =
-						`${product.title} ${product.shortDescription} ${product.category}`.toLowerCase();
-					return haystack.includes(query);
-			  })
-			: byStock;
 
-		if (priceSort === "none") return searched;
+		if (priceSort === "none") return byStock;
 
-		return [...searched].sort((a, b) => {
+		return [...byStock].sort((a, b) => {
 			const aPrice = parsePrice(a.price);
 			const bPrice = parsePrice(b.price);
 			if (aPrice === null && bPrice === null) return 0;
@@ -76,21 +75,10 @@ export function Catalog() {
 			if (bPrice === null) return -1;
 			return priceSort === "asc" ? aPrice - bPrice : bPrice - aPrice;
 		});
-	}, [
-		products,
-		categories,
-		selectedCategory,
-		stockFilter,
-		searchTerm,
-		priceSort,
-	]);
+	}, [items, stockFilter, priceSort]);
 
-	const totalPages = Math.max(1, Math.ceil(filteredProducts.length / pageSize));
-
-	const paginatedProducts = useMemo(() => {
-		const startIndex = (currentPage - 1) * pageSize;
-		return filteredProducts.slice(startIndex, startIndex + pageSize);
-	}, [filteredProducts, currentPage, pageSize]);
+	const displayTotal =
+		stockFilter === "all" ? total : filteredProducts.length;
 
 	useEffect(() => {
 		if (isFirstFilterSync.current) {
@@ -227,11 +215,11 @@ export function Catalog() {
 											: "Все товары"}
 									</h2>
 									<p className='text-secondary-600 mt-1 text-bodySm'>
-										Показано {filteredProducts.length}{" "}
-										{filteredProducts.length === 1
+										Показано {displayTotal}{" "}
+										{displayTotal === 1
 											? "товар"
-											: filteredProducts.length > 1 &&
-											  filteredProducts.length < 5
+											: displayTotal > 1 &&
+											  displayTotal < 5
 											? "товара"
 											: "товаров"}
 									</p>
@@ -262,9 +250,20 @@ export function Catalog() {
 											<SkeletonCard key={i} />
 										))}
 								</div>
+							) : error ? (
+								<Card className='p-12 text-center bg-white/80 border-secondary-200/70 shadow-sm'>
+									<p className='text-secondary-600 text-body mb-4'>
+										{error}
+									</p>
+									<Button
+										variant='secondary'
+										onClick={() => handleCategoryChange("")}>
+										Посмотреть все товары
+									</Button>
+								</Card>
 							) : filteredProducts.length > 0 ? (
 								<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'>
-									{paginatedProducts.map((product) => (
+									{filteredProducts.map((product) => (
 										<ProductCard
 											key={product.id}
 											product={product}

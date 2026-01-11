@@ -10,7 +10,7 @@ import {
 	Badge,
 	Breadcrumbs,
 } from "../components";
-import { useCategories, useProductBySlug } from "../hooks";
+import { useCategories, useContacts, useProductBySlug } from "../hooks";
 import { SPEC_LABELS } from "../features/product/constants";
 import { formatPrice } from "../utils/price";
 
@@ -18,6 +18,7 @@ export function Product() {
 	const { slug = "" } = useParams();
 	const { product, loading, error } = useProductBySlug(slug);
 	const { categories } = useCategories();
+	const { links: contactLinks, loading: contactsLoading } = useContacts();
 	const [selectedImage, setSelectedImage] = useState(0);
 	const sliderRef = useRef<HTMLDivElement | null>(null);
 	const [qty, setQty] = useState(1);
@@ -59,6 +60,27 @@ export function Product() {
 		return normalized.charAt(0).toUpperCase() + normalized.slice(1);
 	};
 
+	const characteristics = useMemo(() => {
+		const raw = product?.characteristicsText?.trim();
+		if (!raw) return [];
+
+		return raw
+			.split(/\r?\n/)
+			.map((line) => line.trim())
+			.filter(Boolean)
+			.map((line) => {
+				const dividerIndex = line.indexOf(":");
+				if (dividerIndex === -1) return null;
+				const name = line.slice(0, dividerIndex).trim();
+				const value = line.slice(dividerIndex + 1).trim();
+				if (!name || !value) return null;
+				return { name, value };
+			})
+			.filter(
+				(item): item is { name: string; value: string } => item !== null
+			);
+	}, [product?.characteristicsText]);
+
 	const categorySlug = useMemo(() => {
 		if (!product) return "";
 		const match = categories.find(
@@ -71,6 +93,11 @@ export function Product() {
 		? Number(product.price.replace(/[^\d]/g, ""))
 		: null;
 	const totalPrice = unitPrice !== null ? formatPrice(unitPrice * qty) : "";
+	const hasContactLinks =
+		!!contactLinks.email ||
+		!!contactLinks.phone ||
+		!!contactLinks.whatsapp ||
+		!!contactLinks.telegram;
 
 	if (loading) return <Loading />;
 
@@ -216,68 +243,102 @@ export function Product() {
 						</div>
 					</div>
 
-					<div className=''>
-						<div className='glass-panel rounded-2xl p-4 sm:p-6'>
-							<h3 className='text-xl lg:text-2xl font-semibold text-secondary-900 mb-8'>
-								Характеристики
-							</h3>
-							<div className='grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3'>
-								{specEntries.map(([key, value]) => (
-									<div
-										key={key}
-										className='flex items-start justify-between gap-3 border-b border-secondary-200/60 pb-2'>
-										<span className='font-semibold text-secondary-700 text-bodySm'>
-											{formatSpecLabel(key)}
-										</span>
-										<span className='text-secondary-900 text-right text-bodySm'>
-											{value}
-										</span>
-									</div>
-								))}
+					{characteristics.length > 0 ? (
+						<div className=''>
+							<div className='glass-panel rounded-2xl p-4 sm:p-6'>
+								<h3 className='text-xl lg:text-2xl font-semibold text-secondary-900 mb-8'>
+									Характеристики
+								</h3>
+								<div className='grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3'>
+									{characteristics.map((item) => (
+										<div
+											key={item.name}
+											className='flex items-start justify-between gap-3 border-b border-secondary-200/60 pb-2'>
+											<span className='font-semibold text-secondary-700 text-bodySm'>
+												{item.name}
+											</span>
+											<span className='text-secondary-900 text-right text-bodySm'>
+												{item.value}
+											</span>
+										</div>
+									))}
+								</div>
 							</div>
 						</div>
-					</div>
-
-					<div className='glass-panel rounded-2xl p-4 sm:p-5'>
-						<h3 className='text-xl lg:text-2xl font-semibold text-secondary-900 mb-6'>
-							Связаться с нами
-						</h3>
-						<div className='grid gap-3 sm:grid-cols-2 md:grid-cols-4'>
-							<Button
-								as='a'
-								href='mailto:abuzarkamilov@gmail.com'
-								className='w-full flex items-center justify-center gap-2'>
-								<Mail size={18} />
-								Email
-							</Button>
-							<Button
-								as='a'
-								href='tel:+79969979239'
-								variant='secondary'
-								className='w-full flex items-center justify-center gap-2'>
-								<Phone size={18} />
-								Позвонить
-							</Button>
-							<Button
-								as='a'
-								href='https://wa.me/79969979239'
-								target='_blank'
-								rel='noopener noreferrer'
-								className='w-full flex items-center justify-center gap-2 text-white bg-[#27D366] hover:bg-[#27C366]'>
-								<MessageCircle size={18} />
-								WhatsApp
-							</Button>
-							<Button
-								as='a'
-								href='https://t.me/Abuzarr222'
-								target='_blank'
-								rel='noopener noreferrer'
-								className='w-full flex items-center justify-center gap-2 text-white bg-[#3490EC] hover:bg-[#3284d7]'>
-								<Send size={18} />
-								Telegram
-							</Button>
+					) : specEntries.length > 0 ? (
+						<div className=''>
+							<div className='glass-panel rounded-2xl p-4 sm:p-6'>
+								<h3 className='text-xl lg:text-2xl font-semibold text-secondary-900 mb-8'>
+									Характеристики
+								</h3>
+								<div className='grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3'>
+									{specEntries.map(([key, value]) => (
+										<div
+											key={key}
+											className='flex items-start justify-between gap-3 border-b border-secondary-200/60 pb-2'>
+											<span className='font-semibold text-secondary-700 text-bodySm'>
+												{formatSpecLabel(key)}
+											</span>
+											<span className='text-secondary-900 text-right text-bodySm'>
+												{value}
+											</span>
+										</div>
+									))}
+								</div>
+							</div>
 						</div>
-					</div>
+					) : null}
+
+					{!contactsLoading && hasContactLinks ? (
+						<div className='glass-panel rounded-2xl p-4 sm:p-5'>
+							<h3 className='text-xl lg:text-2xl font-semibold text-secondary-900 mb-6'>
+								Связаться с нами
+							</h3>
+							<div className='grid gap-3 sm:grid-cols-2 md:grid-cols-4'>
+								{contactLinks.email ? (
+									<Button
+										as='a'
+										href={contactLinks.email}
+										className='w-full flex items-center justify-center gap-2'>
+										<Mail size={18} />
+										Email
+									</Button>
+								) : null}
+								{contactLinks.phone ? (
+									<Button
+										as='a'
+										href={contactLinks.phone}
+										variant='secondary'
+										className='w-full flex items-center justify-center gap-2'>
+										<Phone size={18} />
+										Позвонить
+									</Button>
+								) : null}
+								{contactLinks.whatsapp ? (
+									<Button
+										as='a'
+										href={contactLinks.whatsapp}
+										target='_blank'
+										rel='noopener noreferrer'
+										className='w-full flex items-center justify-center gap-2 text-white bg-[#27D366] hover:bg-[#27C366]'>
+										<MessageCircle size={18} />
+										WhatsApp
+									</Button>
+								) : null}
+								{contactLinks.telegram ? (
+									<Button
+										as='a'
+										href={contactLinks.telegram}
+										target='_blank'
+										rel='noopener noreferrer'
+										className='w-full flex items-center justify-center gap-2 text-white bg-[#3490EC] hover:bg-[#3284d7]'>
+										<Send size={18} />
+										Telegram
+									</Button>
+								) : null}
+							</div>
+						</div>
+					) : null}
 				</Container>
 			</Section>
 		</>

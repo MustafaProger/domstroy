@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { SEO, Container, Section, Button, Card, SkeletonCard } from "../components";
-import { useCategories } from "../hooks";
+import { useCategories, useContacts } from "../hooks";
 import { HOME_FEATURES } from "../features/home/constants";
 
 export function Home() {
 	const { categories, loading: categoriesLoading } = useCategories();
+	const { links: contactLinks, loading: contactsLoading } = useContacts();
 
 	return (
 		<>
@@ -31,13 +32,21 @@ export function Home() {
 						Быстрая доставка, конкурентные цены и профессиональный сервис.
 					</p>
 					<div className='flex flex-col sm:flex-row gap-4 justify-center'>
-						<a
-							href='https://wa.me/79969979239'
-							target='_blank'
-							rel='noopener noreferrer'
-							className='btn-outline text-white bg-white/10 border-white/60 hover:bg-white hover:text-black w-60 m-auto sm:m-[0]'>
-							Написать в WhatsApp
-						</a>
+						{contactLinks.whatsapp ? (
+							<a
+								href={contactLinks.whatsapp}
+								target='_blank'
+								rel='noopener noreferrer'
+								className='btn-outline text-white bg-white/10 border-white/60 hover:bg-white hover:text-black w-60 m-auto sm:m-[0]'>
+								Написать в WhatsApp
+							</a>
+						) : contactsLoading ? (
+							<div className='h-12 w-60 rounded-xl bg-white/20 animate-pulse m-auto sm:m-[0]' />
+						) : (
+							<span className='btn-outline text-white/70 bg-white/10 border-white/40 w-60 m-auto sm:m-[0] cursor-not-allowed'>
+								Написать в WhatsApp
+							</span>
+						)}
 						<Button
 							as='a'
 							href='/catalog'
@@ -212,23 +221,39 @@ export function Home() {
 							оптимальные условия поставки
 						</p>
 						<div className='flex flex-col sm:flex-row gap-4 justify-center'>
-							<Link
-								to='https://wa.me/79969979239'
-								target='_blank'
-								rel='noopener noreferrer'
-								className='btn-outline border-secondary-900/50 hover:bg-secondary-50'>
-								Обсудить заказ
-							</Link>
-							<Button
-								as='a'
-								href='tel:+79969979239'
-                className="group">
-								Позвонить сейчас
-								<ArrowRight
-									className='inline translate-x-1 group-hover:translate-x-2 transition-transform duration-300'
-									size={20}
-								/>
-							</Button>
+							{contactLinks.whatsapp ? (
+								<Link
+									to={contactLinks.whatsapp}
+									target='_blank'
+									rel='noopener noreferrer'
+									className='btn-outline border-secondary-900/50 hover:bg-secondary-50'>
+									Обсудить заказ
+								</Link>
+							) : contactsLoading ? (
+								<div className='h-11 w-44 rounded-xl bg-secondary-200/70 animate-pulse' />
+							) : (
+								<span className='btn-outline border-secondary-900/30 text-secondary-500 cursor-not-allowed'>
+									Обсудить заказ
+								</span>
+							)}
+							{contactLinks.phone ? (
+								<Button
+									as='a'
+									href={contactLinks.phone}
+									className='group'>
+									Позвонить сейчас
+									<ArrowRight
+										className='inline translate-x-1 group-hover:translate-x-2 transition-transform duration-300'
+										size={20}
+									/>
+								</Button>
+							) : contactsLoading ? (
+								<div className='h-11 w-44 rounded-xl bg-secondary-200/70 animate-pulse' />
+							) : (
+								<span className='btn-primary px-6 py-3 text-bodySm md:text-body font-semibold rounded-xl opacity-60 cursor-not-allowed'>
+									Позвонить сейчас
+								</span>
+							)}
 						</div>
 					</div>
 				</Container>
