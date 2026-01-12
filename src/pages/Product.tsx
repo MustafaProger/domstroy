@@ -11,8 +11,8 @@ import {
 	Breadcrumbs,
 } from "../components";
 import { useCategories, useContacts, useProductBySlug } from "../hooks";
-import { SPEC_LABELS } from "../features/product/constants";
 import { formatPrice } from "../utils/price";
+import { parseCharacteristics } from "../utils/characteristics";
 
 export function Product() {
 	const { slug = "" } = useParams();
@@ -55,32 +55,14 @@ export function Product() {
 		}
 	};
 
-	const formatSpecLabel = (key: string) => {
-		if (SPEC_LABELS[key]) return SPEC_LABELS[key];
-		const normalized = key.replace(/_/g, " ");
-		return normalized.charAt(0).toUpperCase() + normalized.slice(1);
-	};
-
-	const characteristics = useMemo(() => {
-		const raw = product?.characteristicsText?.trim();
-		if (!raw) return [];
-
-		return raw
-			.split(/\r?\n/)
-			.map((line) => line.trim())
-			.filter(Boolean)
-			.map((line) => {
-				const dividerIndex = line.indexOf(":");
-				if (dividerIndex === -1) return null;
-				const name = line.slice(0, dividerIndex).trim();
-				const value = line.slice(dividerIndex + 1).trim();
-				if (!name || !value) return null;
-				return { name, value };
-			})
-			.filter(
-				(item): item is { name: string; value: string } => item !== null
-			);
-	}, [product?.characteristicsText]);
+	const characteristicsText =
+		typeof product?.acf?.characteristics_text === "string"
+			? product.acf.characteristics_text
+			: "";
+	const characteristics = useMemo(
+		() => parseCharacteristics(characteristicsText),
+		[characteristicsText]
+	);
 
 	const categorySlugParam = searchParams.get("category") || "";
 	const catalogParams = useMemo(() => {
@@ -159,8 +141,6 @@ export function Product() {
 			</Section>
 		);
 	}
-
-	const specEntries = Object.entries(product.specifications);
 
 	return (
 		<>
@@ -282,19 +262,19 @@ export function Product() {
 						</div>
 					</div>
 
-					{characteristics.length > 0 ? (
-						<div className=''>
-							<div className='glass-panel rounded-2xl p-4 sm:p-6'>
-								<h3 className='text-xl lg:text-2xl font-semibold text-secondary-900 mb-8'>
-									Характеристики
-								</h3>
+					<div className=''>
+						<div className='glass-panel rounded-2xl p-4 sm:p-6'>
+							<h3 className='text-xl lg:text-2xl font-semibold text-secondary-900 mb-8'>
+								Характеристики
+							</h3>
+							{characteristics.length > 0 ? (
 								<div className='grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3'>
 									{characteristics.map((item) => (
 										<div
-											key={item.name}
+											key={`${item.label}-${item.value}`}
 											className='flex items-start justify-between gap-3 border-b border-secondary-200/60 pb-2'>
 											<span className='font-semibold text-secondary-700 text-bodySm'>
-												{item.name}
+												{item.label}
 											</span>
 											<span className='text-secondary-900 text-right text-bodySm'>
 												{item.value}
@@ -302,31 +282,13 @@ export function Product() {
 										</div>
 									))}
 								</div>
-							</div>
+							) : (
+								<p className='text-secondary-600 text-bodySm'>
+									Характеристики не указаны
+								</p>
+							)}
 						</div>
-					) : specEntries.length > 0 ? (
-						<div className=''>
-							<div className='glass-panel rounded-2xl p-4 sm:p-6'>
-								<h3 className='text-xl lg:text-2xl font-semibold text-secondary-900 mb-8'>
-									Характеристики
-								</h3>
-								<div className='grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3'>
-									{specEntries.map(([key, value]) => (
-										<div
-											key={key}
-											className='flex items-start justify-between gap-3 border-b border-secondary-200/60 pb-2'>
-											<span className='font-semibold text-secondary-700 text-bodySm'>
-												{formatSpecLabel(key)}
-											</span>
-											<span className='text-secondary-900 text-right text-bodySm'>
-												{value}
-											</span>
-										</div>
-									))}
-								</div>
-							</div>
-						</div>
-					) : null}
+					</div>
 
 					{!contactsLoading && hasContactLinks ? (
 						<div className='glass-panel rounded-2xl p-4 sm:p-5'>

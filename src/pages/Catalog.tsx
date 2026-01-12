@@ -9,7 +9,7 @@ import {
 	SkeletonCard,
 	Breadcrumbs,
 } from "../components";
-import { useWpCatalog } from "../hooks";
+import { useCatalog } from "../hooks";
 import { CategoryChips } from "./catalog/CategoryChips";
 import { CategorySidebar } from "./catalog/CategorySidebar";
 import { CatalogFilters } from "./catalog/CatalogFilters";
@@ -50,7 +50,7 @@ export function Catalog() {
 		loading: productsLoading,
 		error,
 		categoriesLoading,
-	} = useWpCatalog({
+	} = useCatalog({
 		page: currentPage,
 		perPage: pageSize,
 		search: searchTerm,
@@ -88,7 +88,7 @@ export function Catalog() {
 		const params = new URLSearchParams(searchParams);
 		params.set("page", "1");
 		setSearchParams(params);
-	}, [searchTerm]);
+	}, [currentPage, searchParams, searchTerm, setSearchParams]);
 
 	useEffect(() => {
 		if (productsLoading) return;

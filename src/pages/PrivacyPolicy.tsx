@@ -24,7 +24,9 @@ export function PrivacyPolicy() {
 				variant='contacts'
 				className='liquid-glass-for-bread-crumbs'>
 				<Container>
-					<h1 className='break-words hyphens-auto' lang='ru'>
+					<h1
+						className='break-words hyphens-auto'
+						lang='ru'>
 						Политика конфиденциальности
 					</h1>
 					<p className='text-secondary-600 mt-2 max-w-2xl text-bodySm md:text-body'>

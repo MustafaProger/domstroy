@@ -10,7 +10,7 @@ type UseWpCatalogParams = {
 	categorySlug: string;
 };
 
-export function useWpCatalog({
+export function useCatalog({
 	page,
 	perPage,
 	search,

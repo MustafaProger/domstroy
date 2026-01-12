@@ -97,6 +97,7 @@ const mapWpProduct = (product: WpProduct): Product => {
 		categoryId: combinedCategoryIds[0] || "",
 		categoryIds: combinedCategoryIds,
 		categories: categoryTerms,
+		acf: product.acf ?? undefined,
 		price: price !== null && price !== undefined ? String(price) : undefined,
 		description: product.content?.rendered
 			? stripHtml(product.content.rendered)

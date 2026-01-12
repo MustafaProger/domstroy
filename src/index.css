@@ -86,7 +86,7 @@
 	}
 
 	.liquid-glass-for-bread-crumbs {
-		@apply bg-gradient-to-b from-secondary-100/90 via-secondary-50 to-secondary-50
+		@apply bg-gradient-to-b from-secondary-100/90 via-secondary-50 to-secondary-50;
 	}
 }
 

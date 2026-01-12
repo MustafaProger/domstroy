@@ -9,7 +9,37 @@ import {
 	SkeletonCard,
 } from "../components";
 import { useCategories, useContacts } from "../hooks";
-import { HOME_FEATURES } from "../features/home/constants";
+
+import { Award, Users, TrendingUp, Heart } from "lucide-react";
+
+const HOME_FEATURES = [
+	{
+		number: "01",
+		title: "Качество",
+		description:
+			"Продукты соответствуют международным стандартам и проходят контроль качества",
+		icon: Award,
+	},
+	{
+		number: "02",
+		title: "Поддержка",
+		description: "Наша команда предоставляет профессиональные консультации",
+		icon: Users,
+	},
+	{
+		number: "03",
+		title: "Цены",
+		description: "Лучшие цены на рынке без компромиссов в качестве",
+		icon: TrendingUp,
+	},
+	{
+		number: "04",
+		title: "Надежность",
+		description:
+			"Быстрая доставка и стабильный сервис, на который можно положиться",
+		icon: Heart,
+	},
+];
 
 export function Home() {
 	const {
@@ -85,11 +115,11 @@ export function Home() {
 								региона для строительных профессионалов.
 							</p>
 							<p className='text-secondary-700 mb-4 leading-relaxed'>
-								За {new Date().getFullYear() - 2006} лет мы
-								построили прочные отношения с подрядчиками, строительными
-								компаниями и индивидуальными строителями. Наша приверженность
-								качеству, надежности и исключительному обслуживанию клиентов
-								сделала нас предпочтительным выбором для тысяч проектов.
+								За {new Date().getFullYear() - 2006} лет мы построили прочные
+								отношения с подрядчиками, строительными компаниями и
+								индивидуальными строителями. Наша приверженность качеству,
+								надежности и исключительному обслуживанию клиентов сделала нас
+								предпочтительным выбором для тысяч проектов.
 							</p>
 							<p className='text-secondary-700 leading-relaxed'>
 								Сегодня мы работаем на современном объекте, укомплектованном
