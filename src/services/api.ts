@@ -1,9 +1,5 @@
 import axios from "axios";
-import { Product, Category } from "../types";
-import {
-	products
-} from "../data/products";
-import { categories } from "../data/categories";
+import { Product } from "../types";
 
 const API_BASE_URL =
 	import.meta.env.VITE_WORDPRESS_API_URL || "http://localhost:3000/api";
@@ -15,52 +11,18 @@ const client = axios.create({
 
 export const productService = {
 	async getProducts(): Promise<Product[]> {
-		try {
-			const response = await client.get("/products");
-			return response.data;
-		} catch (error) {
-			console.warn("Failed to fetch from API, using dummy data");
-			return products;
-		}
+		const response = await client.get("/products");
+		return response.data;
 	},
 
 	async getProductBySlug(slug: string): Promise<Product | null> {
-		try {
-			const response = await client.get(`/products/${slug}`);
-			return response.data;
-		} catch (error) {
-			return products.find((p) => p.slug === slug) || null;
-		}
+		const response = await client.get(`/products/${slug}`);
+		return response.data;
 	},
 
 	async getProductsByCategory(categoryId: string): Promise<Product[]> {
-		try {
-			const response = await client.get(`/products/category/${categoryId}`);
-			return response.data;
-		} catch (error) {
-			return products.filter((p) => p.categoryId === categoryId);
-		}
-	},
-};
-
-export const categoryService = {
-	async getCategories(): Promise<Category[]> {
-		try {
-			const response = await client.get("/categories");
-			return response.data;
-		} catch (error) {
-			console.warn("Failed to fetch categories from API, using dummy data");
-			return categories;
-		}
-	},
-
-	async getCategoryBySlug(slug: string): Promise<Category | null> {
-		try {
-			const response = await client.get(`/categories/${slug}`);
-			return response.data;
-		} catch (error) {
-			return categories.find((c) => c.slug === slug) || null;
-		}
+		const response = await client.get(`/products/category/${categoryId}`);
+		return response.data;
 	},
 };
 

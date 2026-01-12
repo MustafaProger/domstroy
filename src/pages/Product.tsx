@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState, type MouseEvent } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { MessageCircle, Phone, Mail, Send } from "lucide-react";
 import {
 	SEO,
@@ -16,6 +16,7 @@ import { formatPrice } from "../utils/price";
 
 export function Product() {
 	const { slug = "" } = useParams();
+	const [searchParams] = useSearchParams();
 	const { product, loading, error } = useProductBySlug(slug);
 	const { categories } = useCategories();
 	const { links: contactLinks, loading: contactsLoading } = useContacts();
@@ -81,13 +82,51 @@ export function Product() {
 			);
 	}, [product?.characteristicsText]);
 
-	const categorySlug = useMemo(() => {
-		if (!product) return "";
-		const match = categories.find(
-			(category) => category.name === product.category
+	const categorySlugParam = searchParams.get("category") || "";
+	const catalogParams = useMemo(() => {
+		const params = new URLSearchParams();
+		params.set("page", searchParams.get("page") || "1");
+		const stock = searchParams.get("stock");
+		const sort = searchParams.get("sort");
+		if (stock) params.set("stock", stock);
+		if (sort) params.set("sort", sort);
+		if (categorySlugParam) params.set("category", categorySlugParam);
+		return params.toString();
+	}, [searchParams, categorySlugParam]);
+	const catalogLink = `/catalog?${catalogParams}`;
+
+	const categoryFromQuery = useMemo(() => {
+		if (!categorySlugParam) return null;
+		const fromList = categories.find(
+			(category) => category.slug === categorySlugParam
 		);
-		return match?.slug || "";
-	}, [categories, product]);
+		if (fromList) {
+			return { name: fromList.name, slug: fromList.slug };
+		}
+		const fromProduct = product?.categories?.find(
+			(category) => category.slug === categorySlugParam
+		);
+		if (fromProduct) {
+			return { name: fromProduct.name, slug: fromProduct.slug };
+		}
+		return { name: categorySlugParam, slug: categorySlugParam };
+	}, [categorySlugParam, categories, product?.categories]);
+
+	const categoryFromProduct = useMemo(() => {
+		if (!product) return null;
+		const fromProduct = product.categories?.[0];
+		if (fromProduct) {
+			return { name: fromProduct.name, slug: fromProduct.slug };
+		}
+		const ids = product.categoryIds ?? [];
+		const fallbackId = ids[0] || product.categoryId;
+		if (!fallbackId) return null;
+		const match = categories.find((category) => category.id === fallbackId);
+		return match ? { name: match.name, slug: match.slug } : null;
+	}, [product, categories]);
+
+	const activeCategory = categoryFromQuery ?? categoryFromProduct;
+	const categoryName = activeCategory?.name || product?.category || "";
 
 	const unitPrice = product?.price
 		? Number(product.price.replace(/[^\d]/g, ""))
@@ -128,7 +167,7 @@ export function Product() {
 			<SEO
 				title={`${product.title} - ДомСтрой`}
 				description={product.shortDescription}
-				keywords={`${product.title}, ${product.category}, строительные материалы`}
+				keywords={`${product.title}, ${categoryName}, строительные материалы`}
 			/>
 
 			<Section
@@ -139,15 +178,15 @@ export function Product() {
 						className='mt-4 mb-4'
 						items={[
 							{ label: "Главная", href: "/" },
-							{ label: "Каталог", href: "/catalog" },
-							...(categorySlug
+							{ label: "Каталог", href: catalogLink },
+							...(activeCategory
 								? [
 										{
-											label: product.category,
-											href: `/catalog?category=${categorySlug}`,
+											label: activeCategory.name,
+											href: `/catalog?category=${activeCategory.slug}&page=1`,
 										},
 								  ]
-								: [{ label: product.category, href: "/catalog" }]),
+								: []),
 							{ label: product.title },
 						]}
 					/>

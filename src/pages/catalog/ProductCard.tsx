@@ -5,12 +5,20 @@ import { Card } from "../../components";
 import type { Product } from "../../types";
 import { formatPrice } from "./utils";
 
-export function ProductCard({ product }: { product: Product }) {
+type ProductCardProps = {
+	product: Product;
+	queryString?: string;
+};
+
+export function ProductCard({ product, queryString }: ProductCardProps) {
 	const [qty, setQty] = useState(1);
 	const unitPrice = product.price
 		? Number(product.price.replace(/[^\d]/g, ""))
 		: null;
 	const totalPrice = unitPrice !== null ? formatPrice(unitPrice * qty) : "";
+	const productLink = `/product/${product.slug}${
+		queryString ? `?${queryString}` : ""
+	}`;
 
 	const handleDecrement = (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
@@ -26,7 +34,7 @@ export function ProductCard({ product }: { product: Product }) {
 
 	return (
 		<Link
-			to={`/product/${product.slug}`}
+			to={productLink}
 			className='h-full'>
 			<Card
 				hover

@@ -1,11 +1,22 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { SEO, Container, Section, Button, Card, SkeletonCard } from "../components";
+import {
+	SEO,
+	Container,
+	Section,
+	Button,
+	Card,
+	SkeletonCard,
+} from "../components";
 import { useCategories, useContacts } from "../hooks";
 import { HOME_FEATURES } from "../features/home/constants";
 
 export function Home() {
-	const { categories, loading: categoriesLoading } = useCategories();
+	const {
+		categories,
+		loading: categoriesLoading,
+		error: categoriesError,
+	} = useCategories();
 	const { links: contactLinks, loading: contactsLoading } = useContacts();
 
 	return (
@@ -168,44 +179,61 @@ export function Home() {
 					</div>
 
 					<div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-						{categoriesLoading
-							? Array(6)
-									.fill(null)
-									.map((_, i) => <SkeletonCard key={i} />)
-							: categories.slice(0, 6).map((category) => (
-									<Link
-										key={category.id}
-										to={`/catalog?category=${category.slug}`}>
-										<Card
-											hover
-											className='overflow-hidden h-full'>
-											<div className='w-full h-48 overflow-hidden bg-secondary-100'>
+						{categoriesLoading ? (
+							Array(6)
+								.fill(null)
+								.map((_, i) => <SkeletonCard key={i} />)
+						) : categories.length > 0 ? (
+							categories.slice(0, 6).map((category) => (
+								<Link
+									key={category.id}
+									to={`/catalog?category=${category.slug}&page=1`}>
+									<Card
+										hover
+										className='overflow-hidden h-full'>
+										<div className='w-full h-48 overflow-hidden bg-secondary-100'>
+											{category.image ? (
 												<img
 													src={category.image}
 													alt={category.name}
 													className='w-full h-full object-cover hover:scale-110 transition-transform duration-300'
 												/>
+											) : (
+												<div
+													className='w-full h-full bg-gradient-to-br from-primary-100 via-secondary-100 to-secondary-200'
+													aria-hidden='true'
+												/>
+											)}
+										</div>
+										<div className='p-6'>
+											<h3 className='text-h3 font-bold text-secondary-900 mb-2'>
+												{category.name}
+											</h3>
+											<p className='text-secondary-600 text-bodySm mb-4'>
+												{category.description}
+											</p>
+											<div className='flex items-center justify-between'>
+												<span className='text-bodySm font-semibold text-primary-600'>
+													{category.productCount} товаров
+												</span>
+												<ArrowRight
+													size={18}
+													className='text-primary-500'
+												/>
 											</div>
-											<div className='p-6'>
-												<h3 className='text-h3 font-bold text-secondary-900 mb-2'>
-													{category.name}
-												</h3>
-												<p className='text-secondary-600 text-bodySm mb-4'>
-													{category.description}
-												</p>
-												<div className='flex items-center justify-between'>
-													<span className='text-bodySm font-semibold text-primary-600'>
-														{category.productCount} товаров
-													</span>
-													<ArrowRight
-														size={18}
-														className='text-primary-500'
-													/>
-												</div>
-											</div>
-										</Card>
-									</Link>
-							  ))}
+										</div>
+									</Card>
+								</Link>
+							))
+						) : (
+							<Card className='col-span-full p-8 text-center bg-white/80 border-secondary-200/70 shadow-sm'>
+								<p className='text-secondary-600 text-body'>
+									{categoriesError
+										? "Категории временно недоступны"
+										: "Категории пока не добавлены"}
+								</p>
+							</Card>
+						)}
 					</div>
 				</Container>
 			</Section>

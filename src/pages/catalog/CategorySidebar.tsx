@@ -39,7 +39,7 @@ export function CategorySidebar({
 										className='h-8 bg-secondary-200 rounded animate-pulse'></div>
 								))}
 						</div>
-					) : (
+					) : categories.length > 0 ? (
 						<div className='space-y-2 mt-3'>
 							{categories.map((category) => (
 								<button
@@ -54,6 +54,10 @@ export function CategorySidebar({
 								</button>
 							))}
 						</div>
+					) : (
+						<p className='mt-3 text-bodySm text-secondary-500'>
+							Категории пока недоступны
+						</p>
 					)}
 				</div>
 			</div>

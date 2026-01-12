@@ -77,8 +77,7 @@ export function Catalog() {
 		});
 	}, [items, stockFilter, priceSort]);
 
-	const displayTotal =
-		stockFilter === "all" ? total : filteredProducts.length;
+	const displayTotal = stockFilter === "all" ? total : filteredProducts.length;
 
 	useEffect(() => {
 		if (isFirstFilterSync.current) {
@@ -131,6 +130,18 @@ export function Catalog() {
 		? categories.find((c) => c.slug === selectedCategory)?.name ||
 		  selectedCategory
 		: "";
+	const productLinkQuery = useMemo(() => {
+		const params = new URLSearchParams(searchParams);
+		if (selectedCategory) {
+			params.set("category", selectedCategory);
+		} else {
+			params.delete("category");
+		}
+		if (!params.get("page")) {
+			params.set("page", String(currentPage));
+		}
+		return params.toString();
+	}, [searchParams, selectedCategory, currentPage]);
 
 	const handleCategoryChange = (slug: string) => {
 		const params = new URLSearchParams(searchParams);
@@ -195,7 +206,9 @@ export function Catalog() {
 				</Container>
 			</Section>
 
-			<Section variant="catalog" className='bg-secondary-100/60 border-t border-secondary-200/60'>
+			<Section
+				variant='catalog'
+				className='bg-secondary-100/60 border-t border-secondary-200/60'>
 				<Container>
 					<div className='grid lg:grid-cols-4 gap-8 items-start'>
 						<CategorySidebar
@@ -218,8 +231,7 @@ export function Catalog() {
 										Показано {displayTotal}{" "}
 										{displayTotal === 1
 											? "товар"
-											: displayTotal > 1 &&
-											  displayTotal < 5
+											: displayTotal > 1 && displayTotal < 5
 											? "товара"
 											: "товаров"}
 									</p>
@@ -252,9 +264,7 @@ export function Catalog() {
 								</div>
 							) : error ? (
 								<Card className='p-12 text-center bg-white/80 border-secondary-200/70 shadow-sm'>
-									<p className='text-secondary-600 text-body mb-4'>
-										{error}
-									</p>
+									<p className='text-secondary-600 text-body mb-4'>{error}</p>
 									<Button
 										variant='secondary'
 										onClick={() => handleCategoryChange("")}>
@@ -267,6 +277,7 @@ export function Catalog() {
 										<ProductCard
 											key={product.id}
 											product={product}
+											queryString={productLinkQuery}
 										/>
 									))}
 								</div>

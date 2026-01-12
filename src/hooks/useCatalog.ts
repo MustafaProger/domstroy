@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import type { Category, Product } from "../types";
-import { fetchProductCategories, fetchProducts } from "../services/wp";
+import type { Product } from "../types";
+import { fetchProducts } from "../services/wp";
+import { useCategories } from "./useCategories";
 
 type UseWpCatalogParams = {
 	page: number;
@@ -16,45 +17,14 @@ export function useWpCatalog({
 	categorySlug,
 }: UseWpCatalogParams) {
 	const [items, setItems] = useState<Product[]>([]);
-	const [categories, setCategories] = useState<Category[]>([]);
 	const [total, setTotal] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
 	const [loading, setLoading] = useState(true);
-	const [categoriesLoading, setCategoriesLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
-
-	useEffect(() => {
-		let isMounted = true;
-
-		const loadCategories = async () => {
-			try {
-				setCategoriesLoading(true);
-				setError(null);
-				const data = await fetchProductCategories();
-				if (isMounted) {
-					setCategories(data);
-				}
-			} catch (err) {
-				if (isMounted) {
-					setError(
-						err instanceof Error
-							? err.message
-							: "Failed to load categories"
-					);
-				}
-			} finally {
-				if (isMounted) {
-					setCategoriesLoading(false);
-				}
-			}
-		};
-
-		loadCategories();
-
-		return () => {
-			isMounted = false;
-		};
-	}, []);
+	const {
+		categories,
+		loading: categoriesLoading,
+	} = useCategories();
 
 	const categoryId = useMemo(() => {
 		if (!categorySlug) return "";
@@ -82,9 +52,7 @@ export function useWpCatalog({
 			} catch (err) {
 				if (isMounted) {
 					setError(
-						err instanceof Error
-							? err.message
-							: "Failed to load products"
+						err instanceof Error ? err.message : "Failed to load products"
 					);
 					setItems([]);
 					setTotal(0);

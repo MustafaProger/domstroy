@@ -1,4 +1,4 @@
-import type { Category, Product } from "../types";
+import type { Product } from "../types";
 
 type FetchProductsParams = {
 	page?: number;
@@ -27,15 +27,15 @@ type WpProduct = {
 		"wp:featuredmedia"?: Array<{
 			source_url?: string;
 		}>;
+		"wp:term"?: Array<
+			Array<{
+				id?: number;
+				slug?: string;
+				name?: string;
+				taxonomy?: string;
+			}>
+		>;
 	};
-};
-
-type WpCategory = {
-	id: number;
-	name: string;
-	slug: string;
-	description?: string;
-	count?: number;
 };
 
 type FetchProductsResult = {
@@ -44,9 +44,29 @@ type FetchProductsResult = {
 	totalPages: number;
 };
 
-const BASE_PATH = "/wp-json/wp/v2";
+const API_BASE_URL = (import.meta.env.VITE_WORDPRESS_API_URL || "").replace(
+	/\/$/,
+	""
+);
+const BASE_PATH = `${API_BASE_URL}/wp-json/wp/v2`;
 
 const stripHtml = (value: string) => value.replace(/<[^>]*>/g, "").trim();
+
+const extractCategoryTerms = (product: WpProduct) => {
+	const groups = product._embedded?.["wp:term"] ?? [];
+	const flat = groups.flatMap((group) => group || []);
+	const terms = flat.filter(
+		(term) => !term.taxonomy || term.taxonomy === "product_category"
+	);
+
+	return terms
+		.map((term) => ({
+			id: String(term.id ?? ""),
+			name: term.name ?? "",
+			slug: term.slug ?? "",
+		}))
+		.filter((term) => term.id && term.slug && term.name);
+};
 
 const mapWpProduct = (product: WpProduct): Product => {
 	const featuredImage =
@@ -54,6 +74,11 @@ const mapWpProduct = (product: WpProduct): Product => {
 	const categoryIds = Array.isArray(product.product_category)
 		? product.product_category.map((id) => String(id))
 		: [];
+	const categoryTerms = extractCategoryTerms(product);
+	const categoryIdsFromTerms = categoryTerms.map((term) => term.id);
+	const combinedCategoryIds = Array.from(
+		new Set([...categoryIds, ...categoryIdsFromTerms])
+	);
 	const price = product.acf?.price;
 	const inStockValue = product.acf?.in_stock;
 	const characteristicsText = product.acf?.characteristics_text;
@@ -62,14 +87,16 @@ const mapWpProduct = (product: WpProduct): Product => {
 		inStockValue === 1 ||
 		inStockValue === "1" ||
 		inStockValue === "true";
+	const primaryCategoryName = categoryTerms[0]?.name ?? "";
 
 	return {
 		id: String(product.id),
 		title: product.title?.rendered ? stripHtml(product.title.rendered) : "",
 		slug: product.slug || "",
-		category: "",
-		categoryId: categoryIds[0] || "",
-		categoryIds,
+		category: primaryCategoryName,
+		categoryId: combinedCategoryIds[0] || "",
+		categoryIds: combinedCategoryIds,
+		categories: categoryTerms,
 		price: price !== null && price !== undefined ? String(price) : undefined,
 		description: product.content?.rendered
 			? stripHtml(product.content.rendered)
@@ -118,24 +145,6 @@ export async function fetchProducts({
 		total,
 		totalPages,
 	};
-}
-
-export async function fetchProductCategories(): Promise<Category[]> {
-	const response = await fetch(`${BASE_PATH}/product_category?per_page=100`);
-	if (!response.ok) {
-		throw new Error("Failed to fetch categories");
-	}
-
-	const data = (await response.json()) as WpCategory[];
-
-	return data.map((category) => ({
-		id: String(category.id),
-		name: category.name,
-		slug: category.slug,
-		description: category.description || "",
-		image: "",
-		productCount: category.count ?? 0,
-	}));
 }
 
 export async function fetchProductBySlug(

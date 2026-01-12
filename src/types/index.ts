@@ -14,6 +14,11 @@ export interface Product {
   category: string;
   categoryId: string;
   categoryIds?: string[];
+  categories?: Array<{
+    id: string;
+    name: string;
+    slug: string;
+  }>;
   price?: string;
   description: string;
   shortDescription: string;

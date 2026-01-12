@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Container } from "../components";
-import { categoryLinks } from "../data/categories";
-import { useContacts } from "../hooks";
+import { useCategories, useContacts } from "../hooks";
 
 const quickLinks = [
 	{ to: "/", label: "Главная" },
@@ -11,6 +10,11 @@ const quickLinks = [
 
 export function Footer() {
 	const { contactItems, loading } = useContacts();
+	const {
+		categories,
+		loading: categoriesLoading,
+		error: categoriesError,
+	} = useCategories();
 
 	return (
 		<footer className='bg-secondary-900 text-white'>
@@ -49,15 +53,32 @@ export function Footer() {
 								Категории
 							</h4>
 							<ul className='space-y-2'>
-								{categoryLinks.map((link) => (
-									<li key={link.label}>
-										<Link
-											to={link.to}
-											className='text-secondary-300 hover:text-primary-400 transition-colors text-bodySm'>
-											{link.label}
-										</Link>
+								{categoriesLoading ? (
+									Array(4)
+										.fill(null)
+										.map((_, index) => (
+											<li
+												key={index}
+												className='h-4 bg-secondary-800/70 rounded animate-pulse'
+											/>
+										))
+								) : categories.length > 0 ? (
+									categories.map((category) => (
+										<li key={category.id}>
+											<Link
+												to={`/catalog?category=${category.slug}&page=1`}
+												className='text-secondary-300 hover:text-primary-400 transition-colors text-bodySm'>
+												{category.name}
+											</Link>
+										</li>
+									))
+								) : (
+									<li className='text-secondary-400 text-bodySm'>
+										{categoriesError
+											? "Категории временно недоступны"
+											: "Категории пока не добавлены"}
 									</li>
-								))}
+								)}
 							</ul>
 						</div>
 
