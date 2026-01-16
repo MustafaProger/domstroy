@@ -10,11 +10,11 @@ export default defineConfig({
 	server: {
 		proxy: {
 			"/wp-json": {
-				target: "http://domstroy-wd.local",
+				target: "https://domstroy-api.ru",
 				changeOrigin: true,
 			},
 			"/wp-content": {
-				target: "http://domstroy-wd.local",
+				target: "https://domstroy-api.ru",
 				changeOrigin: true,
 			},
 		},

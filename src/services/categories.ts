@@ -11,10 +11,9 @@ type WpCategory = {
 	};
 };
 
-const API_BASE_URL = (import.meta.env.VITE_WORDPRESS_API_URL || "").replace(
-	/\/$/,
-	""
-);
+const API_BASE_URL = (
+	import.meta.env.VITE_WORDPRESS_API_URL || "https://domstroy-api.ru"
+).replace(/\/$/, "");
 const BASE_PATH = `${API_BASE_URL}/wp-json/wp/v2`;
 const CATEGORY_ENDPOINT = `${BASE_PATH}/product_category?per_page=100&hide_empty=false`;
 

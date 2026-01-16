@@ -8,7 +8,10 @@ type ContactsResponse = {
 let cachedContacts: Contacts | null = null;
 let pendingRequest: Promise<Contacts | null> | null = null;
 
-const CONTACTS_ENDPOINT = "/wp-json/site/v1/contacts";
+const API_BASE_URL = (
+	import.meta.env.VITE_WORDPRESS_API_URL || "https://domstroy-api.ru"
+).replace(/\/$/, "");
+const CONTACTS_ENDPOINT = `${API_BASE_URL}/wp-json/site/v1/contacts`;
 
 const normalizeContacts = (data: ContactsResponse): Contacts | null => {
 	const fields = data.fields;

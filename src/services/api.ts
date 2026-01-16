@@ -1,8 +1,9 @@
 import axios from "axios";
 import { Product } from "../types";
 
-const API_BASE_URL =
-	import.meta.env.VITE_WORDPRESS_API_URL || "http://localhost:3000/api";
+const API_BASE_URL = `${(
+	import.meta.env.VITE_WORDPRESS_API_URL || "https://domstroy-api.ru"
+).replace(/\/$/, "")}/wp-json`;
 
 const client = axios.create({
 	baseURL: API_BASE_URL,
