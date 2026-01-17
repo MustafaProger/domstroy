@@ -81,9 +81,4 @@ export const categoryService = {
 
 		return categoriesPromise;
 	},
-
-	async getCategoryBySlug(slug: string): Promise<Category | null> {
-		const categories = await this.getCategories();
-		return categories.find((category) => category.slug === slug) || null;
-	},
 };
