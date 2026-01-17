@@ -23,6 +23,8 @@ export interface Product {
 	price?: string;
 	description: string;
 	shortDescription: string;
+	contentHtml?: string;
+	excerptHtml?: string;
 	images: string[];
 	specifications: Record<string, string>;
 	inStock: boolean;

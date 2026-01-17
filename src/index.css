@@ -88,6 +88,66 @@
 	.liquid-glass-for-bread-crumbs {
 		@apply bg-gradient-to-b from-secondary-100/90 via-secondary-50 to-secondary-50;
 	}
+
+	.product-prose {
+		@apply text-secondary-700 text-bodySm md:text-body leading-relaxed;
+		max-width: 100%;
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
+
+	.product-prose h3 {
+		@apply text-body md:text-h3 font-medium tracking-tight text-secondary-900 my-6;
+	}
+
+	.product-prose p {
+		@apply text-secondary-600 mb-4;
+		max-width: 100%;
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
+
+	.product-prose ul {
+		@apply list-disc pl-6 mb-4;
+		max-width: 100%;
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
+
+	.product-prose ol {
+		@apply list-decimal pl-6 mb-4;
+		max-width: 100%;
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
+
+	.product-prose li {
+		@apply mb-2 text-secondary-600;
+		max-width: 100%;
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
+
+	.product-prose hr {
+		@apply border-secondary-200/80 my-6;
+	}
+
+	.product-prose a {
+		@apply text-primary-600 font-semibold hover:text-primary-700 underline underline-offset-4;
+	}
+
+	.product-prose blockquote {
+		@apply border-l-4 border-primary-200 pl-4 text-secondary-600 italic my-4;
+		max-width: 100%;
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
+
+	.product-excerpt {
+		max-width: 100%;
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
 }
 
 @layer utilities {
@@ -101,6 +161,13 @@
 	.line-clamp-3 {
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.line-clamp-4 {
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}

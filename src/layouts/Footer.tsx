@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Container } from "../components";
 import { useCategories, useContacts } from "../hooks";
+import { capitalizeFirstLetter } from "../utils/string";
 
 const quickLinks = [
 	{ to: "/", label: "Главная" },
@@ -68,7 +69,7 @@ export function Footer() {
 											<Link
 												to={`/catalog?category=${category.slug}&page=1`}
 												className='text-secondary-300 hover:text-primary-400 transition-colors text-bodySm'>
-												{category.name}
+												{capitalizeFirstLetter(category.name)}
 											</Link>
 										</li>
 									))

@@ -13,6 +13,9 @@ import {
 import { useCategories, useContacts, useProductBySlug } from "../hooks";
 import { formatPrice } from "../utils/price";
 import { parseCharacteristics } from "../utils/characteristics";
+import { capitalizeFirstLetter } from "../utils/string";
+import { stripHtml } from "../utils/html";
+import { ProductDetails } from "./product/ProductDetails";
 
 export function Product() {
 	const { slug = "" } = useParams();
@@ -108,7 +111,15 @@ export function Product() {
 	}, [product, categories]);
 
 	const activeCategory = categoryFromQuery ?? categoryFromProduct;
-	const categoryName = activeCategory?.name || product?.category || "";
+	const categoryName = capitalizeFirstLetter(
+		activeCategory?.name || product?.category || ""
+	);
+
+	const excerptText = product
+		? stripHtml(product.excerptHtml || "") ||
+		  product.shortDescription ||
+		  product.description
+		: "";
 
 	const unitPrice = product?.price
 		? Number(product.price.replace(/[^\d]/g, ""))
@@ -162,7 +173,7 @@ export function Product() {
 							...(activeCategory
 								? [
 										{
-											label: activeCategory.name,
+											label: capitalizeFirstLetter(activeCategory.name),
 											href: `/catalog?category=${activeCategory.slug}&page=1`,
 										},
 								  ]
@@ -256,38 +267,23 @@ export function Product() {
 								</div>
 							</div>
 
-							<p className='text-secondary-600 text-bodySm md:text-body line-clamp-3'>
-								{product.shortDescription || product.description}
-							</p>
-						</div>
-					</div>
-
-					<div className=''>
-						<div className='glass-panel rounded-2xl p-4 sm:p-6'>
-							<h3 className='text-xl lg:text-2xl font-semibold text-secondary-900 mb-8'>
-								Характеристики
-							</h3>
-							{characteristics.length > 0 ? (
-								<div className='grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3'>
-									{characteristics.map((item) => (
-										<div
-											key={`${item.label}-${item.value}`}
-											className='flex items-start justify-between gap-3 border-b border-secondary-200/60 pb-2'>
-											<span className='font-semibold text-secondary-700 text-bodySm'>
-												{item.label}
-											</span>
-											<span className='text-secondary-900 text-right text-bodySm'>
-												{item.value}
-											</span>
-										</div>
-									))}
-								</div>
+							{excerptText ? (
+								<p className='product-excerpt text-secondary-600 text-bodySm md:text-body'>
+									{excerptText}
+								</p>
 							) : (
-								<p className='text-secondary-600 text-bodySm'>
-									Характеристики не указаны
+								<p className='text-secondary-600 text-bodySm md:text-body'>
+									Описание пока не добавлено
 								</p>
 							)}
 						</div>
+					</div>
+
+					<div>
+						<ProductDetails
+							contentHtml={product.contentHtml || ""}
+							characteristics={characteristics}
+						/>
 					</div>
 
 					{!contactsLoading && hasContactLinks ? (

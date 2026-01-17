@@ -16,6 +16,7 @@ import { CatalogFilters } from "./catalog/CatalogFilters";
 import { CatalogPagination } from "./catalog/CatalogPagination";
 import { ProductCard } from "./catalog/ProductCard";
 import { getPaginationItems, parsePrice } from "./catalog/utils";
+import { capitalizeFirstLetter } from "../utils/string";
 
 export function Catalog() {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -34,7 +35,7 @@ export function Catalog() {
 	const pageSize = 9;
 	const listTopRef = useRef<HTMLDivElement | null>(null);
 	const isFirstRender = useRef(true);
-	const isFirstFilterSync = useRef(true);
+	const prevSearchTerm = useRef(searchTerm);
 
 	const currentPage = useMemo(() => {
 		const pageParam = Number(searchParams.get("page"));
@@ -80,10 +81,8 @@ export function Catalog() {
 	const displayTotal = stockFilter === "all" ? total : filteredProducts.length;
 
 	useEffect(() => {
-		if (isFirstFilterSync.current) {
-			isFirstFilterSync.current = false;
-			return;
-		}
+		if (prevSearchTerm.current === searchTerm) return;
+		prevSearchTerm.current = searchTerm;
 		if (currentPage === 1) return;
 		const params = new URLSearchParams(searchParams);
 		params.set("page", "1");
@@ -127,8 +126,10 @@ export function Catalog() {
 		[totalPages, currentPage]
 	);
 	const selectedCategoryName = selectedCategory
-		? categories.find((c) => c.slug === selectedCategory)?.name ||
-		  selectedCategory
+		? capitalizeFirstLetter(
+				categories.find((c) => c.slug === selectedCategory)?.name ||
+					selectedCategory
+		  )
 		: "";
 	const productLinkQuery = useMemo(() => {
 		const params = new URLSearchParams(searchParams);
@@ -223,8 +224,7 @@ export function Catalog() {
 								<div ref={listTopRef}>
 									<h2 className='text-h2 font-bold text-secondary-900'>
 										{selectedCategory
-											? categories.find((c) => c.slug === selectedCategory)
-													?.name || "Товары"
+											? selectedCategoryName || "Товары"
 											: "Все товары"}
 									</h2>
 									<p className='text-secondary-600 mt-1 text-bodySm'>

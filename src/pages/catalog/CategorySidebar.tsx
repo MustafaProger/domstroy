@@ -1,4 +1,5 @@
 import type { Category } from "../../types";
+import { capitalizeFirstLetter } from "../../utils/string";
 
 type CategorySidebarProps = {
 	categories: Category[];
@@ -50,7 +51,7 @@ export function CategorySidebar({
 											? "bg-primary-500 text-secondary-900 font-semibold"
 											: "text-secondary-700 hover:bg-secondary-100"
 									}`}>
-									<span>{category.name}</span>
+									<span>{capitalizeFirstLetter(category.name)}</span>
 								</button>
 							))}
 						</div>

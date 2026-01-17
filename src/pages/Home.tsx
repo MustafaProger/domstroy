@@ -9,6 +9,7 @@ import {
 	SkeletonCard,
 } from "../components";
 import { useCategories, useContacts } from "../hooks";
+import { capitalizeFirstLetter } from "../utils/string";
 
 import { Award, Users, TrendingUp, Heart } from "lucide-react";
 
@@ -225,7 +226,7 @@ export function Home() {
 											{category.image ? (
 												<img
 													src={category.image}
-													alt={category.name}
+													alt={capitalizeFirstLetter(category.name)}
 													className='w-full h-full object-cover hover:scale-110 transition-transform duration-300'
 												/>
 											) : (
@@ -237,7 +238,7 @@ export function Home() {
 										</div>
 										<div className='p-6'>
 											<h3 className='text-h3 font-bold text-secondary-900 mb-2'>
-												{category.name}
+												{capitalizeFirstLetter(category.name)}
 											</h3>
 											<p className='text-secondary-600 text-bodySm mb-4'>
 												{category.description}

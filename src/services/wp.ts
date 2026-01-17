@@ -1,4 +1,5 @@
 import type { Product } from "../types";
+import { stripHtml } from "../utils/html";
 
 type FetchProductsParams = {
 	page?: number;
@@ -48,8 +49,6 @@ const API_BASE_URL = (
 	import.meta.env.VITE_WORDPRESS_API_URL || "https://domstroy-api.ru"
 ).replace(/\/$/, "");
 const BASE_PATH = `${API_BASE_URL}/wp-json/wp/v2`;
-
-const stripHtml = (value: string) => value.replace(/<[^>]*>/g, "").trim();
 
 const extractCategoryTerms = (product: WpProduct) => {
 	const groups = product._embedded?.["wp:term"] ?? [];
@@ -104,6 +103,8 @@ const mapWpProduct = (product: WpProduct): Product => {
 		shortDescription: product.excerpt?.rendered
 			? stripHtml(product.excerpt.rendered)
 			: "",
+		contentHtml: product.content?.rendered || "",
+		excerptHtml: product.excerpt?.rendered || "",
 		images: featuredImage ? [featuredImage] : [],
 		specifications: {},
 		inStock,
@@ -131,7 +132,9 @@ export async function fetchProducts({
 		params.set("product_category", categoryId);
 	}
 
-	const response = await fetch(`${BASE_PATH}/product?${params.toString()}`);
+	const response = await fetch(`${BASE_PATH}/product?${params.toString()}`, {
+		cache: "no-store",
+	});
 	if (!response.ok) {
 		throw new Error("Failed to fetch products");
 	}
@@ -151,7 +154,10 @@ export async function fetchProductBySlug(
 	slug: string
 ): Promise<Product | null> {
 	const response = await fetch(
-		`${BASE_PATH}/product?slug=${encodeURIComponent(slug)}&_embed=1`
+		`${BASE_PATH}/product?slug=${encodeURIComponent(slug)}&_embed=1`,
+		{
+			cache: "no-store",
+		}
 	);
 	if (!response.ok) {
 		throw new Error("Failed to fetch product");

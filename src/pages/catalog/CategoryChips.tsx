@@ -1,4 +1,5 @@
 import type { Category } from "../../types";
+import { capitalizeFirstLetter } from "../../utils/string";
 
 type CategoryChipsProps = {
 	categories: Category[];
@@ -44,7 +45,7 @@ export function CategoryChips({
 									? "bg-primary-500 text-secondary-900 border-primary-500 font-semibold"
 									: "bg-white/90 text-secondary-700 border-secondary-200/70 hover:bg-secondary-100"
 							}`}>
-							{category.name}
+							{capitalizeFirstLetter(category.name)}
 						</button>
 					))
 				) : (
