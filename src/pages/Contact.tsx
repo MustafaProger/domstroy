@@ -42,7 +42,7 @@ export function Contact() {
 							: contactItems.map(
 									({ label, value, href, Icon: Icon, external }) => (
 										<Card
-											key={label}
+											key={`${label}-${value}`}
 											className='feature-card transition-all duration-300'>
 											<Icon className='w-12 h-12 text-primary-500 mx-auto mb-4' />
 											<h3 className='text-h3 font-bold mb-2 text-center'>

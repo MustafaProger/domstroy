@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Layout } from "./layouts";
-import { Home, Catalog, Product, Contact, PrivacyPolicy } from "./pages";
+import { Home, Catalog, Product, Contact } from "./pages";
 import { ScrollToTop } from "./components/ScrollToTop";
 
 function App() {
@@ -24,10 +24,6 @@ function App() {
 					<Route
 						path='/contact'
 						element={<Contact />}
-					/>
-					<Route
-						path='/privacy-policy'
-						element={<PrivacyPolicy />}
 					/>
 					<Route
 						path='*'

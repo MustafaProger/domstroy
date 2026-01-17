@@ -10,7 +10,7 @@ const quickLinks = [
 ];
 
 export function Footer() {
-	const { contactItems, loading } = useContacts();
+	const { contactGroups, loading } = useContacts();
 	const {
 		categories,
 		loading: categoriesLoading,
@@ -98,9 +98,9 @@ export function Footer() {
 											/>
 										))}
 								</div>
-							) : contactItems.length > 0 ? (
+							) : contactGroups.length > 0 ? (
 								<div className='space-y-3'>
-									{contactItems.map(({ label, value, href, Icon, external }) => (
+									{contactGroups.map(({ label, Icon, items }) => (
 										<div
 											key={label}
 											className='flex items-start gap-3'>
@@ -110,13 +110,20 @@ export function Footer() {
 											/>
 											<div>
 												<p className='text-caption text-secondary-400'>{label}</p>
-												<a
-													href={href}
-													target={external ? "_blank" : undefined}
-													rel={external ? "noopener noreferrer" : undefined}
-													className='text-secondary-100 hover:text-primary-400 transition-colors text-bodySm'>
-													{value}
-												</a>
+												<div className='space-y-1'>
+													{items.map((item) => (
+														<a
+															key={`${label}-${item.value}`}
+															href={item.href}
+															target={item.external ? "_blank" : undefined}
+															rel={
+																item.external ? "noopener noreferrer" : undefined
+															}
+															className='block text-secondary-100 hover:text-primary-400 transition-colors text-bodySm'>
+															{item.value}
+														</a>
+													))}
+												</div>
 											</div>
 										</div>
 									))}
@@ -127,13 +134,6 @@ export function Footer() {
 
 					<div className='border-t border-secondary-800 pt-8'>
 						<div className='flex flex-col md:flex-row justify-between items-center gap-4'>
-							<div className='flex gap-6'>
-								<Link
-									to='/privacy-policy'
-									className='text-secondary-400 hover:text-primary-400 transition-colors text-bodySm'>
-									Политика конфиденциальности
-								</Link>
-							</div>
 							<p className='text-secondary-400 text-bodySm'>
 								&copy; {new Date().getFullYear()} ДомСтрой
 							</p>

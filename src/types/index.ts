@@ -40,8 +40,13 @@ export interface PageMeta {
 }
 
 export interface Contacts {
-	phone: string;
-	whatsapp: string;
-	email: string;
-	telegram: string;
+	entries: ContactEntry[];
+	rawText?: string;
+}
+
+export type ContactType = "phone" | "whatsapp" | "email" | "telegram";
+
+export interface ContactEntry {
+	type: ContactType;
+	value: string;
 }
