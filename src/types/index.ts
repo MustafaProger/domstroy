@@ -39,14 +39,32 @@ export interface PageMeta {
 	keywords?: string;
 }
 
-export interface Contacts {
-	entries: ContactEntry[];
-	rawText?: string;
-}
-
 export type ContactType = "phone" | "whatsapp" | "email" | "telegram";
 
 export interface ContactEntry {
 	type: ContactType;
 	value: string;
+}
+
+export type ContactKey =
+	| "phone_footer"
+	| "email_footer"
+	| "whatsapp_footer"
+	| "telegram_footer"
+	| "phone_main"
+	| "email_main"
+	| "whatsapp_main"
+	| "telegram_main";
+
+export interface ContactSet {
+	phone?: string;
+	whatsapp?: string;
+	email?: string;
+	telegram?: string;
+}
+
+export interface Contacts {
+	main: ContactSet;
+	footer: ContactSet;
+	all: Partial<Record<ContactKey, string>>;
 }

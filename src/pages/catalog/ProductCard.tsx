@@ -39,11 +39,11 @@ export function ProductCard({ product, queryString }: ProductCardProps) {
 			<Card
 				hover
 				className='group overflow-hidden h-full flex flex-col bg-white border-secondary-200/70 shadow-sm'>
-				<div className='w-full h-48 overflow-hidden bg-secondary-100'>
+				<div className='w-full aspect-square overflow-hidden bg-white flex items-center justify-center'>
 					<img
 						src={product.images[0]}
 						alt={product.title}
-						className='w-full h-full object-cover transition-transform duration-300 group-hover:scale-110'
+						className='w-full h-full object-contain'
 					/>
 				</div>
 				<div className='p-5 flex flex-col flex-1'>

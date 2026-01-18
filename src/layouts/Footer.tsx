@@ -10,7 +10,7 @@ const quickLinks = [
 ];
 
 export function Footer() {
-	const { contactGroups, loading } = useContacts();
+	const { footerGroups, loading } = useContacts();
 	const {
 		categories,
 		loading: categoriesLoading,
@@ -98,9 +98,9 @@ export function Footer() {
 											/>
 										))}
 								</div>
-							) : contactGroups.length > 0 ? (
+							) : footerGroups.length > 0 ? (
 								<div className='space-y-3'>
-									{contactGroups.map(({ label, Icon, items }) => (
+									{footerGroups.map(({ label, Icon, items }) => (
 										<div
 											key={label}
 											className='flex items-start gap-3'>

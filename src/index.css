@@ -96,7 +96,7 @@
 		word-break: break-word;
 	}
 
-	.product-prose h3 {
+	.product-prose h2, h3 {
 		@apply text-body md:text-h3 font-medium tracking-tight text-secondary-900 my-6;
 	}
 

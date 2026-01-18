@@ -48,7 +48,7 @@ export function Home() {
 		loading: categoriesLoading,
 		error: categoriesError,
 	} = useCategories();
-	const { links: contactLinks, loading: contactsLoading } = useContacts();
+	const { mainLinks: contactLinks, loading: contactsLoading } = useContacts();
 
 	return (
 		<>

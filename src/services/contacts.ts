@@ -1,16 +1,9 @@
-import type { ContactEntry, ContactType, Contacts } from "../types";
+import type { ContactKey, ContactSet, Contacts } from "../types";
 
 type ContactsResponse = {
 	id: number;
-	contacts?: string;
 	fields?: {
 		contacts?: string;
-		contacts_text?: string;
-		contacts_list?: string;
-		phone?: string;
-		whatsapp?: string;
-		email?: string;
-		telegram?: string;
 	};
 };
 
@@ -22,77 +15,73 @@ const API_BASE_URL = (
 ).replace(/\/$/, "");
 const CONTACTS_ENDPOINT = `${API_BASE_URL}/wp-json/site/v1/contacts`;
 
-const TYPE_ALIASES: Record<string, ContactType> = {
-	phone: "phone",
-	tel: "phone",
-	telephone: "phone",
-	телефон: "phone",
-	whatsapp: "whatsapp",
-	wa: "whatsapp",
-	ватсап: "whatsapp",
-	вотсап: "whatsapp",
-	email: "email",
-	"e-mail": "email",
-	mail: "email",
-	почта: "email",
-	telegram: "telegram",
-	tg: "telegram",
-	телеграм: "telegram",
+const CONTACT_KEYS: ContactKey[] = [
+	"phone_footer",
+	"email_footer",
+	"whatsapp_footer",
+	"telegram_footer",
+	"phone_main",
+	"email_main",
+	"whatsapp_main",
+	"telegram_main",
+];
+const CONTACT_KEY_SET = new Set(CONTACT_KEYS);
+
+const cleanContactValue = (value?: string) => {
+	const trimmed = value?.trim();
+	return trimmed ? trimmed : undefined;
 };
 
-const normalizeType = (value: string): ContactType | null => {
-	const key = value.trim().toLowerCase();
-	return TYPE_ALIASES[key] ?? null;
-};
+const parseContactsText = (raw: string): Partial<Record<ContactKey, string>> => {
+	const result: Partial<Record<ContactKey, string>> = {};
+	if (!raw) return result;
 
-const parseContactsText = (raw: string): ContactEntry[] => {
-	if (!raw) return [];
-	return raw
+	raw
 		.split(/\r?\n/)
 		.map((line) => line.trim())
 		.filter(Boolean)
-		.map((line) => {
+		.forEach((line) => {
 			const match = line.match(/^([^:]+):\s*(.+)$/);
-			if (!match) return null;
-			const type = normalizeType(match[1]);
-			if (!type) return null;
-			const value = match[2].trim();
-			if (!value) return null;
-			return { type, value };
-		})
-		.filter((entry): entry is ContactEntry => !!entry);
+			if (!match) return;
+			const key = match[1].trim().toLowerCase();
+			if (!CONTACT_KEY_SET.has(key as ContactKey)) return;
+			const value = cleanContactValue(match[2]);
+			if (!value) return;
+			result[key as ContactKey] = value;
+		});
+
+	return result;
+};
+
+const buildContactSet = (
+	scope: "main" | "footer",
+	all: Partial<Record<ContactKey, string>>
+): ContactSet => {
+	const phone = all[`phone_${scope}`];
+	const email = all[`email_${scope}`];
+	const whatsapp = all[`whatsapp_${scope}`];
+	const telegram = all[`telegram_${scope}`];
+
+	return {
+		phone,
+		email,
+		whatsapp,
+		telegram,
+	};
 };
 
 const normalizeContacts = (data: ContactsResponse): Contacts | null => {
-	const rawText =
-		data.fields?.contacts_text?.trim() ||
-		data.fields?.contacts?.trim() ||
-		data.fields?.contacts_list?.trim() ||
-		data.contacts?.trim() ||
-		"";
-	const fromText = rawText ? parseContactsText(rawText) : [];
-	const entries = fromText.length
-		? fromText
-		: [
-				data.fields?.phone
-					? { type: "phone", value: data.fields.phone.trim() }
-					: null,
-				data.fields?.whatsapp
-					? { type: "whatsapp", value: data.fields.whatsapp.trim() }
-					: null,
-				data.fields?.email
-					? { type: "email", value: data.fields.email.trim() }
-					: null,
-				data.fields?.telegram
-					? { type: "telegram", value: data.fields.telegram.trim() }
-					: null,
-		  ].filter((entry): entry is ContactEntry => !!entry);
+	const rawText = data.fields?.contacts?.trim() || "";
+	const all = parseContactsText(rawText);
+	if (Object.keys(all).length === 0) return null;
 
-	if (!entries.length) return null;
-	return { entries, rawText: rawText || undefined };
+	const main = buildContactSet("main", all);
+	const footer = buildContactSet("footer", all);
+
+	return { main, footer, all };
 };
 
-export async function fetchContacts(): Promise<Contacts | null> {
+export async function getContacts(): Promise<Contacts | null> {
 	if (cachedContacts) return cachedContacts;
 	if (pendingRequest) return pendingRequest;
 

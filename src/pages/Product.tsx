@@ -22,7 +22,7 @@ export function Product() {
 	const [searchParams] = useSearchParams();
 	const { product, loading, error } = useProductBySlug(slug);
 	const { categories } = useCategories();
-	const { links: contactLinks, loading: contactsLoading } = useContacts();
+	const { mainLinks: contactLinks, loading: contactsLoading } = useContacts();
 	const [selectedImage, setSelectedImage] = useState(0);
 	const sliderRef = useRef<HTMLDivElement | null>(null);
 	const [qty, setQty] = useState(1);
@@ -188,7 +188,7 @@ export function Product() {
 				<Container className='space-y-8'>
 					<div className='grid lg:grid-cols-[1fr_1fr] gap-6 sm:gap-8 lg:gap-10 items-start'>
 						<div className='w-full'>
-							<div className='glass-panel rounded-3xl overflow-hidden relative aspect-[4/3] w-full'>
+							<div className='glass-panel rounded-3xl overflow-hidden relative aspect-[4/3] w-full bg-white flex items-center justify-center'>
 								{product.images.length > 0 ? (
 									<div
 										ref={sliderRef}
@@ -197,11 +197,11 @@ export function Product() {
 										{product.images.map((image, idx) => (
 											<div
 												key={`${image}-${idx}`}
-												className='snap-center shrink-0 w-full h-full'>
+												className='snap-center shrink-0 w-full h-full flex items-center justify-center'>
 												<img
 													src={image}
 													alt={`${product.title} ${idx + 1}`}
-													className='w-full h-full object-cover'
+													className='w-full h-full object-contain'
 													loading='lazy'
 												/>
 											</div>

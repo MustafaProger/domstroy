@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Layout } from "./layouts";
-import { Home, Catalog, Product, Contact } from "./pages";
+import { Home, Catalog, Product, Contact, NotFound } from "./pages";
 import { ScrollToTop } from "./components/ScrollToTop";
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
 					/>
 					<Route
 						path='*'
-						element={<Home />}
+						element={<NotFound />}
 					/>
 				</Routes>
 			</Layout>
