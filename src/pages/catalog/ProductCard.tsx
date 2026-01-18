@@ -46,7 +46,7 @@ export function ProductCard({ product, queryString }: ProductCardProps) {
 						className='w-full h-full object-contain'
 					/>
 				</div>
-				<div className='p-5 flex flex-col flex-1'>
+				<div className='p-3 sm:p-5 flex flex-col flex-1'>
 					<h3 className='font-medium text-base text-secondary-900 mb-3 min-h-[3rem]'>
 						{product.title}
 					</h3>

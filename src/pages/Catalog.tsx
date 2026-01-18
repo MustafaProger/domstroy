@@ -219,7 +219,7 @@ export function Catalog() {
 							onCategoryChange={handleCategoryChange}
 						/>
 
-						<main className='xl:col-span-3 lg:col-span-4 bg-white/70 backdrop-blur-sm rounded-3xl border border-secondary-200/60 p-4 sm:p-6 shadow-sm'>
+						<main className='xl:col-span-3 lg:col-span-4 bg-white/70 backdrop-blur-sm rounded-3xl border border-secondary-200/60 px-3 py-5 sm:p-6 shadow-sm'>
 							<div className='mb-10 flex flex-col gap-6'>
 								<div ref={listTopRef}>
 									<h2 className='text-h2 font-bold text-secondary-900'>
@@ -255,7 +255,7 @@ export function Catalog() {
 							</div>
 
 							{productsLoading ? (
-								<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'>
+								<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6'>
 									{Array(6)
 										.fill(null)
 										.map((_, i) => (
@@ -272,7 +272,7 @@ export function Catalog() {
 									</Button>
 								</Card>
 							) : filteredProducts.length > 0 ? (
-								<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'>
+								<div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 sm:gap-6'>
 									{filteredProducts.map((product) => (
 										<ProductCard
 											key={product.id}
