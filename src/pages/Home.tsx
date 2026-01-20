@@ -215,7 +215,7 @@ export function Home() {
 								.fill(null)
 								.map((_, i) => <SkeletonCard key={i} />)
 						) : categories.length > 0 ? (
-							categories.slice(0, 6).map((category) => (
+							categories.map((category) => (
 								<Link
 									key={category.id}
 									to={`/catalog?category=${category.slug}&page=1`}>
